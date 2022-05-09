@@ -1,3 +1,3 @@
 export default function EditTripPage() {
-  return <p>Edit Trip Page</p>;
+  return <h1>Edit Trip Page</h1>;
 }

@@ -1,3 +1,3 @@
 export default function AddRoomPage() {
-  return <p>Add Room Page</p>;
+  return <h1>Add Room Page</h1>;
 }

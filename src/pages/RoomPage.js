@@ -1,3 +1,13 @@
+import { Box, Container, Center, Heading } from '@chakra-ui/react';
+
 export default function RoomPage() {
-  return <p>Room Page</p>;
+  return (
+    <Box>
+      <Container>
+        <Center>
+          <Heading>Room Page</Heading>
+        </Center>
+      </Container>
+    </Box>
+  );
 }

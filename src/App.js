@@ -2,14 +2,16 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  NavLink,
+  NavLink as RouterLink,
   Outlet,
 } from 'react-router-dom';
 import {
   ChakraProvider,
   Box,
+  Center,
   Container,
-  Text,
+  Heading,
+  //Text,
   Link,
   HStack,
   //theme,
@@ -25,6 +27,7 @@ import {
   TripPage,
 } from 'pages';
 import { mode } from '@chakra-ui/theme-tools';
+import { v4 as uuidv4 } from 'uuid';
 
 const styles = {
   global: props => ({
@@ -48,34 +51,16 @@ const styles = {
 };
 
 const brand = {
-  headerColor: '#fff',
-  headerBackground: '#7283fe', //'#400000',
-  hLinkColor: '#333333', //'#fffffff',
-  hLinkColorHover: '#f29085',
-  hlinkColorActive: '',
-  hLinkBackground: '#fff', //'#964800',
-  hLinkBackgroundActive: '#f29085', //'#E6B862'
-  vLinkColor: '#333333', //'#3C1E00',
-  vLinkColorHover: '#f29085',
-  vLinkColorActive: '',
-  vLinkBackground: '#fff', //'#e6deb9',
-  vLinkBackgroundActive: '#f29085', //'#E6B862'
+  linkColor: '#0000008C',
+  linkColorHover: '#0000008C',
+  linkBackground: '#ffffff',
+  linkColorActive: '#ffffff',
+  linkBackgroundActive: '#3378ac',
 };
 
 const theme = extendTheme({
   styles: styles,
   colors: brand,
-  components: {
-    Divider: {
-      variants: {
-        custom: {
-          borderColor: '#7283fe',
-          borderWidth: '.0625rem',
-          borderStyle: 'none none solid none',
-        },
-      },
-    },
-  },
 });
 
 export default function App() {
@@ -85,7 +70,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignInPage />}></Route>
           <Route path="/pages" element={<Layout />}>
-            <Route index element={<TripPage />} />
+            <Route path="trip" element={<TripPage />} />
             <Route path="addtrip" element={<AddTripPage />} />
             <Route path="room" element={<RoomPage />} />
             <Route path="addroom" element={<AddRoomPage />} />
@@ -105,28 +90,88 @@ export default function App() {
 }
 
 function Layout() {
+  const pages = [
+    {
+      path: '/pages/trip',
+      name: 'Trip',
+    },
+    {
+      path: '/pages/room',
+      name: 'Room',
+    },
+    {
+      path: '/pages/addtrip',
+      name: 'Add Trip',
+    },
+    {
+      path: '/pages/addroom',
+      name: 'Add Room',
+    },
+  ];
+
+  let activeStyle = {
+    color: '#ffffff',
+    backgroundColor: '#3378ac',
+    outline: 0,
+  };
+
+  const navBarItems = pages.map(page => {
+    return (
+      <ChakraProvider theme={theme}>
+        <Link
+          key={uuidv4()}
+          /* as={props => (
+            <NavLink
+              {...props}
+              style={({ isActive }) => {
+                return { color: isActive ? activeStyle : undefined };
+              }}
+            />
+          )} */
+          as={RouterLink}
+          to={page.path}
+          height="auto"
+          width="fit-content"
+          fontSize=".8125rem"
+          fontFamily="Arial, Hevetica, sans-serif"
+          padding=".125rem .625rem .1875rem .625rem"
+          color={brand.linkColor}
+          bg={brand.linkBackground}
+          margin=".1875rem"
+          fontWeight="bold"
+          _hover={{ color: brand.linkColorHover }}
+          _focus={{ outline: 0 }}
+          _activeLink={activeStyle}
+        >
+          {page.name}
+        </Link>
+      </ChakraProvider>
+    );
+  });
   return (
     <>
-      <Box>
-        <Container>
-          <HStack>
-            <Text>Storer Trip Planner</Text>
-            <Link as={NavLink} to="/pages">
-              Trip
-            </Link>
-            <Link as={NavLink} to="/pages/room">
-              Room
-            </Link>
-            <Link as={NavLink} to="/pages/addtrip">
-              Add Trip
-            </Link>
-            <Link as={NavLink} to="/pages/addroom">
-              Add Room
-            </Link>
-          </HStack>
-        </Container>
-      </Box>
-      <Outlet />
+      <ChakraProvider theme={theme}>
+        <HStack spacing={3.5} as="nav" width="fit-content" ml="auto" mr="auto">
+          <Heading
+            backgroundColor="#cccccc"
+            color="#00365f"
+            alignItems="center"
+            boxShadow="0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.28)"
+            height="40px"
+            marginLeft="auto"
+            marginRight="20px"
+            fontSize="24px"
+            overflow="hidden"
+            padding="0px 5px 0px 5px"
+            textAlign="center"
+            width="fit-content"
+          >
+            Storer Trip Planner
+          </Heading>
+          {navBarItems}
+        </HStack>
+        <Outlet />
+      </ChakraProvider>
     </>
   );
 }
