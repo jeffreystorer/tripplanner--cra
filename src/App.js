@@ -5,14 +5,24 @@ import {
   NavLink as RouterLink,
   Outlet,
 } from 'react-router-dom';
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   ChakraProvider,
   Box,
+  Button,
   Center,
   Container,
   Heading,
-  //Text,
+  Text,
   Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuDivider,
   HStack,
   //theme,
   extendTheme,
@@ -99,6 +109,9 @@ function Layout() {
       path: '/pages/room',
       name: 'Room',
     },
+  ];
+
+  const actions = [
     {
       path: '/pages/addtrip',
       name: 'Add Trip',
@@ -148,6 +161,43 @@ function Layout() {
       </ChakraProvider>
     );
   });
+
+  const dropdownItems = actions.map(action => {
+    return (
+      <ChakraProvider theme={theme}>
+        <MenuItem>
+          <Link
+            key={uuidv4()}
+            /* as={props => (
+            <NavLink
+              {...props}
+              style={({ isActive }) => {
+                return { color: isActive ? activeStyle : undefined };
+              }}
+            />
+          )} */
+            as={RouterLink}
+            to={action.path}
+            height="auto"
+            width="fit-content"
+            fontSize=".8125rem"
+            fontFamily="Arial, Hevetica, sans-serif"
+            padding=".125rem .625rem .1875rem .625rem"
+            color={brand.linkColor}
+            bg={brand.linkBackground}
+            margin=".1875rem"
+            fontWeight="bold"
+            _hover={{ color: brand.linkColorHover }}
+            _focus={{ outline: 0 }}
+            _activeLink={activeStyle}
+          >
+            {action.name}
+          </Link>
+        </MenuItem>
+      </ChakraProvider>
+    );
+  });
+
   return (
     <>
       <ChakraProvider theme={theme}>
@@ -169,6 +219,25 @@ function Layout() {
             Storer Trip Planner
           </Heading>
           {navBarItems}
+          <Menu>
+            <MenuButton
+              as={Text}
+              height="auto"
+              width="fit-content"
+              fontSize=".8125rem"
+              fontFamily="Arial, Hevetica, sans-serif"
+              padding=".125rem .625rem .1875rem .625rem"
+              color={brand.linkColor}
+              bg={brand.linkBackground}
+              fontWeight="bold"
+              _hover={{ color: brand.linkColorHover }}
+              _focus={{ outline: 0 }}
+            >
+              More
+              <ChevronDownIcon />
+            </MenuButton>
+            <MenuList>{dropdownItems}</MenuList>
+          </Menu>
         </HStack>
         <Outlet />
       </ChakraProvider>
