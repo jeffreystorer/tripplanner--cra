@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const trip = atom({
-  key: 'trip',
-  default: '',
+export const userId = atom({
+  key: 'userId',
+  default: null,
 });

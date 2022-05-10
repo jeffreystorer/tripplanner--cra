@@ -8,10 +8,6 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   ChakraProvider,
-  Box,
-  Button,
-  Center,
-  Container,
   Heading,
   Text,
   Link,
@@ -19,12 +15,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
   MenuDivider,
   HStack,
-  //theme,
   extendTheme,
 } from '@chakra-ui/react';
 import {
@@ -78,7 +70,7 @@ export default function App() {
     <ChakraProvider theme={theme}>
       <Router>
         <Routes>
-          <Route path="/" element={<SignInPage />}></Route>
+          <Route path="/" element={<SignInPage />} />
           <Route path="/pages" element={<Layout />}>
             <Route path="trip" element={<TripPage />} />
             <Route path="addtrip" element={<AddTripPage />} />
@@ -111,7 +103,7 @@ function Layout() {
     },
   ];
 
-  const actions = [
+  const actions1 = [
     {
       path: '/pages/addtrip',
       name: 'Add Trip',
@@ -122,105 +114,98 @@ function Layout() {
     },
   ];
 
+  const actions2 = [
+    {
+      path: '/',
+      name: 'Signout',
+    },
+  ];
+
+  function LinkItem({ item }) {
+    return (
+      <Link
+        key={uuidv4()}
+        as={RouterLink}
+        to={item.path}
+        height="2.5rem"
+        width="fit-content"
+        fontSize="1rem"
+        fontFamily="Arial, Hevetica, sans-serif"
+        padding=".4rem .625rem .1rem .625rem"
+        color={brand.linkColor}
+        bg={brand.linkBackground}
+        mt="0"
+        mb="0"
+        fontWeight="bold"
+        _hover={{ color: brand.linkColorHover }}
+        _focus={{ outline: 0 }}
+        _activeLink={activeStyle}
+      >
+        {item.name}
+      </Link>
+    );
+  }
+
   let activeStyle = {
     color: '#ffffff',
     backgroundColor: '#3378ac',
     outline: 0,
   };
 
-  const navBarItems = pages.map(page => {
+  const navBarItems = pages.map(item => {
+    return <LinkItem key={uuidv4()} item={item} />;
+  });
+
+  const menuItems1 = actions1.map(item => {
     return (
-      <ChakraProvider theme={theme}>
-        <Link
-          key={uuidv4()}
-          /* as={props => (
-            <NavLink
-              {...props}
-              style={({ isActive }) => {
-                return { color: isActive ? activeStyle : undefined };
-              }}
-            />
-          )} */
-          as={RouterLink}
-          to={page.path}
-          height="auto"
-          width="fit-content"
-          fontSize=".8125rem"
-          fontFamily="Arial, Hevetica, sans-serif"
-          padding=".125rem .625rem .1875rem .625rem"
-          color={brand.linkColor}
-          bg={brand.linkBackground}
-          margin=".1875rem"
-          fontWeight="bold"
-          _hover={{ color: brand.linkColorHover }}
-          _focus={{ outline: 0 }}
-          _activeLink={activeStyle}
-        >
-          {page.name}
-        </Link>
-      </ChakraProvider>
+      <MenuItem key={uuidv4()}>
+        <LinkItem key={uuidv4()} item={item} />
+      </MenuItem>
     );
   });
 
-  const dropdownItems = actions.map(action => {
+  const menuItems2 = actions2.map(item => {
     return (
-      <ChakraProvider theme={theme}>
-        <MenuItem>
-          <Link
-            key={uuidv4()}
-            /* as={props => (
-            <NavLink
-              {...props}
-              style={({ isActive }) => {
-                return { color: isActive ? activeStyle : undefined };
-              }}
-            />
-          )} */
-            as={RouterLink}
-            to={action.path}
-            height="auto"
-            width="fit-content"
-            fontSize=".8125rem"
-            fontFamily="Arial, Hevetica, sans-serif"
-            padding=".125rem .625rem .1875rem .625rem"
-            color={brand.linkColor}
-            bg={brand.linkBackground}
-            margin=".1875rem"
-            fontWeight="bold"
-            _hover={{ color: brand.linkColorHover }}
-            _focus={{ outline: 0 }}
-            _activeLink={activeStyle}
-          >
-            {action.name}
-          </Link>
-        </MenuItem>
-      </ChakraProvider>
+      <MenuItem key={uuidv4()}>
+        <LinkItem key={uuidv4()} item={item} />
+      </MenuItem>
     );
   });
 
   return (
     <>
-      <ChakraProvider theme={theme}>
-        <HStack spacing={3.5} as="nav" width="fit-content" ml="auto" mr="auto">
+      <ChakraProvider key={uuidv4()} theme={theme}>
+        <HStack
+          key={uuidv4()}
+          spacing={0}
+          as="nav"
+          width="fit-content"
+          ml="auto"
+          mr="auto"
+          mt=".5rem"
+          mb="1rem"
+        >
           <Heading
+            key={uuidv4()}
             backgroundColor="#cccccc"
             color="#00365f"
             alignItems="center"
-            boxShadow="0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.28)"
-            height="40px"
+            boxShadow="0rem .875rem 1.75rem rgba(0, 0, 0, 0.25), 0 .625rem .625rem rgba(0, 0, 0, 0.28)"
+            height="2.5rem"
             marginLeft="auto"
-            marginRight="20px"
-            fontSize="24px"
+            marginRight="1.25rem"
+            fontSize="1.5rem"
             overflow="hidden"
-            padding="0px 5px 0px 5px"
+            padding=".125rem .625rem .1875rem .625rem"
             textAlign="center"
             width="fit-content"
           >
             Storer Trip Planner
           </Heading>
           {navBarItems}
-          <Menu>
+          <Menu key={uuidv4()}>
             <MenuButton
+              key={uuidv4()}
               as={Text}
               height="auto"
               width="fit-content"
@@ -234,9 +219,13 @@ function Layout() {
               _focus={{ outline: 0 }}
             >
               More
-              <ChevronDownIcon />
+              <ChevronDownIcon key={uuidv4()} />
             </MenuButton>
-            <MenuList>{dropdownItems}</MenuList>
+            <MenuList key={uuidv4()}>
+              {menuItems1}
+              <MenuDivider key={uuidv4()} />
+              {menuItems2}
+            </MenuList>
           </Menu>
         </HStack>
         <Outlet />
