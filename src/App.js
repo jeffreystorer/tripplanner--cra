@@ -19,15 +19,7 @@ import {
   HStack,
   extendTheme,
 } from '@chakra-ui/react';
-import {
-  AddRoomPage,
-  AddTripPage,
-  EditRoomPage,
-  EditTripPage,
-  RoomPage,
-  SignInPage,
-  TripPage,
-} from 'pages';
+import { AddPage, EditPage, RoomPage, SignInPage, TripPage } from 'pages';
 import { mode } from '@chakra-ui/theme-tools';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -73,16 +65,16 @@ export default function App() {
           <Route path="/" element={<SignInPage />} />
           <Route path="/pages" element={<Layout />}>
             <Route path="trip" element={<TripPage />} />
-            <Route path="addtrip" element={<AddTripPage />} />
+            <Route path="addtrip" element={<AddPage page={'trip'} />} />
             <Route path="room" element={<RoomPage />} />
-            <Route path="addroom" element={<AddRoomPage />} />
+            <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route
               path="/pages/editroom/:rowIndex"
-              element={<EditRoomPage />}
+              element={<EditPage page={'room'} />}
             />
             <Route
               path="/pages/edittrip/:rowIndex"
-              element={<EditTripPage />}
+              element={<EditPage page={'trip'} />}
             />
           </Route>
         </Routes>

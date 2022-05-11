@@ -108,46 +108,24 @@ export default function Room({
               value={data.website}
               onChange={e => handleChange(e)}
             />
-            <FormLabel htmlFor="inDate">In Date</FormLabel>
-            <Input
-              autoComplete="inDate"
-              name="inDate"
-              type="text"
-              value={data.inDate}
-              onChange={e => handleChange(e)}
-            />
-            <FormLabel htmlFor="inTime">In Time</FormLabel>
-            <Input
-              autoComplete="inTime"
-              name="inTime"
-              type="text"
-              value={data.inTime}
-              onChange={e => handleChange(e)}
-            />
-            <FormLabel htmlFor="outDate">Out Date</FormLabel>
-            <Input
-              autoComplete="outDate"
-              name="outDate"
-              type="text"
-              value={data.outDate}
-              onChange={e => handleChange(e)}
-            />
-            <FormLabel htmlFor="outTime">Out Time</FormLabel>
-            <Input
-              autoComplete="outTime"
-              name="outTime"
-              type="text"
-              value={data.outTime}
-              onChange={e => handleChange(e)}
-            />
-            <FormLabel htmlFor="reserved">Reserved</FormLabel>
-            <Input
-              autoComplete="reserved"
-              name="reserved"
-              type="text"
-              value={data.reserved}
-              onChange={e => handleChange(e)}
-            />
+            <HStack gap={2}>
+              <FormLabel htmlFor="checkIn">In</FormLabel>
+              <Input
+                autoComplete="checkIn"
+                name="checkIn"
+                type="datetime-local"
+                value={data.checkIn}
+                onChange={e => handleChange(e)}
+              />
+              <FormLabel htmlFor="checkOut">Out</FormLabel>
+              <Input
+                autoComplete="checkOut"
+                name="checkOut"
+                type="datetime-local"
+                value={data.checkOut}
+                onChange={e => handleChange(e)}
+              />
+            </HStack>
             <FormLabel htmlFor="reserved">Confirmation</FormLabel>
             <Input
               autoComplete="confirmation"

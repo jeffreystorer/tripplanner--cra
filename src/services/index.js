@@ -14,73 +14,12 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db);
 
-export function addRoom(
-  userId,
-  trip,
-  place,
-  shortName,
-  longName,
-  notes,
-  source,
-  address,
-  contact,
-  phone,
-  email,
-  website,
-  inDate,
-  inTime,
-  outDate,
-  outTime,
-  reserved,
-  confirmation,
-  currency,
-  cost,
-  paidWithRes,
-  damageDeposit,
-  cancellable
-) {
-  const roomData = {
-    type: 'room',
-    trip: trip,
-    place: place,
-    shortName: shortName,
-    longName: longName,
-    notes: notes,
-    source: source,
-    address: address,
-    contact: contact,
-    phone: phone,
-    email: email,
-    website: website,
-    inDate: inDate,
-    inTime: inTime,
-    outDate: outDate,
-    outTime: outTime,
-    reserved: reserved,
-    confirmation: confirmation,
-    currency: currency,
-    cost: cost,
-    paidWithRes: paidWithRes,
-    damageDeposit: damageDeposit,
-    cancellable: cancellable,
-  };
-  push(ref(db, `/${userId}/`), roomData);
-}
-
-export function addCC(userId, name, number, expiration, cvc, notes) {
-  const creditCardData = {
-    type: 'cc',
-    name: name,
-    number: number,
-    expiration: expiration,
-    cvc: cvc,
-    notes: notes,
-  };
-  push(ref(db, `/${userId}/`), creditCardData);
+export function addItem(userId, data) {
+  push(ref(db, `/${userId}/`), data);
 }
 
 export function getItems(userId) {
-  let passwords = get(child(dbRef, `/${userId}/`))
+  let items = get(child(dbRef, `/${userId}/`))
     .then(snapshot => {
       if (snapshot.exists()) {
         return snapshot.val();
@@ -92,36 +31,15 @@ export function getItems(userId) {
     .catch(error => {
       console.error(error);
     });
-  return passwords;
+  return items;
 }
 
 export function deleteItem(userId, key) {
   remove(child(dbRef, `/${userId}/` + key));
 }
 
-export function updatePW(userId, key, name, url, username, password, notes) {
-  const passwordData = {
-    name: name,
-    url: url,
-    username: username,
-    password: password,
-    notes: notes,
-  };
+export function updateItem(userId, key, data) {
   const updates = {};
-  updates[`/${userId}/` + key] = passwordData;
-  return update(dbRef, updates);
-}
-
-export function updateCC(userId, key, name, number, expiration, cvc, notes) {
-  const creditCardData = {
-    type: 'cc',
-    name: name,
-    number: number,
-    expiration: expiration,
-    cvc: cvc,
-    notes: notes,
-  };
-  const updates = {};
-  updates[`/${userId}/` + key] = creditCardData;
+  updates[`/${userId}/` + key] = data;
   return update(dbRef, updates);
 }
