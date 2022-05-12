@@ -18,14 +18,30 @@ export default function Trip({
     <>
       <Container>
         <VStack gap={1}>
-          <h2 className="text-center">New Trip</h2>
+          <h2 className="text-center">New Travel</h2>
           <FormControl>
-            <FormLabel htmlFor="trip">Name</FormLabel>
+            <FormLabel htmlFor="trip">Trip</FormLabel>
             <Input
               autoComplete="trip"
               name="trip"
               type="text"
-              value={data.name}
+              value={data.trip}
+              onChange={e => handleChange(e)}
+            />
+            <FormLabel htmlFor="place">Place</FormLabel>
+            <Input
+              autoComplete="place"
+              name="place"
+              type="text"
+              value={data.place}
+              onChange={e => handleChange(e)}
+            />
+            <FormLabel htmlFor="shortName">Short Name</FormLabel>
+            <Input
+              autoComplete="shortName"
+              name="shortName"
+              type="text"
+              value={data.shortName}
               onChange={e => handleChange(e)}
             />
           </FormControl>

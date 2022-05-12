@@ -8,7 +8,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-export default function Trip({
+export default function Car({
   data,
   handleSubmit,
   handleChange,
@@ -18,7 +18,7 @@ export default function Trip({
     <>
       <Container>
         <VStack gap={1}>
-          <h2 className="text-center">New Trip</h2>
+          <h2 className="text-center">New Car</h2>
           <FormControl>
             <FormLabel htmlFor="trip">Trip</FormLabel>
             <Input

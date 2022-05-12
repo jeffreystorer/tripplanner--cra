@@ -1,5 +1,9 @@
-export { default as TripPage } from 'pages/TripPage.js';
-export { default as RoomPage } from 'pages/RoomPage.js';
+export { default as ActivityPage } from 'pages/ActivityPage.js';
 export { default as AddPage } from 'pages/AddPage.js';
+export { default as CarPage } from 'pages/CarPage.js';
 export { default as EditPage } from 'pages/EditPage.js';
+export { default as ItineraryPage } from 'pages/ItineraryPage.js';
+export { default as RoomPage } from 'pages/RoomPage.js';
 export { default as SignInPage } from 'pages/SignInPage.js';
+export { default as TravelPage } from 'pages/TravelPage.js';
+export { default as TripPage } from 'pages/TripPage.js';

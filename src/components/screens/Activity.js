@@ -1,3 +1,4 @@
+import { useRecoilValue } from 'recoil';
 import {
   Button,
   Container,
@@ -7,27 +8,24 @@ import {
   Input,
   VStack,
 } from '@chakra-ui/react';
+import * as state from 'store';
 
-export default function Trip({
+export default function Activity({
   data,
   handleSubmit,
   handleChange,
   handleClickCancel,
 }) {
+  const currentTrip = useRecoilValue(state.currentTrip);
+
   return (
     <>
       <Container>
         <VStack gap={1}>
-          <h2 className="text-center">New Trip</h2>
+          <h2 className="text-center">
+            New Activity for {currentTrip.name} Trip
+          </h2>
           <FormControl>
-            <FormLabel htmlFor="trip">Trip</FormLabel>
-            <Input
-              autoComplete="trip"
-              name="trip"
-              type="text"
-              value={data.trip}
-              onChange={e => handleChange(e)}
-            />
             <FormLabel htmlFor="place">Place</FormLabel>
             <Input
               autoComplete="place"
@@ -36,12 +34,20 @@ export default function Trip({
               value={data.place}
               onChange={e => handleChange(e)}
             />
-            <FormLabel htmlFor="shortName">Short Name</FormLabel>
+            <FormLabel htmlFor="date">Date</FormLabel>
             <Input
-              autoComplete="shortName"
-              name="shortName"
-              type="text"
-              value={data.shortName}
+              autoComplete="date"
+              name="date"
+              type="datetime-local"
+              value={data.date}
+              onChange={e => handleChange(e)}
+            />
+            <FormLabel htmlFor="notes">Notes</FormLabel>
+            <Input
+              autoComplete="notes"
+              name="notes"
+              type="textarea"
+              value={data.notes}
               onChange={e => handleChange(e)}
             />
           </FormControl>

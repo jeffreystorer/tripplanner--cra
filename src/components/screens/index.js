@@ -1,5 +1,6 @@
 export { default as Activity } from 'components/screens/Activity';
-export { default as RentalCar } from 'components/screens/RentalCar';
+export { default as Car } from 'components/screens/Car';
+export { default as Itinerary } from 'components/screens/Itinerary';
 export { default as Room } from 'components/screens/Room';
-export { default as Transport } from 'components/screens/Transport';
+export { default as Travel } from 'components/screens/Travel';
 export { default as Trip } from 'components/screens/Trip';

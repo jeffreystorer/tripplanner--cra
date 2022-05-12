@@ -112,11 +112,11 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.current-lineup-title {
+.current-trip-title {
   text-decoration: underline;
 }
 
-.current-saved-lineup {
+.current-saved-trip {
   border: 2px;
 }
 .div--background-white {
@@ -336,7 +336,7 @@ select {
   color: #c00;
 }
 
-.lineup-table_export {
+.trip-table_export {
   background-color: white;
   border: 10px solid white;
   box-shadow: none;
@@ -345,7 +345,7 @@ select {
   width: -webkit-fit-content;
 }
 
-.lineup-table {
+.trip-table {
   background-color: #fff;
   border-spacing: 0px;
   margin-left: auto;
@@ -354,7 +354,7 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-body {
+.trip-table-body {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
@@ -364,7 +364,7 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-body_td {
+.trip-table-body_td {
   background-color: #fff;
   background-color: white;
   border-spacing: 6px, 0px;
@@ -376,7 +376,7 @@ select {
   width: -webkit-fit-content;
 }
 
-.lineup-table-body_tr {
+.trip-table-body_tr {
   background-color: #fff;
   background-color: white;
   color: #000;
@@ -385,14 +385,14 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-body_td-left {
+.trip-table-body_td-left {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
   text-align: left;
   width: 250px;
 }
-.lineup-table-body_td-other {
+.trip-table-body_td-other {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
@@ -401,13 +401,13 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-footer {
+.trip-table-footer {
   font: 16px sans-serif;
   font-style: italic;
   padding: 0px;
   text-align: center;
 }
-.lineup-table-head_td {
+.trip-table-head_td {
   background-color: #fff;
   font: 16px sans-serif;
   font-weight: 700;
@@ -417,7 +417,7 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-header_th-left {
+.trip-table-header_th-left {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
@@ -427,7 +427,7 @@ select {
   width: -moz-fit-content;
   width: -webkit-fit-content;
 }
-.lineup-table-header_th-other {
+.trip-table-header_th-other {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
@@ -438,7 +438,7 @@ select {
   width: -webkit-fit-content;
 }
 
-.lineup-title {
+.trip-title {
   background-color: #fff;
   color: #000;
   font: 16px sans-serif;
@@ -446,7 +446,7 @@ select {
   text-align: center;
 }
 
-.lineups-list {
+.trips-list {
   border: 1px solid #000;
   margin: auto;
   padding-left: 10px;

@@ -19,7 +19,17 @@ import {
   HStack,
   extendTheme,
 } from '@chakra-ui/react';
-import { AddPage, EditPage, RoomPage, SignInPage, TripPage } from 'pages';
+import {
+  ActivityPage,
+  AddPage,
+  CarPage,
+  EditPage,
+  ItineraryPage,
+  RoomPage,
+  SignInPage,
+  TravelPage,
+  TripPage,
+} from 'pages';
 import { mode } from '@chakra-ui/theme-tools';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -64,13 +74,32 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignInPage />} />
           <Route path="/pages" element={<Layout />}>
-            <Route path="trip" element={<TripPage />} />
-            <Route path="addtrip" element={<AddPage page={'trip'} />} />
+            <Route path="activity" element={<ActivityPage />} />
+            <Route path="addactivity" element={<AddPage page={'activity'} />} />
+            <Route path="car" element={<CarPage />} />
+            <Route path="addcar" element={<AddPage page={'car'} />} />
+            <Route path="itinerary" element={<ItineraryPage />} />
             <Route path="room" element={<RoomPage />} />
             <Route path="addroom" element={<AddPage page={'room'} />} />
+            <Route path="travel" element={<TravelPage />} />
+            <Route path="addtravel" element={<AddPage page={'travel'} />} />
+            <Route path="trip" element={<TripPage />} />
+            <Route path="addtrip" element={<AddPage page={'trip'} />} />
+            <Route
+              path="/pages/editactivity/:rowIndex"
+              element={<EditPage page={'Activity'} />}
+            />
+            <Route
+              path="/pages/editcar/:rowIndex"
+              element={<EditPage page={'car'} />}
+            />
             <Route
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
+            />
+            <Route
+              path="/pages/edittravel/:rowIndex"
+              element={<EditPage page={'travel'} />}
             />
             <Route
               path="/pages/edittrip/:rowIndex"
@@ -90,8 +119,24 @@ function Layout() {
       name: 'Trip',
     },
     {
+      path: '/pages/itinerary',
+      name: 'Itinerary',
+    },
+    {
+      path: '/pages/activity',
+      name: 'Activity',
+    },
+    {
+      path: '/pages/car',
+      name: 'Car',
+    },
+    {
       path: '/pages/room',
       name: 'Room',
+    },
+    {
+      path: '/pages/travel',
+      name: 'Travel',
     },
   ];
 
@@ -101,8 +146,20 @@ function Layout() {
       name: 'Add Trip',
     },
     {
+      path: '/pages/addactivity',
+      name: 'Add Activity',
+    },
+    {
+      path: '/pages/addcar',
+      name: 'Add Car',
+    },
+    {
       path: '/pages/addroom',
       name: 'Add Room',
+    },
+    {
+      path: '/pages/addtravel',
+      name: 'Add Travel',
     },
   ];
 

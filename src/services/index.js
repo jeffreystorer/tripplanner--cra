@@ -14,11 +14,15 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db);
 
-export function addItem(userId, data) {
+export function addTrip(userId, data) {
   push(ref(db, `/${userId}/`), data);
 }
 
-export function getItems(userId) {
+export function addDetail(userId, key, data, page) {
+  push(ref(db, `/${userId}/` + key), data);
+}
+
+export function getTrips(userId) {
   let items = get(child(dbRef, `/${userId}/`))
     .then(snapshot => {
       if (snapshot.exists()) {
@@ -34,12 +38,16 @@ export function getItems(userId) {
   return items;
 }
 
-export function deleteItem(userId, key) {
+export function deleteTrip(userId, key) {
   remove(child(dbRef, `/${userId}/` + key));
 }
 
-export function updateItem(userId, key, data) {
+export function updateTrip(userId, key, data) {
   const updates = {};
   updates[`/${userId}/` + key] = data;
   return update(dbRef, updates);
 }
+
+export const removeAll = userId => {
+  remove(dbRef, `/${userId}/`);
+};

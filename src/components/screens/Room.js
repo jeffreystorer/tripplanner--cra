@@ -126,7 +126,15 @@ export default function Room({
                 onChange={e => handleChange(e)}
               />
             </HStack>
-            <FormLabel htmlFor="reserved">Confirmation</FormLabel>
+            <FormLabel htmlFor="reserved">Reserved</FormLabel>
+            <Input
+              autoComplete="reserved"
+              name="reserved"
+              type="text"
+              value={data.reserved}
+              onChange={e => handleChange(e)}
+            />
+            <FormLabel htmlFor="confirmation">Confirmation</FormLabel>
             <Input
               autoComplete="confirmation"
               name="confirmation"

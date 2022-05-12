@@ -1,6 +1,4 @@
 export const room = {
-  type: 'room',
-  trip: '',
   place: '',
   shortName: '',
   longName: '',
@@ -22,26 +20,71 @@ export const room = {
   cancellable: '',
 };
 
+/* export const trip = {
+  name: '',
+  trip: {
+    activity: [{ place: '', notes: '', date: '' }],
+    car: [
+      {
+        notes: '',
+        pickupDate: '',
+        returnDate: '',
+        pickupLocation: '',
+        returnLocation: '',
+      },
+    ],
+    room: [
+      {
+        place: '',
+        shortName: '',
+        longName: '',
+        notes: '',
+        source: '',
+        address: '',
+        contact: '',
+        phone: '',
+        email: '',
+        website: '',
+        checkIn: '',
+        checkOut: '',
+        reserved: '',
+        confirmation: '',
+        currency: '',
+        cost: '',
+        paidWithRes: '',
+        damageDeposit: '',
+        cancellable: '',
+      },
+    ],
+    travel: [{ notes: '', date: '' }],
+  },
+}; */
+
 export const trip = {
-  type: 'trip',
-  trip: '',
-  place: '',
+  name: '',
+  trip: {
+    activity: [],
+    car: [],
+    room: [],
+    travel: [],
+  },
 };
 
 export const activity = {
-  type: 'activity',
-  trip: '',
   place: '',
+  notes: '',
+  date: '',
 };
 
-export const transport = {
-  type: 'transport',
-  trip: '',
-  place: '',
+export const travel = {
+  notes: '',
+  date: '',
 };
 
-export const rentalcar = {
-  type: 'rentalcar',
-  trip: '',
-  place: '',
+export const car = {
+  notes: '',
+  pickupDate: '',
+  returnDate: '',
+  pickupLocation: '',
+  returnLocation: '',
 };

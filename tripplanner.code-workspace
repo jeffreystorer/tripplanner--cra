@@ -5,6 +5,25 @@
     }
   ],
   "settings": {
-    "cSpell.words": ["chakra", "preval", "signin"]
+    "cSpell.words": [
+      "addactivity",
+      "addcar",
+      "addroom",
+      "addtravel",
+      "addtrip",
+      "chakra",
+      "datetime",
+      "editactivity",
+      "editcar",
+      "editroom",
+      "edittravel",
+      "edittrip",
+      "Hevetica",
+      "preval",
+      "rentalcar",
+      "signin",
+      "Signout",
+      "uuidv"
+    ]
   }
 }
