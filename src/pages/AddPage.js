@@ -14,7 +14,7 @@ export default function AddPage({ page }) {
   const key = useRecoilValue(state.currentTripKey);
 
   const handleChange = e => {
-    setData({ ...data, name: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async e => {

@@ -12,7 +12,7 @@ export default function TripPage() {
   console.log('🚀 ~ file: TripPage.js ~ line 13 ~ TripPage ~ userId', userId);
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-  const dbRef = ref(db, `/${userId}`); //`${userId}`);
+  const dbRef = ref(db, `/${userId}`);
   const [snapshots, loading, error] = useList(dbRef);
 
   if (error) {

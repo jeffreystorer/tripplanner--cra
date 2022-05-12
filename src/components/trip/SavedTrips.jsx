@@ -24,8 +24,6 @@ const SavedTrips = ({ snapshots }) => {
   const userId = useRecoilValue(state.userId);
 
   useEffect(() => {
-    console.log('😊😊 currentTripIndex', currentTripIndex);
-    debugger;
     if (currentTripIndex > -1) {
       const tripSnapshot = snapshots[currentTripIndex];
       setCurrentTripKey(tripSnapshot.key);

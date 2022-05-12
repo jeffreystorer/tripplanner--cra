@@ -20,10 +20,10 @@ export default function Trip({
         <VStack gap={1}>
           <h2 className="text-center">New Trip</h2>
           <FormControl>
-            <FormLabel htmlFor="trip">Name</FormLabel>
+            <FormLabel htmlFor="name">Name</FormLabel>
             <Input
-              autoComplete="trip"
-              name="trip"
+              autoComplete="name"
+              name="name"
               type="text"
               value={data.name}
               onChange={e => handleChange(e)}
