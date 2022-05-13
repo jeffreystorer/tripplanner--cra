@@ -62,7 +62,7 @@ const SavedTrips = ({ snapshots }) => {
     resetCurrentTripIndex();
     resetCurrentTripKey();
     resetCurrentTrip();
-    navigate('/pages/trip');
+    navigate('/pages/itinerary');
     //window.location.reload();
   };
   const handleShowConfirmDeleteCurrentModal = () => {
