@@ -65,6 +65,12 @@ const brand = {
 const theme = extendTheme({
   styles: styles,
   colors: brand,
+  textStyles: {
+    boldLeft: {
+      fontWeight: 'bold',
+      textAlign: 'left',
+    },
+  },
 });
 
 export default function App() {

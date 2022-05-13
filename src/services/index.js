@@ -6,7 +6,6 @@ import {
   push,
   ref,
   remove,
-  set,
   update,
 } from 'firebase/database';
 import { firebaseConfig } from 'firebaseConfig';
@@ -16,25 +15,19 @@ const db = getDatabase(app);
 const dbRef = ref(db);
 
 export function addTrip(userId, data) {
-  push(ref(db, `/${userId}/`), data);
+  const newTripKey = push(child(ref(db), `/${userId}/`)).key;
+  const updates = {};
+  updates[`/${userId}/${newTripKey}`] = data;
+  return update(dbRef, updates);
 }
 
 export function addDetail(userId, key, data, page) {
-  let currentTrip = getTrips(userId, key);
-  console.log(
-    '🚀 ~ file: index.js ~ line 24 ~ addDetail ~ currentTrip',
-    currentTrip
-  );
-  if ('trip' in currentTrip === false || page in currentTrip.trip === false) {
-    currentTrip.trip = { [page]: [] };
-  }
-  currentTrip.trip[page].push(data);
-  console.log(
-    '🚀 ~ file: index.js ~ line 27 ~ addDetail ~ currentTrip',
-    currentTrip
-  );
-  debugger;
-  set(ref(db, `/${userId}/` + key), currentTrip);
+  const newDetailKey = push(
+    child(ref(db), `/${userId}/${key}/details/${page}`)
+  ).key;
+  const updates = {};
+  updates[`/${userId}/${key}/details/${page}/${newDetailKey}`] = data;
+  return update(dbRef, updates);
 }
 
 export function getTrips(userId, key) {
@@ -53,7 +46,7 @@ export function getTrips(userId, key) {
   return items;
 }
 
-export function deleteTrip(userId, key) {
+export function removeTrip(userId, key) {
   remove(child(dbRef, `/${userId}/` + key));
 }
 
@@ -63,6 +56,10 @@ export function updateTrip(userId, key, data) {
   return update(dbRef, updates);
 }
 
-export const removeAll = userId => {
+/* export const removeAll = userId => {
   remove(dbRef, `/${userId}/`);
+};
+ */
+export const removeAll = userId => {
+  remove(ref(db, `/${userId}/`));
 };

@@ -1,4 +1,5 @@
 import { useRecoilValue } from 'recoil';
+import { Navigate } from 'react-router-dom';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref } from 'firebase/database';
 import { firebaseConfig } from 'firebaseConfig';
@@ -9,29 +10,22 @@ import * as state from 'store';
 
 export default function TripPage() {
   const userId = useRecoilValue(state.userId);
-  console.log('🚀 ~ file: TripPage.js ~ line 13 ~ TripPage ~ userId', userId);
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const dbRef = ref(db, `/${userId}`);
   const [snapshots, loading, error] = useList(dbRef);
 
   if (error) {
-    console.log(error);
-    return <p>{error && 'Error: '}</p>;
+    return <Navigate to="/" />;
   }
+
   if (loading) return <Loading />;
 
   return (
     <>
       <div className="div--center">
         <br />
-        {snapshots.length > 0 && (
-          <>
-            {' '}
-            <SavedTripsBox snapshots={snapshots} />
-            <br />{' '}
-          </>
-        )}
+        <SavedTripsBox snapshots={snapshots} />
       </div>
     </>
   );
