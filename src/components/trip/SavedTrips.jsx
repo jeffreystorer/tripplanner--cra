@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   useRecoilState,
   useResetRecoilState,
@@ -13,6 +14,7 @@ import * as state from 'store';
 import 'styles/App.css';
 
 const SavedTrips = ({ snapshots }) => {
+  const navigate = useNavigate();
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
@@ -60,7 +62,8 @@ const SavedTrips = ({ snapshots }) => {
     resetCurrentTripIndex();
     resetCurrentTripKey();
     resetCurrentTrip();
-    window.location.reload();
+    navigate('/pages/trip');
+    //window.location.reload();
   };
   const handleShowConfirmDeleteCurrentModal = () => {
     setAllTrips(false);
