@@ -23,7 +23,7 @@ export function addTrip(userId, data) {
 
 export function addDetail(userId, key, data, page) {
   const newDetailKey = push(
-    child(ref(db), `/${userId}/${key}/details/${page}`)
+    child(dbRef, `/${userId}/${key}/details/${page}`)
   ).key;
   const updates = {};
   updates[`/${userId}/${key}/details/${page}/${newDetailKey}`] = data;
@@ -50,16 +50,6 @@ export function removeTrip(userId, key) {
   remove(child(dbRef, `/${userId}/` + key));
 }
 
-export function updateTrip(userId, key, data) {
-  const updates = {};
-  updates[`/${userId}/` + key] = data;
-  return update(dbRef, updates);
-}
-
-/* export const removeAll = userId => {
-  remove(dbRef, `/${userId}/`);
-};
- */
 export const removeAll = userId => {
   remove(ref(db, `/${userId}/`));
 };

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   ChakraProvider,
@@ -9,27 +10,29 @@ import {
   ModalHeader,
   ModalFooter,
   ModalBody,
-  useDisclosure,
 } from '@chakra-ui/react';
 import 'styles/App.css';
 
 export default function ConfirmDeleteModal({
   allTrips,
-  show,
-  setShow,
+  isOpen,
+  onClose,
   handleDelete,
 }) {
-  const { onClose } = useDisclosure();
-  const handleCancel = () => {
-    onClose();
-    setShow(false);
-  };
+  const navigate = useNavigate();
   let message = 'Are you sure you want to delete this saved trip?';
   if (allTrips) message = 'Are you sure you want to delete all saved trips?';
 
   return (
     <ChakraProvider>
-      <Modal isCentered isOpen={show} onClose={handleCancel}>
+      <Modal
+        isCentered
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          navigate('/pages/trip');
+        }}
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Heads up!</ModalHeader>
@@ -37,10 +40,22 @@ export default function ConfirmDeleteModal({
           <ModalBody>{message}</ModalBody>
           <ModalFooter>
             <HStack gap={5}>
-              <Button colorScheme="gray" onClick={handleCancel}>
+              <Button
+                colorScheme="gray"
+                onClick={() => {
+                  onClose();
+                  navigate('pages/trip');
+                }}
+              >
                 Cancel
               </Button>
-              <Button colorScheme="blue" onClick={handleDelete}>
+              <Button
+                colorScheme="blue"
+                onClick={() => {
+                  onClose();
+                  handleDelete();
+                }}
+              >
                 Delete
               </Button>
             </HStack>

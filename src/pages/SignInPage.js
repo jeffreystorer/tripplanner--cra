@@ -5,7 +5,6 @@ import {
   Button,
   Center,
   Container,
-  FormControl,
   FormLabel,
   Input,
   VStack,
@@ -23,14 +22,14 @@ export default function SignInPage() {
     'Build: ' + preval`module.exports = new Date().toLocaleString();`;
   const setUserId = useSetRecoilState(state.userId);
   const [loading, setLoading] = useState(true);
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
   const handleSubmit = e => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(auth, username, password)
       .then(userCredential => {
         const user = userCredential.user;
         setUserId(user.uid);
@@ -49,27 +48,25 @@ export default function SignInPage() {
         <Container width="30%">
           <VStack gap={3}>
             <Header />
-            <FormControl>
-              <FormLabel htmlFor="email">Email</FormLabel>
+            <form>
+              <FormLabel htmlFor="username">Username</FormLabel>
               <Input
-                autoComplete="email"
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
+                autoComplete="username"
+                id="username"
+                name="username"
+                type="text"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
               />
-              <form>
-                <input type="text" autoComplete="username" ng-hide="true" />
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Input
-                  autoComplete="new-password"
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                />
-              </form>
-            </FormControl>
+              <FormLabel htmlFor="password">Password</FormLabel>
+              <Input
+                autoComplete="new-password"
+                id="password"
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+              />
+            </form>
             <Center>
               <Button colorScheme="blue" size="md" onClick={handleSubmit}>
                 Sign in
