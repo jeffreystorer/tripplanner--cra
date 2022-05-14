@@ -14,6 +14,11 @@ const localStorageEffect =
     });
   };
 
+export const detailData = atom({
+  key: 'detailData',
+  default: [],
+});
+
 export const userId = atom({
   key: 'userId',
   default: null,

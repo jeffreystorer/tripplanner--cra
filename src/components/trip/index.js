@@ -1,1 +1,1 @@
-export { default as ConfirmDeleteModal } from 'components/trip/ConfirmDeleteModal';
+export { default as ConfirmDeleteTripModal } from 'components/trip/ConfirmDeleteTripModal.js';

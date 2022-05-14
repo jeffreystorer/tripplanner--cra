@@ -20,7 +20,7 @@ import { firebaseConfig } from 'firebaseConfig';
 import { useList } from 'react-firebase-hooks/database';
 //import { useVisibilityChange } from 'use-visibility-change';
 import { Loading } from 'components/common';
-import { ConfirmDeleteModal } from 'components/trip';
+import { ConfirmDeleteTripModal } from 'components/trip';
 import { removeAll, removeTrip } from 'services';
 import * as state from 'store';
 import 'styles/App.css';
@@ -72,10 +72,10 @@ export default function TripPage() {
   function handleClick(tripSnapshot, index) {
     setCurrentTripKey(tripSnapshot.key);
     setCurrentTripIndex(index);
-    const { trip_Name } = tripSnapshot.val();
+    const { atrip_Name } = tripSnapshot.val();
     setCurrentTrip({
       key: tripSnapshot.key,
-      trip_Name,
+      atrip_Name,
     });
   }
 
@@ -122,7 +122,7 @@ export default function TripPage() {
                   onClick={() => handleClick(snapshot, index)}
                   key={index}
                 >
-                  {snapshot.val().trip_Name}
+                  {snapshot.val().atrip_Name}
                 </li>
               ))}
           </ul>
@@ -158,7 +158,7 @@ export default function TripPage() {
             </VStack>
           )}
         </VStack>
-        <ConfirmDeleteModal
+        <ConfirmDeleteTripModal
           allTrips={allTrips}
           isOpen={isOpen}
           onClose={onClose}

@@ -20,14 +20,11 @@ import {
   extendTheme,
 } from '@chakra-ui/react';
 import {
-  ActivityPage,
   AddPage,
-  CarPage,
+  DetailsPage,
   EditPage,
   ItineraryPage,
-  RoomPage,
   SignInPage,
-  TravelPage,
   TripPage,
 } from 'pages';
 import { mode } from '@chakra-ui/theme-tools';
@@ -80,21 +77,14 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignInPage />} />
           <Route path="/pages" element={<Layout />}>
-            <Route path="activity" element={<ActivityPage />} />
+            <Route path="activity" element={<DetailsPage page="activity" />} />
             <Route path="addactivity" element={<AddPage page={'activity'} />} />
-            <Route path="car" element={<CarPage />} />
-            <Route path="addcar" element={<AddPage page={'car'} />} />
-            <Route path="itinerary" element={<ItineraryPage />} />
-            <Route path="room" element={<RoomPage />} />
-            <Route path="addroom" element={<AddPage page={'room'} />} />
-            <Route path="travel" element={<TravelPage />} />
-            <Route path="addtravel" element={<AddPage page={'travel'} />} />
-            <Route path="trip" element={<TripPage />} />
-            <Route path="addtrip" element={<AddPage page={'trip'} />} />
             <Route
               path="/pages/editactivity/:rowIndex"
               element={<EditPage page={'Activity'} />}
             />
+            <Route path="car" element={<DetailsPage page={'car'} />} />
+            <Route path="addcar" element={<AddPage page={'car'} />} />{' '}
             <Route
               path="/pages/editcar/:rowIndex"
               element={<EditPage page={'car'} />}
@@ -103,10 +93,17 @@ export default function App() {
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
             />
+            <Route path="itinerary" element={<ItineraryPage />} />
+            <Route path="room" element={<DetailsPage page={'room'} />} />
+            <Route path="addroom" element={<AddPage page={'room'} />} />
+            <Route path="travel" element={<DetailsPage page={'travel'} />} />
+            <Route path="addtravel" element={<AddPage page={'travel'} />} />
             <Route
               path="/pages/edittravel/:rowIndex"
               element={<EditPage page={'travel'} />}
             />
+            <Route path="trip" element={<TripPage />} />
+            <Route path="addtrip" element={<AddPage page={'trip'} />} />
             <Route
               path="/pages/edittrip/:rowIndex"
               element={<EditPage page={'trip'} />}

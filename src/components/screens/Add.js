@@ -12,7 +12,7 @@ import {
 import { fields, inputType } from 'fields';
 import * as state from 'store';
 
-export default function Activity({
+export default function Add({
   page,
   data,
   handleSubmit,
@@ -28,7 +28,7 @@ export default function Activity({
     header = (
       <h2 className="text-center">
         New {page.charAt(0).toUpperCase() + page.slice(1)} for{' '}
-        {currentTrip.trip_Name} Trip
+        {currentTrip.atrip_Name} Trip
       </h2>
     );
   }
@@ -37,9 +37,9 @@ export default function Activity({
     if (inputType[keyItem] === 'textarea') {
       return (
         <>
-          <FormLabel htmlFor="keyItem">
-            {keyItem.charAt(0).toUpperCase() +
-              keyItem.slice(1).replaceAll('_', ' ')}
+          <FormLabel htmlFor={keyItem}>
+            {keyItem.charAt(1).toUpperCase() +
+              keyItem.slice(2).replaceAll('_', ' ')}
           </FormLabel>
           <Textarea
             name={keyItem}
@@ -52,14 +52,14 @@ export default function Activity({
     } else {
       return (
         <>
-          <FormLabel htmlFor="keyItem">
-            {keyItem.charAt(0).toUpperCase() +
-              keyItem.slice(1).replaceAll('_', ' ')}
+          <FormLabel htmlFor={keyItem}>
+            {keyItem.charAt(1).toUpperCase() +
+              keyItem.slice(2).replaceAll('_', ' ')}
           </FormLabel>
           <Input
             autoComplete={keyItem}
             name={keyItem}
-            type={inputType[keyItem]}
+            type={inputType[keyItem.slice(1)]}
             value={data[keyItem]}
             onChange={e => handleChange(e)}
           />

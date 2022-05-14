@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app';
 import {
   getDatabase,
   child,
-  get,
   push,
   ref,
   remove,
@@ -21,29 +20,18 @@ export function addTrip(userId, data) {
   return update(dbRef, updates);
 }
 
-export function addDetail(userId, key, data, page) {
+export function addDetail(userId, currentTripKey, data, page) {
   const newDetailKey = push(
-    child(dbRef, `/${userId}/${key}/details/${page}`)
+    child(dbRef, `/${userId}/${currentTripKey}/details/${page}`)
   ).key;
   const updates = {};
-  updates[`/${userId}/${key}/details/${page}/${newDetailKey}`] = data;
+  updates[`/${userId}/${currentTripKey}/details/${page}/${newDetailKey}`] =
+    data;
   return update(dbRef, updates);
 }
 
-export function getTrips(userId, key) {
-  let items = get(child(dbRef, `/${userId}/` + key))
-    .then(snapshot => {
-      if (snapshot.exists()) {
-        return snapshot.val();
-      } else {
-        console.log('No data available');
-        return {};
-      }
-    })
-    .catch(error => {
-      console.error(error);
-    });
-  return items;
+export function removeDetail(userId, currentTripKey, page, key) {
+  remove(child(dbRef, `/${userId}/${currentTripKey}/details/` + key));
 }
 
 export function removeTrip(userId, key) {
