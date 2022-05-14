@@ -28,7 +28,7 @@ export default function Activity({
     header = (
       <h2 className="text-center">
         New {page.charAt(0).toUpperCase() + page.slice(1)} for{' '}
-        {currentTrip.name} Trip
+        {currentTrip.trip_Name} Trip
       </h2>
     );
   }

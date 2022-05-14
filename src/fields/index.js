@@ -18,7 +18,7 @@ export const fields = {
     cost: '',
   },
   room: {
-    name: '',
+    room: '',
     address: '',
     check_In_Date: '',
     check_In_Time: '',
@@ -34,7 +34,7 @@ export const fields = {
     arrival_Time: '',
   },
   trip: {
-    name: '',
+    trip_Name: '',
   },
 };
 
@@ -54,12 +54,13 @@ export const inputType = {
   drop_Off_Date: 'date',
   drop_Off_Location: 'text',
   drop_Off_Time: 'time',
-  name: 'text',
+  trip_Name: 'text',
   notes: 'textarea',
   pick_Up_Date: 'date',
   pick_Up_Location: 'text',
   pickup_Time: 'time',
   place: 'text',
   return_Location: 'text',
+  room: 'text',
   time: 'time',
 };

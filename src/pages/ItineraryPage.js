@@ -8,7 +8,7 @@ export default function ItineraryPage() {
     <Box>
       <Container>
         <Center>
-          <Heading>Itinerary for {currentTrip.name}</Heading>
+          <Heading>Itinerary for {currentTrip.trip_Name}</Heading>
         </Center>
       </Container>
     </Box>

@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Link as ReactLink, Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link as ReactLink, Navigate, useNavigate } from 'react-router-dom';
 import {
   useRecoilState,
   useResetRecoilState,
@@ -30,13 +30,14 @@ export default function TripPage() {
     window.location.reload();
   };
   useVisibilityChange({ onShow }); */
+  const navigate = useNavigate();
   const userId = useRecoilValue(state.userId); //'Fs0wwvxoWwdZPXcVo8NcHYDot1z2'; //JSON.parse(localStorage.getItem('userId'));
-
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const dbRef = ref(db, `/${userId}/`);
-  const [snapshots, loading, error] = useList(dbRef);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [snapshots, loading, error] = useList(dbRef);
+  const [allSnapshots, setAllSnapshots] = useState();
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
   const resetCurrentTrip = useResetRecoilState(state.currentTrip);
@@ -48,6 +49,10 @@ export default function TripPage() {
     state.currentTripIndex
   );
   const resetCurrentTripIndex = useResetRecoilState(state.currentTripIndex);
+
+  useEffect(() => {
+    setAllSnapshots(snapshots);
+  }, [snapshots]);
 
   /*  useEffect(() => {
     if (snapshots) {
@@ -67,18 +72,20 @@ export default function TripPage() {
   function handleClick(tripSnapshot, index) {
     setCurrentTripKey(tripSnapshot.key);
     setCurrentTripIndex(index);
-    const { name } = tripSnapshot.val();
+    const { trip_Name } = tripSnapshot.val();
     setCurrentTrip({
       key: tripSnapshot.key,
-      name,
+      trip_Name,
     });
   }
 
   const handleClickDelete = () => {
     if (allTrips) {
       removeAll(userId);
+      navigate('/');
     } else {
       removeTrip(userId, currentTripKey);
+      navigate('/');
     }
     resetCurrentTripIndex();
     resetCurrentTripKey();
@@ -108,14 +115,14 @@ export default function TripPage() {
             Click on a trip to edit or delete
           </span>
           <ul className="list--text-align-left">
-            {snapshots &&
-              snapshots.map((snapshot, index) => (
+            {allSnapshots.length > 0 &&
+              allSnapshots.map((snapshot, index) => (
                 <li
                   className={index === currentTripIndex ? 'active_li' : 'li'}
                   onClick={() => handleClick(snapshot, index)}
                   key={index}
                 >
-                  {snapshot.val().name}
+                  {snapshot.val().trip_Name}
                 </li>
               ))}
           </ul>
@@ -127,15 +134,29 @@ export default function TripPage() {
             </Button>
             {currentTripIndex > -1 && (
               <Button onClick={handleShowConfirmDeleteCurrentModal}>
-                Delete Current Trip
+                Delete Trip
               </Button>
             )}
-            {snapshots && (
+            {allSnapshots.length > 0 && (
               <Button onClick={handleShowConfirmDeleteAllModal}>
                 Delete All
               </Button>
             )}
           </HStack>
+          {currentTripIndex > -1 && (
+            <VStack>
+              <Button onClick={() => navigate('/pages/addactivity')}>
+                Add Activity
+              </Button>
+              <Button onClick={() => navigate('/pages/addcar')}>Add Car</Button>
+              <Button onClick={() => navigate('/pages/addroom')}>
+                Add Room
+              </Button>
+              <Button onClick={() => navigate('/pages/addtravel')}>
+                Add Travel
+              </Button>
+            </VStack>
+          )}
         </VStack>
         <ConfirmDeleteModal
           allTrips={allTrips}

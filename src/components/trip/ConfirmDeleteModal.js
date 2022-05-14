@@ -30,7 +30,7 @@ export default function ConfirmDeleteModal({
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          navigate('/pages/trip');
+          navigate('/');
         }}
       >
         <ModalOverlay />
@@ -44,7 +44,7 @@ export default function ConfirmDeleteModal({
                 colorScheme="gray"
                 onClick={() => {
                   onClose();
-                  navigate('pages/trip');
+                  navigate('/');
                 }}
               >
                 Cancel
