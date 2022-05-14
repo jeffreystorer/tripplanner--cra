@@ -18,21 +18,43 @@ export default function createCCAccordionItems(data, showModal) {
     '🚀 ~ file: createAccordionItems.js ~ line 17 ~ createCCAccordionItems ~ data',
     data
   );
+  function textItem(keyItem) {
+      return (
+        <>
+          <FormLabel htmlFor={keyItem}>
+            {keyItem.charAt(1).toUpperCase() +
+              keyItem.slice(2).replaceAll('_', ' ')}
+          </FormLabel>
+          <Input
+            autoComplete={keyItem}
+            name={keyItem}
+            type={inputType[keyItem.slice(1)]}
+            value={data[keyItem]}
+            onChange={e => handleChange(e)}
+          />
+        </>
+      );
+    
+  }
 
-  const textItems = data?.values.map((item, index) => {
-    if (Object.values(item)[index] !== '') {
+  const textItems = Object.keys(data.values).map(keyItem => {
+    return textItem(keyItem);
+  });
+
+  function textItem(keyItem){
+    if (data[keyItem] !== '') {
       return (
         <Text>
-          {Object.keys(item)[index].slice(1).charAt(0).toUpperCase() +
-            Object.keys(item)[index].slice(2)}
+          {keyItem.slice(1).charAt(0).toUpperCase() +
+            keyItem.slice(2)}
           {': '}
-          {Object.values(item)[index]}
+          {data[keyItem]}
         </Text>
       );
     } else {
       return null;
     }
-  });
+  };
 
   return data?.map((item, index) => (
     <AccordionItem>
