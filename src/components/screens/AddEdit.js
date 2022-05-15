@@ -76,8 +76,10 @@ export default function AddEdit({
     }
   }
 
-  const inputs = Object.keys(fields[page]).map(keyItem => {
+  const inputs = Object.keys(data).map(keyItem => {
+    if (keyItem !== "key") {
     return formItem(keyItem);
+    } else {return null}
   });
 
   return (

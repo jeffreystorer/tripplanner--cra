@@ -16,6 +16,7 @@ import {
 } from '@chakra-ui/react';
 //import { useVisibilityChange } from 'use-visibility-change';
 import { Loading } from 'components/common';
+//TODO: try bootstrap modal or write a custom one?
 import { ConfirmDeleteTripModal } from 'components/trip';
 import { getTrips, removeAll, removeTrip } from 'services';
 import * as state from 'store';
@@ -70,6 +71,7 @@ export default function TripPage() {
     });
   }
 
+    //TODO: update the recoil data?
   const handleClickDelete = () => {
     if (allTrips) {
       removeAll(userId);

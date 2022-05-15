@@ -4,6 +4,7 @@ export const fields = {
     btime: '',
     cplace: '',
     ddescription: '',
+    key: '',
   },
   car: {
     apick_Up_Date: '',
@@ -16,6 +17,7 @@ export const fields = {
     hconfirmation_Number: '',
     icost: '',
     jnotes: '',
+    key: '',
   },
   room: {
     acheck_In_Date: '',
@@ -26,15 +28,18 @@ export const fields = {
     fcheck_Out_Time: '',
     gconfirmation_Number: '',
     hnotes: '',
+    key: '',
   },
   travel: {
     adate: '',
     bdeparture_Time: '',
     cdescription: '',
     darrival_Time: '',
+    key: '',
   },
   trip: {
     atrip_Name: '',
+    key: '',
   },
 };
 

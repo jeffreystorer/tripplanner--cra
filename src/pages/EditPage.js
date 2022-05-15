@@ -11,17 +11,12 @@ import 'styles/App.css';
 export default function EditPage({ page }) {
   const navigate = useNavigate();
   const { rowIndex } = useParams();
-  const [data, setData] = useState(fields[page]);
-  const allData = useRecoilValue(state.data);
+  const [data, setData] =  useRecoilValue(state.data);
   const userId = useRecoilValue(state.userId);
   const tripKey = useRecoilValue(state.currentTripKey);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
 
-  useEffect(() => {
-    setData(allData[rowIndex]);
-  }, [allData, rowIndex]);
-
-  const handleChange = e => {
+   const handleChange = e => {
     let newValue = e.target.value;
     if (!newValue) newValue = '';
     let newData = _.cloneDeep(data);
@@ -57,7 +52,7 @@ export default function EditPage({ page }) {
     <AddEdit
       mode={'Edit'}
       page={page}
-      rowIndex={rowIndex}
+      data={data[rowIndex]}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       handleClickCancel={handleClickCancel}
