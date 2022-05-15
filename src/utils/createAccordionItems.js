@@ -28,10 +28,12 @@ export default function createCCAccordionItems(page, data, showModal) {
       <h2>
         <AccordionButton id={`heading${index}`}>
           <Box flex="1" textAlign="left">
+            {Object.values(detail)[0]}
+            {'  '}
             {Object.values(detail)[1]}
             {'  '}
             {Object.values(detail)[2]}
-            {': '}
+            {'  '}
             {Object.values(detail)[3]}
           </Box>
           <AccordionIcon />
