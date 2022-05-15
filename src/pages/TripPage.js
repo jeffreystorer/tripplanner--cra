@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link as ReactLink, Navigate, useNavigate } from 'react-router-dom';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
 import {
   useRecoilState,
   useResetRecoilState,
@@ -14,14 +14,10 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref } from 'firebase/database';
-import { firebaseConfig } from 'firebaseConfig';
-import { useList } from 'react-firebase-hooks/database';
 //import { useVisibilityChange } from 'use-visibility-change';
 import { Loading } from 'components/common';
 import { ConfirmDeleteTripModal } from 'components/trip';
-import { removeAll, removeTrip } from 'services';
+import { getTrips, removeAll, removeTrip } from 'services';
 import * as state from 'store';
 import 'styles/App.css';
 
@@ -29,17 +25,12 @@ export default function TripPage() {
   /* const onShow = () => {
     window.location.reload();
   };
-  useVisibilityChange({ onShow }); */
+  useVisibilityChange({ onShow });*/
   const navigate = useNavigate();
   const userId = useRecoilValue(state.userId); //'Fs0wwvxoWwdZPXcVo8NcHYDot1z2'; //JSON.parse(localStorage.getItem('userId'));
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const dbRef = ref(db, `/${userId}/`);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [snapshots, loading, error] = useList(dbRef);
-  const [dataLoading, setDataLoading] = useState(true);
-  const setData = useSetRecoilState(state.data);
-  const [allSnapshots, setAllSnapshots] = useState();
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useRecoilState(state.data);
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
   const resetCurrentTrip = useResetRecoilState(state.currentTrip);
@@ -53,32 +44,29 @@ export default function TripPage() {
   const resetCurrentTripIndex = useResetRecoilState(state.currentTripIndex);
 
   useEffect(() => {
-    setAllSnapshots(snapshots);
-  }, [snapshots]);
+    getTrips(userId).then(data => {
+      console.log('🚀 ~ file: TripPage.js ~ line 48 ~ getTrips ~ data', data);
 
-  useEffect(() => {
-    let dataArray = [];
-    snapshots.forEach(snapshot => {
-      dataArray.push({
-        key: snapshot.key,
-        values: snapshot.val(),
-      });
+      let tripsArray = [];
+      for (const [key, value] of Object.entries(data)) {
+        tripsArray.push({
+          key: key,
+          atrip_Name: value.atrip_Name,
+          details: value.details,
+        });
+      }
+      tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
+      setData(tripsArray);
+      setLoading(false);
     });
-    setData(dataArray);
-    console.log(
-      '🚀 ~ file: TripPage.js ~ line 68 ~ useEffect ~ dataArray',
-      dataArray
-    );
-    setDataLoading(false);
-  }, [setData, snapshots]);
+  }, [setData, userId]);
 
-  function handleClick(tripSnapshot, index) {
-    setCurrentTripKey(tripSnapshot.key);
+  function handleClick(item, index) {
+    setCurrentTripKey(item.key);
     setCurrentTripIndex(index);
-    const { atrip_Name } = tripSnapshot.val();
     setCurrentTrip({
-      key: tripSnapshot.key,
-      atrip_Name,
+      key: item.key,
+      atrip_Name: item.atrip_Name,
     });
   }
 
@@ -104,12 +92,7 @@ export default function TripPage() {
     onOpen();
   };
 
-  if (error) {
-    console.log('😊😊 error', error);
-    return <Navigate to="/" />;
-  }
-
-  if (loading || dataLoading) return <Loading />;
+  if (loading) return <Loading />;
   return (
     <>
       <Container>
@@ -118,14 +101,14 @@ export default function TripPage() {
             Click on a trip to edit or delete
           </span>
           <ul className="list--text-align-left">
-            {allSnapshots.length > 0 &&
-              allSnapshots.map((snapshot, index) => (
+            {data.length > 0 &&
+              data.map((item, index) => (
                 <li
                   className={index === currentTripIndex ? 'active_li' : 'li'}
-                  onClick={() => handleClick(snapshot, index)}
+                  onClick={() => handleClick(item, index)}
                   key={index}
                 >
-                  {snapshot.val().atrip_Name}
+                  {item.atrip_Name}
                 </li>
               ))}
           </ul>
@@ -140,7 +123,7 @@ export default function TripPage() {
                 Delete Trip
               </Button>
             )}
-            {allSnapshots.length > 0 && (
+            {data.length > 0 && (
               <Button onClick={handleShowConfirmDeleteAllModal}>
                 Delete All
               </Button>
@@ -149,7 +132,9 @@ export default function TripPage() {
           {currentTripIndex > -1 && (
             <VStack>
               <Button
-                onClick={() => navigate(`/pages/editTrip/${currentTripIndex}`)}
+                onClick={() =>
+                  navigate(`/pages/renametrip/${currentTripIndex}`)
+                }
               >
                 Rename Trip
               </Button>

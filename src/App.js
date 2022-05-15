@@ -105,7 +105,7 @@ export default function App() {
             <Route path="trip" element={<TripPage />} />
             <Route path="addtrip" element={<AddPage page={'trip'} />} />
             <Route
-              path="/pages/edittrip/:rowIndex"
+              path="/pages/renametrip/:rowIndex"
               element={<EditPage page={'trip'} />}
             />
           </Route>

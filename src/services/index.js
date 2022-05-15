@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app';
 import {
   getDatabase,
   child,
+  get,
   push,
   ref,
   remove,
@@ -12,6 +13,40 @@ import { firebaseConfig } from 'firebaseConfig';
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db);
+
+export function getTrips(userId) {
+  let trips = get(child(dbRef, `/${userId}/`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log('No data available');
+        return {};
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      window.location = '/';
+    });
+  return trips;
+}
+
+export function getDetails(userId, key, page) {
+  let details = get(child(dbRef, `/${userId}/${key}/details/${page}/`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log('No data available');
+        return {};
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      window.location = '/';
+    });
+  return details;
+}
 
 export function addTrip(userId, data) {
   const newTripKey = push(child(ref(db), `/${userId}/`)).key;

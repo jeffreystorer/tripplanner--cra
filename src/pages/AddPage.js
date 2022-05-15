@@ -41,8 +41,8 @@ export default function AddPage({ page }) {
   return (
     <AddEdit
       mode={'New'}
-      page={page}
       data={data}
+      page={page}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       handleClickCancel={handleClickCancel}

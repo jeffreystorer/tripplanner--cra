@@ -14,12 +14,14 @@ import * as state from 'store';
 
 export default function AddEdit({
   mode,
-  page,
   data,
+  page,
   handleSubmit,
   handleChange,
   handleClickCancel,
 }) {
+  console.log('🚀 ~ file: AddEdit.js ~ line 23 ~ data', data);
+
   const currentTrip = useRecoilValue(state.currentTrip);
 
   let header;
@@ -35,6 +37,11 @@ export default function AddEdit({
   }
 
   function formItem(keyItem) {
+    console.log(
+      '🚀 ~ file: AddEdit.js ~ line 40 ~ formItem ~ keyItem',
+      keyItem
+    );
+
     if (inputType[keyItem.slice(1)] === 'textarea') {
       return (
         <>

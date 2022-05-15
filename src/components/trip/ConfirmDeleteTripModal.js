@@ -1,4 +1,4 @@
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   ChakraProvider,
@@ -14,7 +14,7 @@ import {
 import 'styles/App.css';
 
 export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   let message = 'Are you sure you want to delete this item?';
 
   return (
@@ -24,7 +24,7 @@ export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          //navigate('/');
+          navigate('/');
         }}
       >
         <ModalOverlay />
@@ -38,7 +38,7 @@ export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
                 colorScheme="gray"
                 onClick={() => {
                   onClose();
-                  //navigate('/');
+                  navigate('/');
                 }}
               >
                 Cancel

@@ -64,3 +64,11 @@ export const inputType = {
   room: 'text',
   time: 'time',
 };
+
+export const sortFields = {
+  activity: 'adate',
+  car: 'apick_Up_Date',
+  room: 'acheckIn_Date',
+  travel: 'adate',
+  trip: 'atrip_Name',
+};

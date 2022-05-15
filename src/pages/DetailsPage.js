@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useDisclosure } from '@chakra-ui/react';
-import { initializeApp } from 'firebase/app';
-import { getDatabase, ref } from 'firebase/database';
-import { firebaseConfig } from 'firebaseConfig';
-import { useList } from 'react-firebase-hooks/database';
 import { useVisibilityChange } from 'use-visibility-change';
 import { ConfirmDeleteDetailModal, Loading } from 'components/common';
 import { Details } from 'components/screens';
-import { removeDetail } from 'services';
+import { sortFields } from 'fields';
+import { getDetails, removeDetail } from 'services';
 import * as state from 'store';
 import { createAccordionItems } from 'utils';
 
@@ -21,29 +17,37 @@ export default function DetailsPage({ page }) {
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [dataLoading, setDataLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
   const [data, setData] = useRecoilState(state.data);
   const userId = useRecoilValue(state.userId);
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-  const dbRef = ref(db, `/${userId}/${currentTripKey}/details/${page}/`);
-  const [snapshots, loading, error] = useList(dbRef);
+  const sortField = sortFields[page];
 
   useEffect(() => {
-    let dataArray = [];
-    snapshots.forEach(snapshot => {
-      dataArray.push({
-        key: snapshot.key,
-        values: snapshot.val(),
-      });
+    getDetails(userId, currentTripKey, page).then(data => {
+      console.log(
+        '🚀 ~ file: DetailsPage.js ~ line 30 ~ getDetails ~ data',
+        data
+      );
+
+      let detailsArray = [];
+      for (const [key, value] of Object.entries(data)) {
+        let detailObject = value;
+        detailObject.key = key;
+        detailsArray.push(detailObject);
+      }
+      detailsArray.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1));
+      setData(detailsArray);
+      console.log(
+        '🚀 ~ file: DetailsPage.js ~ line 43 ~ getDetails ~ detailsArray',
+        detailsArray
+      );
+
+      setLoading(false);
     });
-    dataArray.sort((a, b) => (a.values.date > b.values.date ? 1 : -1));
-    setData(dataArray);
-    setDataLoading(false);
-  }, [setData, snapshots]);
+  }, [currentTripKey, page, setData, sortField, userId]);
 
   const handleDelete = () => {
     try {
@@ -62,14 +66,9 @@ export default function DetailsPage({ page }) {
     onOpen();
   };
 
+  if (loading) return <Loading />;
+
   const items = createAccordionItems(page, data, showModal);
-
-  if (error) {
-    console.log('😊😊 error', error);
-    return <Navigate to="/" />;
-  }
-
-  if (loading || dataLoading) return <Loading />;
 
   return (
     <>

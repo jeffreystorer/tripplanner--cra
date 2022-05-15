@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import * as _ from 'lodash';
 import { AddEdit } from 'components/screens';
 import { fields } from 'fields';
 import { updateDetail, updateTrip } from 'services';
@@ -14,16 +15,18 @@ export default function EditPage({ page }) {
   const allData = useRecoilValue(state.data);
   const userId = useRecoilValue(state.userId);
   const tripKey = useRecoilValue(state.currentTripKey);
+  const setCurrentTrip = useSetRecoilState(state.currentTrip);
 
   useEffect(() => {
     setData(allData[rowIndex]);
-    console.log(allData[rowIndex]);
   }, [allData, rowIndex]);
 
   const handleChange = e => {
     let newValue = e.target.value;
     if (!newValue) newValue = '';
-    setData({ ...data, [e.target.name]: newValue });
+    let newData = _.cloneDeep(data);
+    newData.values[e.target.name] = newValue;
+    setData(newData);
   };
 
   const handleSubmit = async e => {
@@ -33,6 +36,8 @@ export default function EditPage({ page }) {
       switch (page) {
         case 'trip':
           updateTrip(userId, tripKey, data.values);
+          const { atrip_Name } = data.values;
+          setCurrentTrip({ key: tripKey, atrip_Name });
           break;
         default:
           updateDetail(userId, tripKey, data, page, data[rowIndex].key);
@@ -52,7 +57,7 @@ export default function EditPage({ page }) {
     <AddEdit
       mode={'Edit'}
       page={page}
-      data={data}
+      rowIndex={rowIndex}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       handleClickCancel={handleClickCancel}
