@@ -37,6 +37,8 @@ export default function TripPage() {
   const dbRef = ref(db, `/${userId}/`);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [snapshots, loading, error] = useList(dbRef);
+  const [dataLoading, setDataLoading] = useState(true);
+  const setData = useSetRecoilState(state.data);
   const [allSnapshots, setAllSnapshots] = useState();
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
@@ -54,20 +56,21 @@ export default function TripPage() {
     setAllSnapshots(snapshots);
   }, [snapshots]);
 
-  /*  useEffect(() => {
-    if (snapshots) {
-      if (currentTripIndex > -1) {
-        const tripSnapshot = snapshots[currentTripIndex];
-        setCurrentTripKey(tripSnapshot.key);
-        const { name } = tripSnapshot.val();
-        setCurrentTrip({
-          key: tripSnapshot.key,
-          name,
-        });
-      }
-    }
-    //eslint-disable-next-line
-  }, [snapshots]); */
+  useEffect(() => {
+    let dataArray = [];
+    snapshots.forEach(snapshot => {
+      dataArray.push({
+        key: snapshot.key,
+        values: snapshot.val(),
+      });
+    });
+    setData(dataArray);
+    console.log(
+      '🚀 ~ file: TripPage.js ~ line 68 ~ useEffect ~ dataArray',
+      dataArray
+    );
+    setDataLoading(false);
+  }, [setData, snapshots]);
 
   function handleClick(tripSnapshot, index) {
     setCurrentTripKey(tripSnapshot.key);
@@ -106,7 +109,7 @@ export default function TripPage() {
     return <Navigate to="/" />;
   }
 
-  if (loading) return <Loading />;
+  if (loading || dataLoading) return <Loading />;
   return (
     <>
       <Container>
@@ -145,6 +148,11 @@ export default function TripPage() {
           </HStack>
           {currentTripIndex > -1 && (
             <VStack>
+              <Button
+                onClick={() => navigate(`/pages/editTrip/${currentTripIndex}`)}
+              >
+                Rename Trip
+              </Button>
               <Button onClick={() => navigate('/pages/addactivity')}>
                 Add Activity
               </Button>

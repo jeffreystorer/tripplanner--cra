@@ -18,13 +18,14 @@ export default function DetailsPage({ page }) {
     setAccordionKey(accordionKey + 1);
   };
   useVisibilityChange({ onShow });
+  const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [dataLoading, setDataLoading] = useState(true);
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
-  const [data, setData] = useRecoilState(state.detailData);
+  const [data, setData] = useRecoilState(state.data);
   const userId = useRecoilValue(state.userId);
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
@@ -33,10 +34,6 @@ export default function DetailsPage({ page }) {
 
   useEffect(() => {
     let dataArray = [];
-    console.log(
-      '🚀 ~ file: DetailsPage.js ~ line 36 ~ useEffect ~ snapshots',
-      snapshots
-    );
     snapshots.forEach(snapshot => {
       dataArray.push({
         key: snapshot.key,
@@ -44,10 +41,6 @@ export default function DetailsPage({ page }) {
       });
     });
     dataArray.sort((a, b) => (a.values.date > b.values.date ? 1 : -1));
-    console.log(
-      '🚀 ~ file: DetailsPage.js ~ line 43 ~ useEffect ~ dataArray',
-      dataArray
-    );
     setData(dataArray);
     setDataLoading(false);
   }, [setData, snapshots]);
@@ -69,7 +62,7 @@ export default function DetailsPage({ page }) {
     onOpen();
   };
 
-  const items = createAccordionItems(data, showModal);
+  const items = createAccordionItems(page, data, showModal);
 
   if (error) {
     console.log('😊😊 error', error);
@@ -85,7 +78,11 @@ export default function DetailsPage({ page }) {
         onClose={onClose}
         handleDelete={handleDelete}
       />
-      <Details items={items} accordionKey={accordionKey} />
+      <Details
+        items={items}
+        accordionKey={accordionKey}
+        currentTripName={currentTrip.atrip_Name}
+      />
     </>
   );
 }

@@ -14,8 +14,8 @@ const localStorageEffect =
     });
   };
 
-export const detailData = atom({
-  key: 'detailData',
+export const data = atom({
+  key: 'data',
   default: [],
 });
 

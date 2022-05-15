@@ -12,7 +12,8 @@ import {
 import { fields, inputType } from 'fields';
 import * as state from 'store';
 
-export default function Add({
+export default function AddEdit({
+  mode,
   page,
   data,
   handleSubmit,
@@ -23,18 +24,18 @@ export default function Add({
 
   let header;
   if (page === 'trip') {
-    header = <h2 className="text-center">New Trip</h2>;
+    header = <h2 className="text-center">{mode} Trip</h2>;
   } else {
     header = (
       <h2 className="text-center">
-        New {page.charAt(0).toUpperCase() + page.slice(1)} for{' '}
+        {mode} {page.charAt(0).toUpperCase() + page.slice(1)} for{' '}
         {currentTrip.atrip_Name} Trip
       </h2>
     );
   }
 
   function formItem(keyItem) {
-    if (inputType[keyItem] === 'textarea') {
+    if (inputType[keyItem.slice(1)] === 'textarea') {
       return (
         <>
           <FormLabel htmlFor={keyItem}>

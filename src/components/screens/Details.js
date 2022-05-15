@@ -1,6 +1,6 @@
-import { Accordion, Container } from '@chakra-ui/react';
+import { Accordion, Container, VStack } from '@chakra-ui/react';
 
-export default function Details({ accordionKey, items }) {
+export default function Details({ accordionKey, items, currentTripName }) {
   return (
     <>
       <br />
@@ -11,9 +11,12 @@ export default function Details({ accordionKey, items }) {
             minWidth: '350px',
           }}
         >
-          <Accordion defaultIndex={[0]} allowMultiple allowToggle>
-            {items}
-          </Accordion>
+          <VStack gap={1}>
+            <h2 className="text-center">{currentTripName} Trip</h2>;
+            <Accordion defaultIndex={[]} allowMultiple allowToggle>
+              {items}
+            </Accordion>
+          </VStack>
         </div>
       </Container>
     </>

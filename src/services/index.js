@@ -20,13 +20,24 @@ export function addTrip(userId, data) {
   return update(dbRef, updates);
 }
 
-export function addDetail(userId, currentTripKey, data, page) {
+export function updateTrip(userId, key, data) {
+  const updates = {};
+  updates[`/${userId}/${key}`] = data;
+  return update(dbRef, updates);
+}
+
+export function updateDetail(userId, tripKey, data, page, detailKey) {
+  const updates = {};
+  updates[`/${userId}/${tripKey}/details/${page}/${detailKey}/`] = data;
+  return update(dbRef, updates);
+}
+
+export function addDetail(userId, tripKey, data, page) {
   const newDetailKey = push(
-    child(dbRef, `/${userId}/${currentTripKey}/details/${page}`)
+    child(dbRef, `/${userId}/${tripKey}/details/${page}`)
   ).key;
   const updates = {};
-  updates[`/${userId}/${currentTripKey}/details/${page}/${newDetailKey}`] =
-    data;
+  updates[`/${userId}/${tripKey}/details/${page}/${newDetailKey}`] = data;
   return update(dbRef, updates);
 }
 
