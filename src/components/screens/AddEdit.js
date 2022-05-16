@@ -9,7 +9,7 @@ import {
   Textarea,
   VStack,
 } from '@chakra-ui/react';
-import { fields, inputType } from 'fields';
+import { inputType, labels } from 'fields';
 import * as state from 'store';
 
 export default function AddEdit({
@@ -37,18 +37,20 @@ export default function AddEdit({
   }
 
   function formItem(keyItem) {
-    console.log(
-      '🚀 ~ file: AddEdit.js ~ line 40 ~ formItem ~ keyItem',
-      keyItem
-    );
+    let inputLabel = '';
+    if (!labels[page].hasOwnProperty(keyItem)) {
+      inputLabel =
+        keyItem.charAt(1).toUpperCase() + keyItem.slice(2).replaceAll('_', ' ');
+    } else {
+      inputLabel =
+        labels[page][keyItem].charAt(1).toUpperCase() +
+        labels[page][keyItem].slice(2).replaceAll('_', ' ');
+    }
 
     if (inputType[keyItem.slice(1)] === 'textarea') {
       return (
         <>
-          <FormLabel htmlFor={keyItem}>
-            {keyItem.charAt(1).toUpperCase() +
-              keyItem.slice(2).replaceAll('_', ' ')}
-          </FormLabel>
+          <FormLabel htmlFor={keyItem}>{inputLabel}</FormLabel>
           <Textarea
             name={keyItem}
             value={data[keyItem]}
@@ -60,10 +62,7 @@ export default function AddEdit({
     } else {
       return (
         <>
-          <FormLabel htmlFor={keyItem}>
-            {keyItem.charAt(1).toUpperCase() +
-              keyItem.slice(2).replaceAll('_', ' ')}
-          </FormLabel>
+          <FormLabel htmlFor={keyItem}>{inputLabel}</FormLabel>
           <Input
             autoComplete={keyItem}
             name={keyItem}
@@ -77,9 +76,11 @@ export default function AddEdit({
   }
 
   const inputs = Object.keys(data).map(keyItem => {
-    if (keyItem !== "key") {
-    return formItem(keyItem);
-    } else {return null}
+    if (keyItem !== 'key' && keyItem !== 'details') {
+      return formItem(keyItem);
+    } else {
+      return null;
+    }
   });
 
   return (

@@ -4,7 +4,6 @@ import { useDisclosure } from '@chakra-ui/react';
 import { useVisibilityChange } from 'use-visibility-change';
 import { ConfirmDeleteDetailModal, Loading } from 'components/common';
 import { Details } from 'components/screens';
-import { sortFields } from 'fields';
 import { getDetails, removeDetail } from 'services';
 import * as state from 'store';
 import { createAccordionItems } from 'utils';
@@ -21,9 +20,8 @@ export default function DetailsPage({ page }) {
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
-  const [data, setData] = useRecoilState(state.data);
+  const [data, setData] = useRecoilState(state.detailData);
   const userId = useRecoilValue(state.userId);
-  const sortField = sortFields[page];
 
   useEffect(() => {
     getDetails(userId, currentTripKey, page).then(data => {
@@ -38,16 +36,15 @@ export default function DetailsPage({ page }) {
         detailObject.key = key;
         detailsArray.push(detailObject);
       }
-      detailsArray.sort((a, b) => (a[sortField] > b[sortField] ? 1 : -1));
-      setData(detailsArray);
-      console.log(
-        '🚀 ~ file: DetailsPage.js ~ line 43 ~ getDetails ~ detailsArray',
-        detailsArray
-      );
+      const sortedDetails = detailsArray.sort((a, b) => {
+        const result = a.astart_Date.localeCompare(b.astart_Date);
+        return result !== 0 ? result : a.aend_Date.localeCompare(b.aend_Date);
+      });
+      setData(sortedDetails);
 
       setLoading(false);
     });
-  }, [currentTripKey, page, setData, sortField, userId]);
+  }, [currentTripKey, page, setData, userId]);
 
   const handleDelete = () => {
     try {

@@ -81,7 +81,7 @@ export default function App() {
             <Route path="addactivity" element={<AddPage page={'activity'} />} />
             <Route
               path="/pages/editactivity/:rowIndex"
-              element={<EditPage page={'Activity'} />}
+              element={<EditPage page={'activity'} />}
             />
             <Route path="car" element={<DetailsPage page={'car'} />} />
             <Route path="addcar" element={<AddPage page={'car'} />} />{' '}

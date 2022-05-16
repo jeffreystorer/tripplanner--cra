@@ -31,7 +31,7 @@ export default function TripPage() {
   const userId = useRecoilValue(state.userId); //'Fs0wwvxoWwdZPXcVo8NcHYDot1z2'; //JSON.parse(localStorage.getItem('userId'));
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useRecoilState(state.data);
+  const [data, setData] = useRecoilState(state.tripData);
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
   const resetCurrentTrip = useResetRecoilState(state.currentTrip);
@@ -53,11 +53,17 @@ export default function TripPage() {
         tripsArray.push({
           key: key,
           atrip_Name: value.atrip_Name,
+          bstart_Date: value.bstart_Date.substring(6),
+          cend_Date: value.cend_Date.substring(6),
           details: value.details,
         });
       }
       tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
       setData(tripsArray);
+      console.log(
+        '🚀 ~ file: TripPage.js ~ line 61 ~ getTrips ~ tripsArray',
+        tripsArray
+      );
       setLoading(false);
     });
   }, [setData, userId]);
@@ -71,7 +77,7 @@ export default function TripPage() {
     });
   }
 
-    //TODO: update the recoil data?
+  //TODO: update the recoil data?
   const handleClickDelete = () => {
     if (allTrips) {
       removeAll(userId);
@@ -99,21 +105,29 @@ export default function TripPage() {
     <>
       <Container>
         <VStack gap={1}>
-          <span className="paragraph--center">
-            Click on a trip to edit or delete
-          </span>
-          <ul className="list--text-align-left">
-            {data.length > 0 &&
-              data.map((item, index) => (
-                <li
-                  className={index === currentTripIndex ? 'active_li' : 'li'}
-                  onClick={() => handleClick(item, index)}
-                  key={index}
-                >
-                  {item.atrip_Name}
-                </li>
-              ))}
-          </ul>
+          {data.length > 0 && (
+            <>
+              <span className="paragraph--center">
+                Click on a trip to edit or delete
+              </span>
+              <ul className="list--text-align-left">
+                {data.length > 0 &&
+                  data.map((item, index) => (
+                    <li
+                      className={
+                        index === currentTripIndex ? 'active_li' : 'li'
+                      }
+                      onClick={() => handleClick(item, index)}
+                      key={index}
+                    >
+                      {item.atrip_Name} {item.bstart_Date}
+                      {' to '}
+                      {item.cend_Date}
+                    </li>
+                  ))}
+              </ul>
+            </>
+          )}
           <HStack gap={3}>
             <Button>
               <Link as={ReactLink} to="/pages/addtrip">

@@ -14,6 +14,23 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const dbRef = ref(db);
 
+export function getTrip(userId, key) {
+  let trips = get(child(dbRef, `/${userId}/${key}/`))
+    .then(snapshot => {
+      if (snapshot.exists()) {
+        return snapshot.val();
+      } else {
+        console.log('No data available');
+        return {};
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      window.location = '/';
+    });
+  return trips;
+}
+
 export function getTrips(userId) {
   let trips = get(child(dbRef, `/${userId}/`))
     .then(snapshot => {
@@ -63,7 +80,7 @@ export function updateTrip(userId, key, data) {
 
 export function updateDetail(userId, tripKey, data, page, detailKey) {
   const updates = {};
-  updates[`/${userId}/${tripKey}/details/${page}/${detailKey}/`] = data;
+  updates[`/${userId}/${tripKey}/details/${page}/${detailKey}`] = data;
   return update(dbRef, updates);
 }
 

@@ -16,13 +16,9 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import { labels } from 'fields';
 
 export default function createCCAccordionItems(page, data, showModal) {
-  console.log(
-    '🚀 ~ file: createAccordionItems.js ~ line 21 ~ createCCAccordionItems ~ data',
-    data
-  );
-
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>
@@ -44,13 +40,20 @@ export default function createCCAccordionItems(page, data, showModal) {
           <Table variant="simple">
             <Tbody>
               {Object.keys(detail).map((key, index) => {
+                let formLabel = '';
+                if (!labels[page].hasOwnProperty(key)) {
+                  formLabel =
+                    key.charAt(1).toUpperCase() +
+                    key.slice(2).replaceAll('_', ' ');
+                } else {
+                  formLabel =
+                    labels[page][key].charAt(1).toUpperCase() +
+                    labels[page][key].slice(2).replaceAll('_', ' ');
+                }
                 if (key !== 'key') {
                   return (
                     <Tr key={uuidv4()}>
-                      <Td>
-                        {key.slice(1).charAt(0).toUpperCase() +
-                          key.slice(2).replaceAll('_', ' ')}
-                      </Td>
+                      <Td>{formLabel}</Td>
                       <Td>{detail[key]}</Td>
                     </Tr>
                   );
