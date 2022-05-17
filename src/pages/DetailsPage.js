@@ -75,6 +75,7 @@ export default function DetailsPage({ page }) {
         handleDelete={handleDelete}
       />
       <Details
+        page={page}
         items={items}
         accordionKey={accordionKey}
         currentTripName={currentTrip.atrip_Name}

@@ -40,6 +40,16 @@ export default function ItineraryPage() {
         '🚀 ~ file: ItineraryPage.js ~ line 39 ~ getTrip ~ data',
         data
       );
+      //let dateArray = [];
+      const startDate = data.bstart_Date;
+      const start = new Date(startDate);
+      console.log(
+        '🚀 ~ file: ItineraryPage.js ~ line 46 ~ getTrip ~ start',
+        start
+      );
+      const endDate = data.cend_Date;
+      const end = new Date(endDate);
+      console.log('🚀 ~ file: ItineraryPage.js ~ line 49 ~ getTrip ~ end', end);
       let activityArray = [];
       for (const [key, value] of Object.entries(data.details.activity)) {
         let activityObject = value;
