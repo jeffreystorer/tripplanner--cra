@@ -33,42 +33,36 @@ export default function DetailsPage({ snapshots, page }) {
       detailsArray.push(detailObject);
     });
     let sortedDetails = detailsArray;
+    if (sortedDetails.length > 0) {
     switch (page) {
       case 'activity':
-        sortedDetails = detailsArray.sort(function (a, b) {
-          if (a.astart_Date.localeCompare(b.astart_Date) < 0) return -1;
-          else if (a.astart_Date.localeCompare(b.astart_Date) > 0) return 1;
-          else if (a.astart_Date.localeCompare(b.astart_Date) === 0) return 0;
-        });
-        setData(sortedDetails);
+        sortedDetails = detailsArray.sort((a,b) => (a.astart_Date > b.astart_Date) ? 1 : ((b.astart_Date > a.astart_Date) ? -1 : 0));
         break;
       case 'car':
         sortedDetails = detailsArray.sort((a, b) => {
           const result = a.astart.localeCompare(b.astart);
           return result !== 0 ? result : a.bend.localeCompare(b.bend);
         });
-        setData(sortedDetails);
         break;
       case 'note':
-        setData(sortedDetails);
         break;
       case 'room':
         sortedDetails = detailsArray.sort((a, b) => {
           const result = a.astart_Date.localeCompare(b.astart_Date);
           return result !== 0 ? result : a.bend_Date.localeCompare(b.bend_Date);
         });
-        setData(sortedDetails);
         break;
       case 'travel':
         sortedDetails = detailsArray.sort((a, b) => {
           const result = a.astart.localeCompare(b.astart);
           return result !== 0 ? result : a.bend.localeCompare(b.bend);
         });
-        setData(sortedDetails);
         break;
       default:
         break;
     }
+    setData(sortedDetails)
+  }    
   }, [page, setData, snapshots]);
 
   const handleDelete = () => {
