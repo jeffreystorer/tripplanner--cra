@@ -17,9 +17,11 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { labels } from 'fields';
-import { stayDates } from 'utils';
+import { dowMonthDayFromStr, stayDates } from 'utils';
 
 export default function Room({ page, data, showModal }) {
+  console.log('🚀 ~ file: Room.js ~ line 23 ~ Room ~ data', data);
+
   return data?.map((detail, index) => (
     <>
       <AccordionItem key={uuidv4()}>
@@ -27,7 +29,10 @@ export default function Room({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Hotel (check in):{' '}
-              {Object.values(detail)[0].replaceAll('T', ' ').substring(5)}
+              {dowMonthDayFromStr(
+                Object.values(detail)[0].substring(0, 11),
+                'short'
+              )}
               {'  '}
               {Object.values(detail)[2]}
               {',  '}
@@ -93,7 +98,8 @@ export default function Room({ page, data, showModal }) {
             <h2>
               <AccordionButton id={`heading${index}`}>
                 <Box flex="1" textAlign="left">
-                  Hotel (stay): {date.substring(5)}
+                  Hotel (stay):{' '}
+                  {dowMonthDayFromStr(date.substring(0, 11), 'short')}
                   {'  '}
                   {Object.values(detail)[2]}
                 </Box>
@@ -157,7 +163,10 @@ export default function Room({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Hotel: (check out):{' '}
-              {Object.values(detail)[1].replaceAll('T', ' ').substring(5)}
+              {dowMonthDayFromStr(
+                Object.values(detail)[1].substring(0, 11),
+                'short'
+              )}
               {'  '}
               {Object.values(detail)[2]}
             </Box>

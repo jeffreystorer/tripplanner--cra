@@ -1,3 +1,5 @@
+//convert a date, time string '2022-06-02T11:00'
+//to an integer 202206021100
 function dateTimeStrToInt(str) {
   str = str.replaceAll('-', '');
   str = str.replaceAll('T', '');
@@ -5,6 +7,8 @@ function dateTimeStrToInt(str) {
   return parseInt(str);
 }
 
+//convert an integer 202206021100
+//to a date, time string '2022-06-02T11:00'
 function intToDateTimeStr(int) {
   let str = int.toString();
   let newStr = str.slice(0, 4) + '-';
@@ -15,11 +19,16 @@ function intToDateTimeStr(int) {
   return newStr;
 }
 
+//convert a date string 2022-06-02
+//to an integer 20220602
 function dateStrToInt(str) {
   str = str.replaceAll('-', '');
   let dateStr = str.slice(0, 8);
   return parseInt(dateStr);
 }
+
+//convert an integer 20220602
+//to a date string '2022-06-02'
 function intToDateStr(int) {
   let str = int.toString();
   let newStr = str.slice(0, 4) + '-';
@@ -27,18 +36,90 @@ function intToDateStr(int) {
   newStr = newStr + str.slice(6, 8);
   return newStr;
 }
+//const start = '2022-06-02';
+//const end = '2022-07-04';
+//console.log('😊😊 tripDates(start,end)', tripDates(start, end));
+//console.log('😊😊 stayDates(start,end)', stayDates(start, end));
 
-function stayDates(start, end) {
-  let startInt = dateStrToInt(start);
-  let endInt = dateStrToInt(end);
+//const testStr = '2022-07-04';
+
+//get a date from a string 2022-06-02
+function dateFromStr(str) {
+  const yStr = str.substring(0, 4);
+  const mStr = str.substring(5, 7);
+  const dStr = str.substring(8, 10);
+  const y = parseInt(yStr);
+  const m = parseInt(mStr) - 1;
+  const d = parseInt(dStr);
+  return new Date(y, m, d);
+}
+
+//convert an integer 20220611
+//to weekday, month day Thursday, June 4
+//used by ItineraryPage to make trip day headers
+function dowMonthDayFromInt(int, length) {
+  let str = intToDateStr(int);
+  let date = dateFromStr(str);
+  return date.toLocaleDateString(undefined, {
+    weekday: length,
+    month: length,
+    day: 'numeric',
+  });
+}
+
+//convert a string '2022-06-11'
+//to weekday, month day Thursday, June 4
+export function dowMonthDayFromStr(str, length) {
+  let date = dateFromStr(str);
+  return date.toLocaleDateString(undefined, {
+    weekday: length,
+    month: length,
+    day: 'numeric',
+  });
+}
+
+//calculate the difference between two dates in days
+const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+
+function dateDiff(start, end) {
+  const dStart = dateFromStr(start);
+  const dEnd = dateFromStr(end);
+  const diff = dEnd.getTime() - dStart.getTime();
+  return diff / MILLISECONDS_IN_DAY;
+}
+
+//converts a date into a date string
+function dateStrFromDate(date) {
+  const year = date.getFullYear().toString();
+  const monthNum = date.getMonth() + 1;
+  let month = monthNum.toString();
+  if (month.length === 1) month = '0' + month;
+  let day = date.getDate().toString();
+  if (day.length === 1) day = '0' + day;
+  return year + '-' + month + '-' + day;
+}
+
+//From two DateTime strings '2022-06-02T11:00'
+//get an array of date strings '2202-06-03' between two dates
+//used by Room to make accordion items for stayDates
+export function stayDates(startStr, endStr) {
+  const startDate = dateFromStr(startStr);
+  const startTime = startDate.getTime();
+  const endDate = dateFromStr(endStr);
+  const endTime = endDate.getTime();
   let dates = [];
-  for (let i = startInt + 1; i < endInt; i++) {
-    dates.push(intToDateStr(i));
+  for (
+    let i = startTime + MILLISECONDS_IN_DAY;
+    i < endTime;
+    i = i + MILLISECONDS_IN_DAY
+  ) {
+    let newDate = new Date(i);
+    dates.push(dateStrFromDate(newDate));
   }
   return dates;
 }
 
-function tripDates(start, end) {
+/* function tripDates(start, end) {
   let startInt = dateStrToInt(start);
   console.log('😊😊 startInt', startInt);
   let endInt = dateStrToInt(end);
@@ -48,101 +129,4 @@ function tripDates(start, end) {
     dates.push(getMonthDayNameFromInt(i));
   }
   return dates;
-}
-const start = '2022-06-02';
-const end = '2022-07-04';
-console.log('😊😊 tripDates(start,end)', tripDates(start, end));
-console.log('😊😊 stayDates(start,end)', stayDates(start, end));
-
-const testStr = '2022-07-04';
-
-function getMonthDayNameFromInt(int) {
-  let str = intToDateStr(int);
-  const yStr = str.substring(0, 4);
-  const mStr = str.substring(5, 7);
-  const dStr = str.substring(8, 10);
-  const y = parseInt(yStr);
-  const m = parseInt(mStr) - 1;
-  const d = parseInt(dStr);
-  const date = new Date(y, m, d);
-  const dayNumber = date.getDay();
-  const monthNumber = date.getMonth();
-  const dayOfWeekName = getDayOfWeekName(dayNumber);
-  const monthName = getMonthName(monthNumber);
-  return dayOfWeekName + ', ' + monthName + ' ' + d;
-}
-
-function getDayOfWeekName(dayNumber) {
-  let dayOfWeek = '';
-  switch (dayNumber) {
-    case 0:
-      dayOfWeek = 'Sunday';
-      break;
-    case 1:
-      dayOfWeek = 'Monday';
-      break;
-    case 2:
-      dayOfWeek = 'Tuesday';
-      break;
-    case 3:
-      dayOfWeek = 'Wednesday';
-      break;
-    case 4:
-      dayOfWeek = 'Thursday';
-      break;
-    case 5:
-      dayOfWeek = 'Friday';
-      break;
-    case 6:
-      dayOfWeek = 'Saturday';
-      break;
-    default:
-      break;
-  }
-  return dayOfWeek;
-}
-
-function getMonthName(monthNumber) {
-  let monthName = '';
-  switch (monthNumber) {
-    case 0:
-      monthName = 'January';
-      break;
-    case 1:
-      monthName = 'February';
-      break;
-    case 2:
-      monthName = 'March';
-      break;
-    case 3:
-      monthName = 'April';
-      break;
-    case 4:
-      monthName = 'May';
-      break;
-    case 5:
-      monthName = 'June';
-      break;
-    case 6:
-      monthName = 'July';
-      break;
-    case 7:
-      monthName = 'August';
-      break;
-    case 8:
-      monthName = 'September';
-      break;
-    case 9:
-      monthName = 'October';
-      break;
-    case 10:
-      monthName = 'November';
-      break;
-    case 11:
-      monthName = 'December';
-      break;
-    default:
-      break;
-  }
-  return monthName;
-}
+} */
