@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
+import { dowMonthDayFromStr } from 'utils';
 
 export default function Activity({ page, data, showModal }) {
   return data?.map((detail, index) => (
@@ -24,7 +25,7 @@ export default function Activity({ page, data, showModal }) {
             <AccordionIcon />
             <Box flex="1" textAlign="left">
               Activities for{' '}
-              {Object.values(detail)[0].replaceAll('T', ' ').substring(5)}
+              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
               {':  '}
               <Textarea
                 cols="60"

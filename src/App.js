@@ -90,18 +90,18 @@ export default function App() {
               element={<EditPage page={'car'} />}
             />
             <Route path="itinerary" element={<ItineraryPage />} />
-            <Route path="note" element={<DetailsPage page="note" />} />
+            <Route path="note" element={<DetailsPage page={'note'} />} />
             <Route path="addnote" element={<AddPage page={'note'} />} />
             <Route
               path="/pages/editnote/:rowIndex"
               element={<EditPage page={'note'} />}
             />
+            <Route path="room" element={<DetailsPage page={'room'} />} />
+            <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
             />
-            <Route path="room" element={<DetailsPage page={'room'} />} />
-            <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route path="travel" element={<DetailsPage page={'travel'} />} />
             <Route path="addtravel" element={<AddPage page={'travel'} />} />
             <Route

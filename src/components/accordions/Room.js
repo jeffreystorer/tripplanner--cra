@@ -29,10 +29,7 @@ export default function Room({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Hotel (check in):{' '}
-              {dowMonthDayFromStr(
-                Object.values(detail)[0].substring(0, 11),
-                'short'
-              )}
+              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
               {'  '}
               {Object.values(detail)[2]}
               {',  '}
@@ -92,14 +89,13 @@ export default function Room({ page, data, showModal }) {
           </VStack>
         </AccordionPanel>
       </AccordionItem>
-      {stayDates.length > 0 &&
-        stayDates(detail.astart, detail.bend).map(date => (
+      {stayDates(detail.astart_Date, detail.bend_Date).length > 0 &&
+        stayDates(detail.astart_Date, detail.bend_Date).map(date => (
           <AccordionItem key={uuidv4()}>
             <h2>
               <AccordionButton id={`heading${index}`}>
                 <Box flex="1" textAlign="left">
-                  Hotel (stay):{' '}
-                  {dowMonthDayFromStr(date.substring(0, 11), 'short')}
+                  Hotel (stay): {dowMonthDayFromStr(date, 'short')}
                   {'  '}
                   {Object.values(detail)[2]}
                 </Box>
@@ -163,10 +159,7 @@ export default function Room({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Hotel: (check out):{' '}
-              {dowMonthDayFromStr(
-                Object.values(detail)[1].substring(0, 11),
-                'short'
-              )}
+              {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
               {'  '}
               {Object.values(detail)[2]}
             </Box>

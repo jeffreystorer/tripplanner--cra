@@ -17,6 +17,7 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { labels } from 'fields';
+import { dowMonthDayFromStr } from 'utils';
 
 export default function Car({ page, data, showModal }) {
   return data?.map((detail, index) => (
@@ -26,7 +27,9 @@ export default function Car({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Rental Car (pick up):{' '}
-              {Object.values(detail)[0].replaceAll('T', ' ').substring(5)}
+              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+              {'  '}
+              {Object.values(detail)[0].substring(11)}
               {'  '}
               {Object.values(detail)[2]}
               {',  '}
@@ -91,7 +94,9 @@ export default function Car({ page, data, showModal }) {
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
               Rental Car (drop off):{' '}
-              {Object.values(detail)[1].replaceAll('T', ' ').substring(5)}
+              {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
+              {'  '}
+              {Object.values(detail)[1].substring(11)}
               {'  '}
               {Object.values(detail)[2]}
               {',  '}

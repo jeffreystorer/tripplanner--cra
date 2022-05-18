@@ -1,6 +1,16 @@
 import { Activity, Car, Note, Room, Travel } from 'components/accordions';
 
 export default function createCCAccordionItems(page, data, showModal) {
+  console.log(
+    '🚀 ~ file: createAccordionItems.js ~ line 4 ~ createCCAccordionItems ~ page',
+    page
+  );
+
+  console.log(
+    '🚀 ~ file: createAccordionItems.js ~ line 4 ~ createCCAccordionItems ~ data',
+    data
+  );
+
   switch (page) {
     case 'activity':
       return <Activity page={page} data={data} showModal={showModal} />;

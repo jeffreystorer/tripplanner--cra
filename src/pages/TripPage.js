@@ -20,6 +20,7 @@ import { Loading } from 'components/common';
 import { ConfirmDeleteTripModal } from 'components/trip';
 import { getTrips, removeAll, removeTrip } from 'services';
 import * as state from 'store';
+import { dowMonthDayFromStr } from 'utils';
 import 'styles/App.css';
 
 export default function TripPage() {
@@ -51,8 +52,8 @@ export default function TripPage() {
         tripsArray.push({
           key: key,
           atrip_Name: value.atrip_Name,
-          bstart_Date: value.bstart_Date.substring(6),
-          cend_Date: value.cend_Date.substring(6),
+          bstart_Date: dowMonthDayFromStr(value.bstart_Date, 'short'),
+          cend_Date: dowMonthDayFromStr(value.cend_Date, 'short'),
           details: value.details,
         });
       }
@@ -67,7 +68,8 @@ export default function TripPage() {
     setCurrentTripIndex(index);
     setCurrentTrip({
       key: item.key,
-      atrip_Name: item.atrip_Name,
+      atrip_Name:
+        item.atrip_Name + ' ' + item.bstart_Date + ' to ' + item.cend_Date,
     });
   }
 
@@ -95,6 +97,7 @@ export default function TripPage() {
   };
 
   if (loading) return <Loading />;
+
   return (
     <>
       <Container>

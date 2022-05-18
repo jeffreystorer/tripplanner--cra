@@ -94,7 +94,7 @@ export function addDetail(userId, tripKey, data, page) {
 }
 
 export function removeDetail(userId, currentTripKey, page, key) {
-  remove(child(dbRef, `/${userId}/${currentTripKey}/details/` + key));
+  remove(child(dbRef, `/${userId}/${currentTripKey}/details/${page}/${key}`));
 }
 
 export function removeTrip(userId, key) {

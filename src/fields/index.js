@@ -15,8 +15,8 @@ export const fields = {
     anotes: '',
   },
   room: {
-    astart: '',
-    bend: '',
+    astart_Date: '',
+    bend_Date: '',
     croom: '',
     ddetails: '',
   },
@@ -60,8 +60,8 @@ export const labels = {
     anotes: 'aNote',
   },
   room: {
-    astart: 'acheck_In',
-    bend: 'dcheck_Out',
+    astart_Date: 'acheck_In',
+    bend_Date: 'dcheck_Out',
   },
   travel: {
     astart: 'adeparture_Date',
