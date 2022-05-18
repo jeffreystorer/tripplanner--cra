@@ -24,28 +24,8 @@ export const currentTripData = atom({
   default: [],
 });
 
-export const activityData = atom({
-  key: 'activityData',
-  default: [],
-});
-
-export const carData = atom({
-  key: 'carData',
-  default: [],
-});
-
-export const noteData = atom({
-  key: 'noteData',
-  default: [],
-});
-
-export const roomData = atom({
-  key: 'roomData',
-  default: [],
-});
-
-export const travelData = atom({
-  key: 'travelData',
+export const detailData = atom({
+  key: 'detailData',
   default: [],
 });
 

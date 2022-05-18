@@ -21,7 +21,7 @@ import {
 } from '@chakra-ui/react';
 import {
   AddPage,
-  DetailsPage,
+  DetailsDataFetchPage,
   EditPage,
   ItineraryPage,
   SignInPage,
@@ -77,32 +77,44 @@ export default function App() {
         <Routes>
           <Route path="/" element={<SignInPage />} />
           <Route path="/pages" element={<Layout />}>
-            <Route path="activity" element={<DetailsPage page="activity" />} />
+            <Route
+              path="activity"
+              element={<DetailsDataFetchPage page="activity" />}
+            />
             <Route path="addactivity" element={<AddPage page={'activity'} />} />
             <Route
               path="/pages/editactivity/:rowIndex"
               element={<EditPage page={'activity'} />}
             />
-            <Route path="car" element={<DetailsPage page={'car'} />} />
+            <Route path="car" element={<DetailsDataFetchPage page={'car'} />} />
             <Route path="addcar" element={<AddPage page={'car'} />} />{' '}
             <Route
               path="/pages/editcar/:rowIndex"
               element={<EditPage page={'car'} />}
             />
             <Route path="itinerary" element={<ItineraryPage />} />
-            <Route path="note" element={<DetailsPage page={'note'} />} />
+            <Route
+              path="note"
+              element={<DetailsDataFetchPage page={'note'} />}
+            />
             <Route path="addnote" element={<AddPage page={'note'} />} />
             <Route
               path="/pages/editnote/:rowIndex"
               element={<EditPage page={'note'} />}
             />
-            <Route path="room" element={<DetailsPage page={'room'} />} />
+            <Route
+              path="room"
+              element={<DetailsDataFetchPage page={'room'} />}
+            />
             <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
             />
-            <Route path="travel" element={<DetailsPage page={'travel'} />} />
+            <Route
+              path="travel"
+              element={<DetailsDataFetchPage page={'travel'} />}
+            />
             <Route path="addtravel" element={<AddPage page={'travel'} />} />
             <Route
               path="/pages/edittravel/:rowIndex"
