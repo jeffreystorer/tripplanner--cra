@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
   Box,
@@ -23,6 +24,7 @@ export default function ItineraryPage() {
   useVisibilityChange({ onShow });
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
+  const currentTripIndex = useRecoilValue(state.currentTripIndex);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [loading, setLoading] = useState(true);
   const [rowIndex, setRowIndex] = useState(null);
@@ -115,16 +117,22 @@ export default function ItineraryPage() {
   }, []);
 
   return (
-    <Box>
-      <Container>
-        <Center>
-          <VStack gap={5}>
-            <Heading>Itinerary for {currentTrip.atrip_Name}</Heading>
-            <Heading>Under Construction</Heading>
-          </VStack>
-        </Center>
-      </Container>
-    </Box>
+    <>
+      {currentTripIndex > -1 ? (
+        <Box>
+          <Container>
+            <Center>
+              <VStack gap={5}>
+                <Heading>Itinerary for {currentTrip.atrip_Name}</Heading>
+                <Heading>Under Construction</Heading>
+              </VStack>
+            </Center>
+          </Container>
+        </Box>
+      ) : (
+        <Navigate to="/pages/trip" />
+      )}
+    </>
   );
 
   /*   const handleDelete = () => {

@@ -46,8 +46,6 @@ export default function TripPage() {
 
   useEffect(() => {
     getTrips(userId).then(data => {
-      console.log('🚀 ~ file: TripPage.js ~ line 48 ~ getTrips ~ data', data);
-
       let tripsArray = [];
       for (const [key, value] of Object.entries(data)) {
         tripsArray.push({
@@ -60,10 +58,6 @@ export default function TripPage() {
       }
       tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
       setData(tripsArray);
-      console.log(
-        '🚀 ~ file: TripPage.js ~ line 61 ~ getTrips ~ tripsArray',
-        tripsArray
-      );
       setLoading(false);
     });
   }, [setData, userId]);
@@ -153,6 +147,9 @@ export default function TripPage() {
                 }
               >
                 Rename Trip
+              </Button>
+              <Button onClick={() => navigate('/pages/addnote')}>
+                Add Note
               </Button>
               <Button onClick={() => navigate('/pages/addactivity')}>
                 Add Activity

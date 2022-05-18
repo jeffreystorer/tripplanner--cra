@@ -89,11 +89,17 @@ export default function App() {
               path="/pages/editcar/:rowIndex"
               element={<EditPage page={'car'} />}
             />
+            <Route path="itinerary" element={<ItineraryPage />} />
+            <Route path="note" element={<DetailsPage page="note" />} />
+            <Route path="addnote" element={<AddPage page={'note'} />} />
+            <Route
+              path="/pages/editnote/:rowIndex"
+              element={<EditPage page={'note'} />}
+            />
             <Route
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
             />
-            <Route path="itinerary" element={<ItineraryPage />} />
             <Route path="room" element={<DetailsPage page={'room'} />} />
             <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route path="travel" element={<DetailsPage page={'travel'} />} />
@@ -122,24 +128,28 @@ function Layout() {
       name: 'Trip',
     },
     {
+      path: '/pages/note',
+      name: 'Trip Notes',
+    },
+    {
       path: '/pages/itinerary',
       name: 'Itinerary',
     },
     {
       path: '/pages/activity',
-      name: 'Activity',
+      name: 'Activities',
     },
     {
       path: '/pages/car',
-      name: 'Car',
+      name: 'Cars',
     },
     {
       path: '/pages/room',
-      name: 'Room',
+      name: 'Rooms',
     },
     {
       path: '/pages/travel',
-      name: 'Travel',
+      name: 'Travels',
     },
   ];
 
@@ -155,6 +165,10 @@ function Layout() {
     {
       path: '/pages/addcar',
       name: 'Add Car',
+    },
+    {
+      path: '/pages/addnote',
+      name: 'Add Note',
     },
     {
       path: '/pages/addroom',

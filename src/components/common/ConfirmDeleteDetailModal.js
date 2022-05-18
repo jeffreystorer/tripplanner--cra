@@ -1,4 +1,4 @@
-//import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Button,
   ChakraProvider,
@@ -19,7 +19,7 @@ export default function ConfirmDeleteModal({
   onClose,
   handleDelete,
 }) {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   let message = 'Are you sure you want to delete this saved trip?';
   if (allTrips) message = 'Are you sure you want to delete all saved trips?';
 
@@ -30,7 +30,7 @@ export default function ConfirmDeleteModal({
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          window.location.reload();
+          navigate('/');
         }}
       >
         <ModalOverlay />
@@ -44,7 +44,7 @@ export default function ConfirmDeleteModal({
                 colorScheme="gray"
                 onClick={() => {
                   onClose();
-                  window.location.reload();
+                  navigate('/');
                 }}
               >
                 Cancel

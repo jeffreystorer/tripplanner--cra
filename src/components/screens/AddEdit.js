@@ -6,9 +6,10 @@ import {
   FormLabel,
   HStack,
   Input,
-  Textarea,
   VStack,
 } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
+import Textarea from 'react-expanding-textarea';
 import { inputType, labels } from 'fields';
 import * as state from 'store';
 
@@ -20,8 +21,6 @@ export default function AddEdit({
   handleChange,
   handleClickCancel,
 }) {
-  console.log('🚀 ~ file: AddEdit.js ~ line 23 ~ data', data);
-
   const currentTrip = useRecoilValue(state.currentTrip);
 
   let header;
@@ -50,19 +49,23 @@ export default function AddEdit({
     if (inputType[keyItem.slice(1)] === 'textarea') {
       return (
         <>
-          <FormLabel htmlFor={keyItem}>{inputLabel}</FormLabel>
+          <FormLabel key={uuidv4()} htmlFor={keyItem}>
+            {inputLabel}
+          </FormLabel>
           <Textarea
+            cols="60"
             name={keyItem}
             value={data[keyItem]}
             onChange={e => handleChange(e)}
-            size="sm"
           />
         </>
       );
     } else {
       return (
         <>
-          <FormLabel htmlFor={keyItem}>{inputLabel}</FormLabel>
+          <FormLabel key={uuidv4()} htmlFor={keyItem}>
+            {inputLabel}
+          </FormLabel>
           <Input
             autoComplete={keyItem}
             name={keyItem}
