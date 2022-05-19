@@ -13,9 +13,9 @@ import { useVisibilityChange } from 'use-visibility-change';
 import { ConfirmDeleteDetailModal, Loading } from 'components/common';
 import { Details } from 'components/screens';
 import { sortFields } from 'fields';
-import { getTrip } from 'services';
+import { getTrip, removeDetail } from 'services';
 import * as state from 'store';
-import { createAccordionItems } from 'utils';
+import { createItineraryItems, tripDates } from 'utils';
 
 export default function ItineraryPage() {
   const onShow = () => {
@@ -30,7 +30,7 @@ export default function ItineraryPage() {
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
-  const [data, setData] = useRecoilState(state.detailData);
+  const [data, setData] = useRecoilState(state.itineraryData);
   const userId = useRecoilValue(state.userId);
   /*  const sortField = sortFields[page];
    const first = sortField.first;
@@ -38,11 +38,11 @@ export default function ItineraryPage() {
 
   useEffect(() => {
     getTrip(userId, currentTripKey).then(data => {
-      //let dateArray = [];
-      const startDate = data.bstart_Date;
-      const start = new Date(startDate);
-      const endDate = data.cend_Date;
-      const end = new Date(endDate);
+      let dateArray = tripDates(data.bstart_Date, data.cend_Date);
+      console.log(
+        '🚀 ~ file: ItineraryPage.js ~ line 42 ~ getTrip ~ dateArray',
+        dateArray
+      );
       let activityArray = [];
       for (const [key, value] of Object.entries(data.details.activity)) {
         let detailObject = value;
@@ -65,6 +65,18 @@ export default function ItineraryPage() {
       console.log(
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ carArray',
         carArray
+      );
+
+      let noteArray = [];
+      for (const [key, value] of Object.entries(data.details.note)) {
+        let detailObject = value;
+        detailObject.key = key;
+        detailObject.type = 'note';
+        carArray.push(detailObject);
+      }
+      console.log(
+        '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ noteArray',
+        noteArray
       );
 
       let roomArray = [];
@@ -90,28 +102,19 @@ export default function ItineraryPage() {
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ travelArray',
         travelArray
       );
-
-      /* let detailsArray = [];
-      for (const [key, value] of Object.entries(data)) {
-        let detailObject = value;
-        detailObject.key = key;
-        detailsArray.push(detailObject);
-      }
-      const sortedDetails = detailsArray.sort((a, b) => {
-        const result = a[first].localeCompare(b[first]);
-        return result !== 0 ? result : a[second].localeCompare(b[second]);
-      });
-      setData(sortedDetails);
-      console.log(
-        '🚀 ~ file: DetailsPage.js ~ line 43 ~ getDetails ~ sortedDetails',
-        sortedDetails
-      );
-
-      setLoading(false); */
+      setData([
+        [dateArray],
+        [activityArray],
+        [carArray],
+        [noteArray],
+        [roomArray],
+        [travelArray],
+      ]);
+      setLoading(false);
     });
-  }, []);
+  }, [currentTripKey, setData, userId]);
 
-  return (
+  /* return (
     <>
       {currentTripIndex > -1 ? (
         <Box>
@@ -128,9 +131,9 @@ export default function ItineraryPage() {
         <Navigate to="/pages/trip" />
       )}
     </>
-  );
+  ); */
 
-  /*   const handleDelete = () => {
+  const handleDelete = () => {
     try {
       removeDetail(userId, currentTripKey, page, currentKey);
       const updatedData = data.filter((_, i) => i !== rowIndex);
@@ -149,7 +152,7 @@ export default function ItineraryPage() {
 
   if (loading) return <Loading />;
 
-  const items = createAccordionItems(page, data, showModal);
+  const items = createItineraryItems(data, showModal);
 
   return (
     <>
@@ -165,5 +168,4 @@ export default function ItineraryPage() {
       />
     </>
   );
-*/
 }

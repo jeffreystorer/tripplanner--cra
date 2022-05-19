@@ -29,6 +29,11 @@ export const detailData = atom({
   default: [],
 });
 
+export const itineraryData = atom({
+  key: 'itineraryData',
+  default: [],
+});
+
 export const userId = atom({
   key: 'userId',
   default: null,

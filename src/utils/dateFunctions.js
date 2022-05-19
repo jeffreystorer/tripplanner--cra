@@ -119,14 +119,15 @@ export function stayDates(startStr, endStr) {
   return dates;
 }
 
-/* function tripDates(start, end) {
-  let startInt = dateStrToInt(start);
-  console.log('😊😊 startInt', startInt);
-  let endInt = dateStrToInt(end);
-  console.log('😊😊 endInt', endInt);
+export function tripDates(startStr, endStr) {
+  const startDate = dateFromStr(startStr);
+  const startTime = startDate.getTime();
+  const endDate = dateFromStr(endStr);
+  const endTime = endDate.getTime();
   let dates = [];
-  for (let i = startInt; i < endInt; i++) {
-    dates.push(getMonthDayNameFromInt(i));
+  for (let i = startTime; i <= endTime; i = i + MILLISECONDS_IN_DAY) {
+    let newDate = new Date(i);
+    dates.push(dateStrFromDate(newDate));
   }
   return dates;
-} */
+}
