@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useDisclosure } from '@chakra-ui/react';
 import { useVisibilityChange } from 'use-visibility-change';
 import { ConfirmDeleteDetailModal } from 'components/common';
@@ -11,14 +11,6 @@ import { createAccordionItems } from 'utils';
 
 export default function DetailsPage({ snapshots, page }) {
   console.log('🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ page', page);
-  console.log(
-    '🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ snapshots',
-    snapshots
-  );
-  console.log(
-    '🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ snapshots[0].val()',
-    snapshots[0].val()
-  );
   const onShow = () => {
     setAccordionKey(accordionKey + 1);
   };
@@ -27,8 +19,7 @@ export default function DetailsPage({ snapshots, page }) {
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [data, setData] = useState([]);
-  console.log('🚀 ~ file: DetailsPage.js ~ line 22 ~ DetailsPage ~ data', data);
+  const [data, setData] = useRecoilState(state.detailData);
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
@@ -43,11 +34,6 @@ export default function DetailsPage({ snapshots, page }) {
     });
 
     if (detailsArray.length > 0) {
-      console.log(
-        '🚀 ~ file: DetailsPage.js ~ line 36 ~ useEffect ~  sorting detailsArray',
-        detailsArray
-      );
-
       switch (page) {
         case 'activity':
           detailsArray.sort(function (a, b) {
@@ -109,9 +95,6 @@ export default function DetailsPage({ snapshots, page }) {
     onOpen();
   };
   const items = createAccordionItems(page, data, showModal);
-
-  console.log('🚀 ~ file: DetailsPage.js ~ line 82 ~ DetailsPage ~ page', page);
-  console.log('🚀 ~ file: DetailsPage.js ~ line 82 ~ DetailsPage ~ data', data);
 
   return (
     <>

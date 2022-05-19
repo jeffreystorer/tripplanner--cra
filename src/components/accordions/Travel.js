@@ -1,4 +1,5 @@
 import { Link as ReactLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import {
   AccordionItem,
   AccordionButton,
@@ -17,9 +18,16 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { labels } from 'fields';
+import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Travel({ page, data, showModal }) {
+  const detailData = useRecoilValue(state.detailData);
+  console.log(
+    '🚀 ~ file: Travel.js ~ line 25 ~ Travel ~ detailData',
+    detailData
+  );
+
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>

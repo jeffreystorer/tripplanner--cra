@@ -15,7 +15,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   HStack,
   extendTheme,
 } from '@chakra-ui/react';
@@ -114,7 +113,7 @@ export default function App() {
             <Route path="trip" element={<TripPage />} />
             <Route path="addtrip" element={<AddPage page={'trip'} />} />
             <Route
-              path="/pages/renametrip/:rowIndex"
+              path="/pages/edittrip/:rowIndex"
               element={<EditPage page={'trip'} />}
             />
           </Route>
@@ -131,55 +130,8 @@ function Layout() {
       name: 'Trip',
     },
     {
-      path: '/pages/note',
-      name: 'Trip Notes',
-    },
-    {
       path: '/pages/itinerary',
       name: 'Itinerary',
-    },
-    {
-      path: '/pages/activity',
-      name: 'Activities',
-    },
-    {
-      path: '/pages/car',
-      name: 'Cars',
-    },
-    {
-      path: '/pages/room',
-      name: 'Rooms',
-    },
-    {
-      path: '/pages/travel',
-      name: 'Travels',
-    },
-  ];
-
-  const actions1 = [
-    {
-      path: '/pages/addtrip',
-      name: 'Add Trip',
-    },
-    {
-      path: '/pages/addactivity',
-      name: 'Add Activity',
-    },
-    {
-      path: '/pages/addcar',
-      name: 'Add Car',
-    },
-    {
-      path: '/pages/addnote',
-      name: 'Add Note',
-    },
-    {
-      path: '/pages/addroom',
-      name: 'Add Room',
-    },
-    {
-      path: '/pages/addtravel',
-      name: 'Add Travel',
     },
   ];
 
@@ -223,14 +175,6 @@ function Layout() {
 
   const navBarItems = pages.map(item => {
     return <LinkItem key={uuidv4()} item={item} />;
-  });
-
-  const menuItems1 = actions1.map(item => {
-    return (
-      <MenuItem key={uuidv4()}>
-        <LinkItem key={uuidv4()} item={item} />
-      </MenuItem>
-    );
   });
 
   const menuItems2 = actions2.map(item => {
@@ -290,11 +234,7 @@ function Layout() {
               More
               <ChevronDownIcon key={uuidv4()} />
             </MenuButton>
-            <MenuList key={uuidv4()}>
-              {menuItems1}
-              <MenuDivider key={uuidv4()} />
-              {menuItems2}
-            </MenuList>
+            <MenuList key={uuidv4()}>{menuItems2}</MenuList>
           </Menu>
         </HStack>
         <Outlet />

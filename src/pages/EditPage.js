@@ -4,7 +4,6 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import * as _ from 'lodash';
 import { Loading } from 'components/common';
 import { AddEdit } from 'components/screens';
-import { fields } from 'fields';
 import { updateDetail, updateTrip } from 'services';
 import * as state from 'store';
 import 'styles/App.css';
@@ -12,11 +11,14 @@ import 'styles/App.css';
 export default function EditPage({ page }) {
   const navigate = useNavigate();
   const { rowIndex } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(fields[page]);
-  console.log('🚀 ~ file: EditPage.js ~ line 12 ~ EditPage ~ data', data);
   const detailData = useRecoilValue(state.detailData);
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState();
   const tripData = useRecoilValue(state.tripData);
+  console.log(
+    '🚀 ~ file: EditPage.js ~ line 18 ~ EditPage ~ tripData',
+    tripData
+  );
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);

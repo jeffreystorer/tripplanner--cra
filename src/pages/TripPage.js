@@ -10,10 +10,13 @@ import {
   Button,
   Container,
   HStack,
+  IconButton,
   Link,
   VStack,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
+import { AddIcon } from '@chakra-ui/icons';
 //import { useVisibilityChange } from 'use-visibility-change';
 import { Loading } from 'components/common';
 //TODO: try bootstrap modal or write a custom one?
@@ -52,8 +55,8 @@ export default function TripPage() {
         tripsArray.push({
           key: key,
           atrip_Name: value.atrip_Name,
-          bstart_Date: dowMonthDayFromStr(value.bstart_Date, 'short'),
-          cend_Date: dowMonthDayFromStr(value.cend_Date, 'short'),
+          bstart_Date: value.bstart_Date,
+          cend_Date: value.cend_Date,
           details: value.details,
         });
       }
@@ -104,9 +107,17 @@ export default function TripPage() {
         <VStack gap={1}>
           {data.length > 0 && (
             <>
-              <span className="paragraph--center">
-                Click on a trip to edit or delete
-              </span>
+              <HStack gap={0}>
+                {data.length === 0 ? (
+                  <Text>Add a trip</Text>
+                ) : (
+                  <Text>Click on a trip below or add a trip</Text>
+                )}
+                <IconButton
+                  onClick={() => navigate(`/pages/addtrip`)}
+                  icon={<AddIcon />}
+                />
+              </HStack>
               <ul className="list--text-align-left">
                 {data.length > 0 &&
                   data.map((item, index) => (
@@ -117,24 +128,29 @@ export default function TripPage() {
                       onClick={() => handleClick(item, index)}
                       key={index}
                     >
-                      {item.atrip_Name} {item.bstart_Date}
+                      {item.atrip_Name}{' '}
+                      {dowMonthDayFromStr(item.bstart_Date, 'short')}
                       {' to '}
-                      {item.cend_Date}
+                      {dowMonthDayFromStr(item.cend_Date, 'short')}
                     </li>
                   ))}
               </ul>
             </>
           )}
           <HStack gap={3}>
-            <Button>
-              <Link as={ReactLink} to="/pages/addtrip">
-                Add a Trip
-              </Link>
-            </Button>
             {currentTripIndex > -1 && (
-              <Button onClick={handleShowConfirmDeleteCurrentModal}>
-                Delete Trip
-              </Button>
+              <>
+                <Button
+                  onClick={() =>
+                    navigate(`/pages/edittrip/${currentTripIndex}`)
+                  }
+                >
+                  Edit Trip
+                </Button>
+                <Button onClick={handleShowConfirmDeleteCurrentModal}>
+                  Delete Trip
+                </Button>
+              </>
             )}
             {data.length > 0 && (
               <Button onClick={handleShowConfirmDeleteAllModal}>
@@ -143,14 +159,28 @@ export default function TripPage() {
             )}
           </HStack>
           {currentTripIndex > -1 && (
+            <>
+              <HStack gap={3}>
+                <Link as={ReactLink} to={'/pages/note'}>
+                  <Button colorScheme="gray">Trip Notes</Button>
+                </Link>
+                <Link as={ReactLink} to={'/pages/activity'}>
+                  <Button colorScheme="gray">Activities</Button>
+                </Link>
+                <Link as={ReactLink} to={'/pages/car'}>
+                  <Button colorScheme="gray">Cars</Button>
+                </Link>
+                <Link as={ReactLink} to={'/pages/room'}>
+                  <Button colorScheme="gray">Rooms</Button>
+                </Link>
+                <Link as={ReactLink} to={'/pages/travel'}>
+                  <Button colorScheme="gray">Travels</Button>
+                </Link>
+              </HStack>
+            </>
+          )}
+          {/*  {currentTripIndex > -1 && (
             <VStack>
-              <Button
-                onClick={() =>
-                  navigate(`/pages/renametrip/${currentTripIndex}`)
-                }
-              >
-                Rename Trip
-              </Button>
               <Button onClick={() => navigate('/pages/addnote')}>
                 Add Note
               </Button>
@@ -165,7 +195,7 @@ export default function TripPage() {
                 Add Travel
               </Button>
             </VStack>
-          )}
+          )} */}
         </VStack>
         <ConfirmDeleteTripModal
           allTrips={allTrips}

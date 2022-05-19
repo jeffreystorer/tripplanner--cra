@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { AddEdit } from 'components/screens';
 import { fields } from 'fields';
 import { addDetail, addTrip } from 'services';
@@ -12,6 +12,7 @@ export default function AddPage({ page }) {
   const [data, setData] = useState(fields[page]);
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
+  const resetCurrentTripIndex = useResetRecoilState(state.currentTripIndex);
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -23,6 +24,7 @@ export default function AddPage({ page }) {
       switch (page) {
         case 'trip':
           addTrip(userId, data);
+          resetCurrentTripIndex();
           break;
         default:
           addDetail(userId, currentTripKey, data, page);

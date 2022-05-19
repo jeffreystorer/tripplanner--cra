@@ -38,25 +38,17 @@ export default function ItineraryPage() {
 
   useEffect(() => {
     getTrip(userId, currentTripKey).then(data => {
-      console.log(
-        '🚀 ~ file: ItineraryPage.js ~ line 39 ~ getTrip ~ data',
-        data
-      );
       //let dateArray = [];
       const startDate = data.bstart_Date;
       const start = new Date(startDate);
-      console.log(
-        '🚀 ~ file: ItineraryPage.js ~ line 46 ~ getTrip ~ start',
-        start
-      );
       const endDate = data.cend_Date;
       const end = new Date(endDate);
-      console.log('🚀 ~ file: ItineraryPage.js ~ line 49 ~ getTrip ~ end', end);
       let activityArray = [];
       for (const [key, value] of Object.entries(data.details.activity)) {
-        let activityObject = value;
-        activityObject.key = key;
-        activityArray.push(activityObject);
+        let detailObject = value;
+        detailObject.key = key;
+        detailObject.type = 'activity';
+        activityArray.push(detailObject);
       }
       console.log(
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ activityArray',
@@ -65,9 +57,10 @@ export default function ItineraryPage() {
 
       let carArray = [];
       for (const [key, value] of Object.entries(data.details.car)) {
-        let carObject = value;
-        carObject.key = key;
-        carArray.push(carObject);
+        let detailObject = value;
+        detailObject.key = key;
+        detailObject.type = 'car';
+        carArray.push(detailObject);
       }
       console.log(
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ carArray',
@@ -76,9 +69,10 @@ export default function ItineraryPage() {
 
       let roomArray = [];
       for (const [key, value] of Object.entries(data.details.room)) {
-        let roomObject = value;
-        roomObject.key = key;
-        roomArray.push(roomObject);
+        let detailObject = value;
+        detailObject.key = key;
+        detailObject.type = 'room';
+        roomArray.push(detailObject);
       }
       console.log(
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ roomArray',
@@ -87,9 +81,10 @@ export default function ItineraryPage() {
 
       let travelArray = [];
       for (const [key, value] of Object.entries(data.details.travel)) {
-        let travelObject = value;
-        travelObject.key = key;
-        travelArray.push(travelObject);
+        let detailObject = value;
+        detailObject.key = key;
+        detailObject.type = 'travel';
+        travelArray.push(detailObject);
       }
       console.log(
         '🚀 ~ file: ItineraryPage.js ~ line 44 ~ getTrip ~ travelArray',

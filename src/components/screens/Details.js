@@ -16,6 +16,13 @@ export default function Details({
   page,
 }) {
   const navigate = useNavigate();
+  const labels = {
+    activity: 'Activities',
+    car: 'Cars',
+    note: 'Trip Notes',
+    room: 'Rooms',
+    travel: 'Travels',
+  };
   return (
     <>
       <br />
@@ -28,7 +35,11 @@ export default function Details({
         <VStack gap={1}>
           <h2 className="text-center">
             <HStack gap={5}>
-              <Text>{currentTripName}</Text>
+              <Text>
+                {labels[page]}
+                {' for '}
+                {currentTripName}
+              </Text>
               <IconButton
                 onClick={() => navigate(`/pages/add${page}`)}
                 icon={<AddIcon />}
