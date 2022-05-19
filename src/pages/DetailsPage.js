@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import { useDisclosure } from '@chakra-ui/react';
 import { useVisibilityChange } from 'use-visibility-change';
 import { ConfirmDeleteDetailModal } from 'components/common';
@@ -10,6 +10,15 @@ import * as state from 'store';
 import { createAccordionItems } from 'utils';
 
 export default function DetailsPage({ snapshots, page }) {
+  console.log('🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ page', page);
+  console.log(
+    '🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ snapshots',
+    snapshots
+  );
+  console.log(
+    '🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ snapshots[0].val()',
+    snapshots[0].val()
+  );
   const onShow = () => {
     setAccordionKey(accordionKey + 1);
   };
@@ -17,12 +26,12 @@ export default function DetailsPage({ snapshots, page }) {
   const navigate = useNavigate();
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
-  const currentTripIndex = useRecoilValue(state.currentTripIndex);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [data, setData] = useState([]);
+  console.log('🚀 ~ file: DetailsPage.js ~ line 22 ~ DetailsPage ~ data', data);
   const [rowIndex, setRowIndex] = useState(null);
   const [currentKey, setCurrentKey] = useState(null);
   const [accordionKey, setAccordionKey] = useState(12345);
-  const [data, setData] = useRecoilState(state.detailData);
   const userId = useRecoilValue(state.userId);
 
   useEffect(() => {
@@ -32,37 +41,54 @@ export default function DetailsPage({ snapshots, page }) {
       detailObject.key = snapshot.key;
       detailsArray.push(detailObject);
     });
-    let sortedDetails = detailsArray;
-    if (sortedDetails.length > 0) {
-    switch (page) {
-      case 'activity':
-        sortedDetails = detailsArray.sort((a,b) => (a.astart_Date > b.astart_Date) ? 1 : ((b.astart_Date > a.astart_Date) ? -1 : 0));
-        break;
-      case 'car':
-        sortedDetails = detailsArray.sort((a, b) => {
-          const result = a.astart.localeCompare(b.astart);
-          return result !== 0 ? result : a.bend.localeCompare(b.bend);
-        });
-        break;
-      case 'note':
-        break;
-      case 'room':
-        sortedDetails = detailsArray.sort((a, b) => {
-          const result = a.astart_Date.localeCompare(b.astart_Date);
-          return result !== 0 ? result : a.bend_Date.localeCompare(b.bend_Date);
-        });
-        break;
-      case 'travel':
-        sortedDetails = detailsArray.sort((a, b) => {
-          const result = a.astart.localeCompare(b.astart);
-          return result !== 0 ? result : a.bend.localeCompare(b.bend);
-        });
-        break;
-      default:
-        break;
+
+    if (detailsArray.length > 0) {
+      console.log(
+        '🚀 ~ file: DetailsPage.js ~ line 36 ~ useEffect ~  sorting detailsArray',
+        detailsArray
+      );
+
+      switch (page) {
+        case 'activity':
+          detailsArray.sort(function (a, b) {
+            let x = a.astart_Date.toLowerCase();
+            let y = b.astart_Date.toLowerCase();
+            if (x < y) {
+              return -1;
+            }
+            if (x > y) {
+              return 1;
+            }
+            return 0;
+          });
+          break;
+        case 'car':
+          detailsArray.sort((a, b) => {
+            const result = a.astart.localeCompare(b.astart);
+            return result !== 0 ? result : a.bend.localeCompare(b.bend);
+          });
+          break;
+        case 'note':
+          break;
+        case 'room':
+          detailsArray.sort((a, b) => {
+            const result = a.astart_Date.localeCompare(b.astart_Date);
+            return result !== 0
+              ? result
+              : a.bend_Date.localeCompare(b.bend_Date);
+          });
+          break;
+        case 'travel':
+          detailsArray.sort((a, b) => {
+            const result = a.astart.localeCompare(b.astart);
+            return result !== 0 ? result : a.bend.localeCompare(b.bend);
+          });
+          break;
+        default:
+          break;
+      }
     }
-    setData(sortedDetails)
-  }    
+    setData(detailsArray);
   }, [page, setData, snapshots]);
 
   const handleDelete = () => {
@@ -89,23 +115,17 @@ export default function DetailsPage({ snapshots, page }) {
 
   return (
     <>
-      {currentTripIndex > -1 ? (
-        <>
-          <ConfirmDeleteDetailModal
-            isOpen={isOpen}
-            onClose={onClose}
-            handleDelete={handleDelete}
-          />
-          <Details
-            page={page}
-            items={items}
-            accordionKey={accordionKey}
-            currentTripName={currentTrip.atrip_Name}
-          />
-        </>
-      ) : (
-        <Navigate to="/pages/trip" />
-      )}
+      <ConfirmDeleteDetailModal
+        isOpen={isOpen}
+        onClose={onClose}
+        handleDelete={handleDelete}
+      />
+      <Details
+        page={page}
+        items={items}
+        accordionKey={accordionKey}
+        currentTripName={currentTrip.atrip_Name}
+      />
     </>
   );
 }
