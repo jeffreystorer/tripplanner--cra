@@ -1,5 +1,5 @@
-import { Td, Tr } from '@chakra-ui/react';
-import Textarea from 'react-expanding-textarea';
+import { Td, Textarea, Tr } from '@chakra-ui/react';
+//import Textarea from 'react-expanding-textarea';
 import { dowMonthDayFromStr, stayDates } from 'utils';
 
 export default function createItineraryItems(data) {
@@ -25,7 +25,8 @@ export default function createItineraryItems(data) {
     items.push(
       <Tr>
         <Td>
-          <Textarea cols={COLS} readOnly="true" value={item.anote} />
+          <Textarea value={item.anote} />
+          {/* <Textarea cols={COLS} readOnly="true" value={item.anote} /> */}
         </Td>
       </Tr>
     );
@@ -62,8 +63,15 @@ export default function createItineraryItems(data) {
   function pushActivity(item) {
     items.push(
       <Tr>
-        <Td>
-          <Textarea cols={COLS} readOnly="true" value={item.bdetails} />
+        <Td style={{ wordBreak: 'break-all' }}>
+          {item.bdetails}
+          {/*
+          <Textarea
+            cols={COLS}
+            readOnly="true"
+            value={item.bdetails}
+            size="lg"
+          /> */}
         </Td>
       </Tr>
     );
