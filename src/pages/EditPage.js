@@ -15,10 +15,6 @@ export default function EditPage({ page }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const tripData = useRecoilValue(state.tripData);
-  console.log(
-    '🚀 ~ file: EditPage.js ~ line 18 ~ EditPage ~ tripData',
-    tripData
-  );
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
@@ -42,7 +38,6 @@ export default function EditPage({ page }) {
   };
   const handleSubmit = async e => {
     e.preventDefault();
-    console.log('😊😊 data', data);
     try {
       switch (page) {
         case 'trip':

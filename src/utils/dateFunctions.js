@@ -1,13 +1,13 @@
-//convert a date, time string '2022-06-02T11:00'
+/* //convert a date, time string '2022-06-02T11:00'
 //to an integer 202206021100
 function dateTimeStrToInt(str) {
   str = str.replaceAll('-', '');
   str = str.replaceAll('T', '');
   str = str.replaceAll(':', '');
   return parseInt(str);
-}
+} */
 
-//convert an integer 202206021100
+/* //convert an integer 202206021100
 //to a date, time string '2022-06-02T11:00'
 function intToDateTimeStr(int) {
   let str = int.toString();
@@ -17,17 +17,17 @@ function intToDateTimeStr(int) {
   newStr = newStr + str.slice(8, 10) + ':';
   newStr = newStr + str.slice(10);
   return newStr;
-}
+} */
 
-//convert a date string 2022-06-02
+/* //convert a date string 2022-06-02
 //to an integer 20220602
 function dateStrToInt(str) {
   str = str.replaceAll('-', '');
   let dateStr = str.slice(0, 8);
   return parseInt(dateStr);
-}
+} */
 
-//convert an integer 20220602
+/* //convert an integer 20220602
 //to a date string '2022-06-02'
 function intToDateStr(int) {
   let str = int.toString();
@@ -35,13 +35,7 @@ function intToDateStr(int) {
   newStr = newStr + str.slice(4, 6) + '-';
   newStr = newStr + str.slice(6, 8);
   return newStr;
-}
-//const start = '2022-06-02';
-//const end = '2022-07-04';
-//console.log('😊😊 tripDates(start,end)', tripDates(start, end));
-//console.log('😊😊 stayDates(start,end)', stayDates(start, end));
-
-//const testStr = '2022-07-04';
+} */
 
 //get a date from a string 2022-06-02
 function dateFromStr(str) {
@@ -54,7 +48,7 @@ function dateFromStr(str) {
   return new Date(y, m, d);
 }
 
-//convert an integer 20220611
+/* //convert an integer 20220611
 //to weekday, month day Thursday, June 4
 //used by ItineraryPage to make trip day headers
 function dowMonthDayFromInt(int, length) {
@@ -65,7 +59,7 @@ function dowMonthDayFromInt(int, length) {
     month: length,
     day: 'numeric',
   });
-}
+} */
 
 //convert a string '2022-06-11'
 //to weekday, month day Thursday, June 4
@@ -77,16 +71,16 @@ export function dowMonthDayFromStr(str, length) {
     day: 'numeric',
   });
 }
-
-//calculate the difference between two dates in days
 const MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
+
+/* //calculate the difference between two dates in days
 
 function dateDiff(start, end) {
   const dStart = dateFromStr(start);
   const dEnd = dateFromStr(end);
   const diff = dEnd.getTime() - dStart.getTime();
   return diff / MILLISECONDS_IN_DAY;
-}
+} */
 
 //converts a date into a date string
 function dateStrFromDate(date) {

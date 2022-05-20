@@ -72,7 +72,11 @@ export default function TripPage() {
     setCurrentTrip({
       key: item.key,
       atrip_Name:
-        item.atrip_Name + ' ' + item.bstart_Date + ' to ' + item.cend_Date,
+        item.atrip_Name +
+        ' ' +
+        dowMonthDayFromStr(item.bstart_Date, 'long') +
+        ' to ' +
+        dowMonthDayFromStr(item.cend_Date, 'long'),
     });
   }
 

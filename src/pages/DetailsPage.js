@@ -10,7 +10,6 @@ import * as state from 'store';
 import { createAccordionItems } from 'utils';
 
 export default function DetailsPage({ snapshots, page }) {
-  console.log('🚀 ~ file: DetailsPage.js ~ line 13 ~ DetailsPage ~ page', page);
   const onShow = () => {
     setAccordionKey(accordionKey + 1);
   };

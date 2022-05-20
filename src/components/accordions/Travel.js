@@ -22,12 +22,6 @@ import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Travel({ page, data, showModal }) {
-  const detailData = useRecoilValue(state.detailData);
-  console.log(
-    '🚀 ~ file: Travel.js ~ line 25 ~ Travel ~ detailData',
-    detailData
-  );
-
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>

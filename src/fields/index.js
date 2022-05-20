@@ -12,7 +12,7 @@ export const fields = {
     fdrop_Off_Location: '',
   },
   note: {
-    anotes: '',
+    anote: '',
   },
   room: {
     astart_Date: '',
@@ -40,7 +40,7 @@ export const inputType = {
   drop_Off_Location: 'textarea',
   end: 'datetime-local',
   end_Date: 'date',
-  notes: 'textarea',
+  note: 'textarea',
   pick_Up_Location: 'textarea',
   room: 'text',
   start: 'datetime-local',
@@ -57,7 +57,7 @@ export const labels = {
     bend: 'edrop_Off_Date',
   },
   note: {
-    anotes: 'aNote',
+    anote: 'aNote',
   },
   room: {
     astart_Date: 'acheck_In',

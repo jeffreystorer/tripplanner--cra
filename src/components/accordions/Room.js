@@ -21,14 +21,12 @@ import { dowMonthDayFromStr, stayDates } from 'utils';
 
 export default function Room({ page, data, showModal }) {
   function stayItems(detail, index) {
-    console.log('🚀 ~ file: Room.js ~ line 24 ~ stayItems ~ detail', detail);
     let stays = 0;
     if (
       detail.hasOwnProperty('astart_Date') &&
       detail.hasOwnProperty('bend_Date')
     ) {
       stays = stayDates(detail.astart_Date, detail.bend_Date).length;
-      console.log('🚀 ~ file: Room.js ~ line 32 ~ stayItems ~ stays', stays);
     }
     if (stays > 0) {
       return stayDates(detail.astart_Date, detail.bend_Date).map(date => (
