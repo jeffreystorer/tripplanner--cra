@@ -4,7 +4,7 @@ import { Loading } from 'components/common';
 import { Itinerary } from 'components/screens';
 import { getTrip } from 'services';
 import * as state from 'store';
-import { createItineraryItems, tripDates } from 'utils';
+import { createItineraryItems, stayDates, tripDates } from 'utils';
 
 export default function ItineraryPage() {
   const currentTrip = useRecoilValue(state.currentTrip);
@@ -47,6 +47,10 @@ export default function ItineraryPage() {
         let detailObject = value;
         detailObject.key = key;
         detailObject.type = 'room';
+        detailObject.fstay_Dates = stayDates(
+          detailObject.astart_Date,
+          detailObject.bend_Date
+        );
         roomArray.push(detailObject);
       }
       //travels
@@ -55,6 +59,16 @@ export default function ItineraryPage() {
         let detailObject = value;
         detailObject.key = key;
         detailObject.type = 'travel';
+        detailObject.dovernight_Arrival_Date = '';
+        if (
+          detailObject.astart.substring(0, 10) !==
+          detailObject.bend.substring(0, 10)
+        ) {
+          detailObject.dovernight_Arrival_Date = detailObject.bend.substring(
+            0,
+            10
+          );
+        }
         travelArray.push(detailObject);
       }
       //set data

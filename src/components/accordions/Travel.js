@@ -1,5 +1,4 @@
 import { Link as ReactLink } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import {
   AccordionItem,
   AccordionButton,
@@ -18,7 +17,6 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import { labels } from 'fields';
-import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Travel({ page, data, showModal }) {

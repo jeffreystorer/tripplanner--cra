@@ -7,12 +7,19 @@ import {
 } from '@chakra-ui/react';
 
 export default function Itinerary({ items, currentTripName }) {
+  const FONT_SIZE = '1.2rem';
   return (
     <>
-      <Container maxW="100%" centerContent>
+      <Container minWidth="100vw" centerContent>
         <TableContainer>
-          <Table size="lg">
-            <TableCaption placement="top">{currentTripName}</TableCaption>
+          <Table fontSize={FONT_SIZE}>
+            <TableCaption
+              fontSize={FONT_SIZE}
+              fontWeight="bold"
+              placement="top"
+            >
+              {currentTripName}
+            </TableCaption>
             <Tbody>{items}</Tbody>
           </Table>
         </TableContainer>

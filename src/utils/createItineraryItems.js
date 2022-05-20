@@ -1,9 +1,10 @@
-import { Td, Textarea, Tr } from '@chakra-ui/react';
-//import Textarea from 'react-expanding-textarea';
-import { dowMonthDayFromStr, stayDates } from 'utils';
+import { Td, Tr } from '@chakra-ui/react';
+import Textarea from 'react-expanding-textarea';
+import { dowMonthDayFromStr } from 'utils';
 
 export default function createItineraryItems(data) {
-  const COLS = '100';
+  const COLS = '75';
+  const LINE_HEIGHT = '1.2';
   const dates = data.dates;
   const activities = data.activities;
   const cars = data.cars;
@@ -25,8 +26,12 @@ export default function createItineraryItems(data) {
     items.push(
       <Tr>
         <Td>
-          <Textarea value={item.anote} />
-          {/* <Textarea cols={COLS} readOnly="true" value={item.anote} /> */}
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={item.anote}
+          />
         </Td>
       </Tr>
     );
@@ -36,6 +41,7 @@ export default function createItineraryItems(data) {
 
   function pushDateGroup(item) {
     pushDate(item);
+    pushTravelsOvernight(item);
     pushRoomsCheckOut(item);
     pushCarsDropOff(item);
     pushTravels(item);
@@ -63,15 +69,13 @@ export default function createItineraryItems(data) {
   function pushActivity(item) {
     items.push(
       <Tr>
-        <Td style={{ wordBreak: 'break-all' }}>
-          {item.bdetails}
-          {/*
+        <Td>
           <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
             readOnly="true"
             value={item.bdetails}
-            size="lg"
-          /> */}
+          />
         </Td>
       </Tr>
     );
@@ -89,6 +93,7 @@ export default function createItineraryItems(data) {
       <Tr>
         <Td>
           <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
             readOnly="true"
             value={`Drop Off Car: ${item.bend.substring(11)} ${item.cagency}, ${
@@ -112,6 +117,7 @@ export default function createItineraryItems(data) {
       <Tr>
         <Td>
           <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
             readOnly="true"
             value={`Pick Up Car: ${item.astart.substring(11)} ${
@@ -131,17 +137,51 @@ export default function createItineraryItems(data) {
   }
 
   function pushTravel(item) {
+    let arrDate = '';
+    if (
+      dowMonthDayFromStr(item.astart, 'short') !==
+      dowMonthDayFromStr(item.bend, 'short')
+    ) {
+      arrDate = dowMonthDayFromStr(item.bend, 'short') + ' ';
+    }
     items.push(
       <Tr>
         <Td>
-          {item.astart.substring(11)}
-          {' -> '}
-          {dowMonthDayFromStr(item.astart, 'short') !==
-            dowMonthDayFromStr(item.bend, 'short') &&
-            dowMonthDayFromStr(item.bend, 'short') + '  '}
-          {item.bend.substring(11)}
-          {'  '}
-          {item.cdetails}
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={`${item.astart.substring(
+              11
+            )} -> ${arrDate}${item.bend.substring(11)}  ${item.cdetails}`}
+          />
+        </Td>
+      </Tr>
+    );
+  }
+
+  function pushTravelsOvernight(item) {
+    const todaysTravels = travels.filter(obj => {
+      return obj.dovernight_Arrival_Date === item;
+    });
+    todaysTravels.forEach(pushTravelOvernight);
+  }
+
+  function pushTravelOvernight(item) {
+    items.push(
+      <Tr>
+        <Td>
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={`Overnight Travel: ${dowMonthDayFromStr(
+              item.astart,
+              'short'
+            )}  ${item.astart.substring(11)} -> ${item.bend.substring(11)}  ${
+              item.cdetails
+            }`}
+          />
         </Td>
       </Tr>
     );
@@ -158,8 +198,12 @@ export default function createItineraryItems(data) {
     items.push(
       <Tr>
         <Td>
-          {'Check Out from Hotel: '}
-          {item.croom}
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={`Check Out: ${item.croom}`}
+          />
         </Td>
       </Tr>
     );
@@ -176,52 +220,36 @@ export default function createItineraryItems(data) {
     items.push(
       <Tr>
         <Td>
-          {'Check In to Hotel: '}
-          {item.croom}
-          {', '}
-          {item.ddetails}
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={`Check In: ${item.croom} ${item.ddetails}`}
+          />
         </Td>
       </Tr>
     );
   }
 
   function pushRoomsStay(item) {
-    console.log(
-      '🚀 ~ file: createItineraryItems.js ~ line 175 ~ pushRoomsStay ~ item',
-      item
-    );
+    //item = a trip date 'yyyy-mm-dd'
     const todaysRooms = rooms.filter(obj => {
-      return obj.astart_Date === item;
+      return obj.fstay_Dates.includes(item);
     });
-    todaysRooms.forEach(pushRoomStays);
-  }
-  function pushRoomStays(item) {
-    console.log(
-      '🚀 ~ file: createItineraryItems.js ~ line 182 ~ pushRoomStays ~ item',
-      item
-    );
-    const stays = stayDates(item.astart_Date, item.bend_Date);
-    console.log(
-      '🚀 ~ file: createItineraryItems.js ~ line 190 ~ pushRoomStays ~ stays',
-      stays
-    );
-    console.log(
-      '🚀 ~ file: createItineraryItems.js ~ line 195 ~ pushRoomStays ~ stays.includes(item)',
-      stays.includes(item)
-    );
-    if (stays.includes(item)) pushRoomStay(item);
+    todaysRooms.forEach(pushRoomStay);
   }
 
   function pushRoomStay(item) {
-    console.log(
-      '🚀 ~ file: createItineraryItems.js ~ line 192 ~ pushRoomStay ~ item',
-      item
-    );
+    // item == room object
     items.push(
       <Tr>
         <Td>
-          {'Continue Stay at Hotel: '}
-          {item.croom}
+          <Textarea
+            style={{ lineHeight: LINE_HEIGHT }}
+            cols={COLS}
+            readOnly="true"
+            value={`Continue Stay: ${item.croom}`}
+          />
         </Td>
       </Tr>
     );
