@@ -1,8 +1,9 @@
 import { Td, Tr } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
+import { v4 as uuidv4 } from 'uuid';
 import { dowMonthDayFromStr } from 'utils';
 
-export default function createItineraryItems(data) {
+export default function createItineraryItems(data, onClick) {
   const COLS = '75';
   const LINE_HEIGHT = '1.2';
   const dates = data.dates;
@@ -15,7 +16,7 @@ export default function createItineraryItems(data) {
   let items = [];
   if (notes) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td fontWeight="bold">Trip Notes:</Td>
       </Tr>
     );
@@ -24,12 +25,15 @@ export default function createItineraryItems(data) {
 
   function pushNotes(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={item.anote}
           />
         </Td>
@@ -53,7 +57,7 @@ export default function createItineraryItems(data) {
 
   function pushDate(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td fontWeight="bold">{dowMonthDayFromStr(item, 'long')}</Td>
       </Tr>
     );
@@ -68,12 +72,15 @@ export default function createItineraryItems(data) {
 
   function pushActivity(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={item.bdetails}
           />
         </Td>
@@ -90,12 +97,15 @@ export default function createItineraryItems(data) {
 
   function pushCarDropOff(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Drop Off Car: ${item.bend.substring(11)} ${item.cagency}, ${
               item.fdrop_Off_Location
             }`}
@@ -114,12 +124,15 @@ export default function createItineraryItems(data) {
 
   function pushCarPickUp(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Pick Up Car: ${item.astart.substring(11)} ${
               item.cagency
             }, ${item.dpick_Up_Location}, ${item.edetails}`}
@@ -145,12 +158,15 @@ export default function createItineraryItems(data) {
       arrDate = dowMonthDayFromStr(item.bend, 'short') + ' ';
     }
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`${item.astart.substring(
               11
             )} -> ${arrDate}${item.bend.substring(11)}  ${item.cdetails}`}
@@ -169,12 +185,15 @@ export default function createItineraryItems(data) {
 
   function pushTravelOvernight(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Overnight Travel: ${dowMonthDayFromStr(
               item.astart,
               'short'
@@ -196,12 +215,15 @@ export default function createItineraryItems(data) {
 
   function pushRoomCheckOut(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Check Out: ${item.croom}`}
           />
         </Td>
@@ -218,12 +240,15 @@ export default function createItineraryItems(data) {
 
   function pushRoomCheckIn(item) {
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Check In: ${item.croom} ${item.ddetails}`}
           />
         </Td>
@@ -242,12 +267,15 @@ export default function createItineraryItems(data) {
   function pushRoomStay(item) {
     // item == room object
     items.push(
-      <Tr>
+      <Tr key={uuidv4()}>
         <Td>
           <Textarea
+            id={`${item.key}`}
+            name={`${item.type}`}
+            onClick={onClick}
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
-            readOnly="true"
+            readOnly={true}
             value={`Continue Stay: ${item.croom}`}
           />
         </Td>

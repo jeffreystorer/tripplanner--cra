@@ -21,6 +21,7 @@ import {
 import {
   AddPage,
   DetailsGateway,
+  EditItineraryPage,
   EditPage,
   ItineraryPage,
   SignInPage,
@@ -92,6 +93,7 @@ export default function App() {
               element={<EditPage page={'car'} />}
             />
             <Route path="itinerary" element={<ItineraryPage />} />
+            <Route path="edititinerary" element={<EditItineraryPage />} />
             <Route path="note" element={<DetailsGateway page={'note'} />} />
             <Route path="addnote" element={<AddPage page={'note'} />} />
             <Route

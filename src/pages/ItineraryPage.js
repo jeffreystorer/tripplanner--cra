@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { Loading } from 'components/common';
 import { Itinerary } from 'components/screens';
 import { getTrip } from 'services';
@@ -7,11 +8,16 @@ import * as state from 'store';
 import { createItineraryItems, stayDates, tripDates } from 'utils';
 
 export default function ItineraryPage() {
+  const navigate = useNavigate();
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const userId = useRecoilValue(state.userId);
+  const setItineraryDetailToEdit = useSetRecoilState(
+    state.itineraryDetailToEdit
+  );
+  if (!currentTripKey) navigate('/pages/trip');
 
   useEffect(() => {
     getTrip(userId, currentTripKey).then(data => {
@@ -84,9 +90,19 @@ export default function ItineraryPage() {
     });
   }, [currentTripKey, setData, userId]);
 
+  function onClick(e) {
+    e.preventDefault();
+    let detail = {
+      page: e.target.name,
+      key: e.target.id,
+    };
+    setItineraryDetailToEdit(detail);
+    navigate('/pages/edititinerary');
+  }
+
   if (loading) return <Loading />;
 
-  const items = createItineraryItems(data);
+  const items = createItineraryItems(data, onClick);
 
   return (
     <>

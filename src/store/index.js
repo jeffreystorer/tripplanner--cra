@@ -34,6 +34,11 @@ export const itineraryData = atom({
   default: [],
 });
 
+export const itineraryDetailToEdit = atom({
+  key: 'itineraryDetailToEdit',
+  default: {},
+});
+
 export const userId = atom({
   key: 'userId',
   default: null,
