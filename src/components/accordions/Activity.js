@@ -10,6 +10,7 @@ import {
   HStack,
   Link,
   ModalFooter,
+  Text,
   VStack,
 } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
@@ -17,18 +18,22 @@ import { v4 as uuidv4 } from 'uuid';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Activity({ page, data, showModal }) {
+  const width = window.innerWidth;
+  const COLS = width / 9.6;
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>
         <AccordionButton id={`heading${index}`}>
-          <Container>
-            <AccordionIcon />
-            <Box flex="1" textAlign="left">
-              Activities for{' '}
-              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-              {':  '}
+          <Container minWidth="100vw">
+            <Box minWidth="100vw" flex="1" textAlign="left">
+              <AccordionIcon />
+              <Text fontWeight="bold">
+                Activities for{' '}
+                {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+                {':  '}
+              </Text>
               <Textarea
-                cols="60"
+                cols={COLS}
                 readOnly={true}
                 value={Object.values(detail)[1]}
               />

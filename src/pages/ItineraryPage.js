@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Button } from '@chakra-ui/react';
+import { useReactToPrint } from 'react-to-print';
 import { Loading } from 'components/common';
 import { Itinerary } from 'components/screens';
 import { getTrip } from 'services';
 import * as state from 'store';
 import { createItineraryItems, stayDates, tripDates } from 'utils';
 
-export default function ItineraryPage() {
+const ItineraryPage = () => {
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const navigate = useNavigate();
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);
@@ -17,7 +23,9 @@ export default function ItineraryPage() {
   const setItineraryDetailToEdit = useSetRecoilState(
     state.itineraryDetailToEdit
   );
-  if (!currentTripKey) navigate('/pages/trip');
+  const width = window.innerWidth;
+  const COLS = width / 11.63;
+  //if (!currentTripKey) navigate('/pages/trip');
 
   useEffect(() => {
     getTrip(userId, currentTripKey).then(data => {
@@ -102,11 +110,20 @@ export default function ItineraryPage() {
 
   if (loading) return <Loading />;
 
-  const items = createItineraryItems(data, onClick);
+  const items = createItineraryItems(COLS, data, onClick);
 
   return (
-    <>
-      <Itinerary items={items} currentTripName={currentTrip.atrip_Name} />
-    </>
+    <div>
+      <Button colorScheme="gray" onClick={handlePrint}>
+        Print Itinerary
+      </Button>
+      <Itinerary
+        ref={componentRef}
+        items={items}
+        currentTripName={currentTrip.atrip_Name}
+      />
+    </div>
   );
-}
+};
+
+export default ItineraryPage;

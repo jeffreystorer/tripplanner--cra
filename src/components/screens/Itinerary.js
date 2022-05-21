@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import {
   Container,
   Table,
@@ -6,13 +7,13 @@ import {
   TableContainer,
 } from '@chakra-ui/react';
 
-export default function Itinerary({ items, currentTripName }) {
+const Itinerary = forwardRef(({ items, currentTripName }, ref) => {
   const FONT_SIZE = '1.2rem';
   return (
-    <>
+    <div ref={ref}>
       <Container minWidth="100vw" centerContent>
-        <TableContainer>
-          <Table fontSize={FONT_SIZE}>
+        <TableContainer minWidth="100vw">
+          <Table minWidth="100vw" fontSize={FONT_SIZE}>
             <TableCaption
               fontSize={FONT_SIZE}
               fontWeight="bold"
@@ -24,6 +25,8 @@ export default function Itinerary({ items, currentTripName }) {
           </Table>
         </TableContainer>
       </Container>
-    </>
+    </div>
   );
-}
+});
+
+export default Itinerary;

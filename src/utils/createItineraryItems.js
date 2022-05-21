@@ -3,8 +3,7 @@ import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
 import { dowMonthDayFromStr } from 'utils';
 
-export default function createItineraryItems(data, onClick) {
-  const COLS = '75';
+export default function createItineraryItems(COLS, data, onClick) {
   const LINE_HEIGHT = '1.2';
   const dates = data.dates;
   const activities = data.activities;

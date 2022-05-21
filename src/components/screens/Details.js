@@ -29,7 +29,7 @@ export default function Details({
       <Container
         key={accordionKey}
         style={{
-          minWidth: '350px',
+          minWidth: '100vw',
         }}
       >
         <VStack gap={1}>
