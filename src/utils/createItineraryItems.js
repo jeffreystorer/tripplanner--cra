@@ -249,7 +249,7 @@ export default function createItineraryItems(data, onClick) {
             style={{ lineHeight: LINE_HEIGHT }}
             cols={COLS}
             readOnly={true}
-            value={`Check In: ${item.croom} ${item.ddetails}`}
+            value={`Check In: ${item.croom}, ${item.ddetails}`}
           />
         </Td>
       </Tr>

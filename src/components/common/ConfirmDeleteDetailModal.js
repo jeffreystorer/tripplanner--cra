@@ -13,15 +13,13 @@ import {
 } from '@chakra-ui/react';
 import 'styles/App.css';
 
-export default function ConfirmDeleteModal({
-  allTrips,
+export default function ConfirmDeleteDetailModal({
   isOpen,
   onClose,
   handleDelete,
 }) {
   const navigate = useNavigate();
-  let message = 'Are you sure you want to delete this saved trip?';
-  if (allTrips) message = 'Are you sure you want to delete all saved trips?';
+  let message = 'Are you sure you want to delete this item?';
 
   return (
     <ChakraProvider>

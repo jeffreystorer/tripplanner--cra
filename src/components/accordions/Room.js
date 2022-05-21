@@ -34,8 +34,8 @@ export default function Room({ page, data, showModal }) {
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                Hotel (stay): {dowMonthDayFromStr(date, 'short')}
-                {'  '}
+                {dowMonthDayFromStr(date, 'short')}
+                {' (stay): '}
                 {Object.values(detail)[2]}
               </Box>
               <AccordionIcon />
@@ -104,9 +104,8 @@ export default function Room({ page, data, showModal }) {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Hotel (check in):{' '}
               {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-              {'  '}
+              {' (check in): '}
               {Object.values(detail)[2]}
               {',  '}
               {Object.values(detail)[3]}
@@ -170,9 +169,8 @@ export default function Room({ page, data, showModal }) {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              Hotel: (check out):{' '}
               {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
-              {'  '}
+              {' (check out):  '}
               {Object.values(detail)[2]}
             </Box>
             <AccordionIcon />

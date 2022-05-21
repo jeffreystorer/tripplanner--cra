@@ -17,9 +17,6 @@ export default function EditItineraryPage() {
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
 
-  console.log('😊😊 tripData[0]', tripData[0]);
-  console.log('😊😊 detail', detail);
-
   useEffect(() => {
     setData(tripData[0].details[detail.page][detail.key]);
     setLoading(false);
