@@ -1,12 +1,13 @@
 import { Link as ReactLink } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import {
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
-  Container,
+  AccordionItem,
+  AccordionPanel,
   Box,
   Button,
+  Container,
   HStack,
   Link,
   ModalFooter,
@@ -15,17 +16,20 @@ import {
 } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
+import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Activity({ page, data, showModal }) {
-  const width = window.innerWidth;
-  const COLS = width / 9.6;
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
+  const columns = useRecoilValue(state.columns);
+  const COLS = columns * 1.2;
+  const min = PERCENT.toString() + 'vw';
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>
         <AccordionButton id={`heading${index}`}>
-          <Container minWidth="100vw">
-            <Box minWidth="100vw" flex="1" textAlign="left">
+          <Container minWidth={min}>
+            <Box minWidth={min} flex="1" textAlign="left">
               <AccordionIcon />
               <Text fontWeight="bold">
                 Activities for{' '}

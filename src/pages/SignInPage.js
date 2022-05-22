@@ -47,7 +47,7 @@ export default function SignInPage() {
   return (
     <>
       {loading ? (
-        <Container width="30%">
+        <Container width="100vw">
           <VStack gap={5}>
             <Header />
             <form>

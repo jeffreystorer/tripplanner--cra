@@ -53,6 +53,7 @@ export default function AddEdit({
             {inputLabel}
           </FormLabel>
           <Textarea
+            style={{ border: '1px solid rgb(226, 232, 240)' }}
             cols="60"
             name={keyItem}
             value={data[keyItem]}

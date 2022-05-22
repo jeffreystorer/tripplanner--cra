@@ -1,9 +1,9 @@
 import { Link as ReactLink } from 'react-router-dom';
 import {
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
   Button,
   HStack,
@@ -11,8 +11,9 @@ import {
   ModalFooter,
   Table,
   Tbody,
-  Tr,
   Td,
+  Text,
+  Tr,
   VStack,
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
@@ -26,14 +27,15 @@ export default function Car({ page, data, showModal }) {
         <h2>
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
-              Rental Car (pick up):{' '}
-              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-              {'  '}
-              {Object.values(detail)[0].substring(11)}
-              {'  '}
-              {Object.values(detail)[2]}
-              {',  '}
-              {Object.values(detail)[3]}
+              <Text>
+                Pick Up: {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+                {'  '}
+                {Object.values(detail)[0].substring(11)}
+                {'  '}
+                {Object.values(detail)[2]}
+                {',  '}
+                {Object.values(detail)[3]}
+              </Text>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -93,14 +95,16 @@ export default function Car({ page, data, showModal }) {
         <h2>
           <AccordionButton id={`heading${index}`}>
             <Box flex="1" textAlign="left">
-              Rental Car (drop off):{' '}
-              {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
-              {'  '}
-              {Object.values(detail)[1].substring(11)}
-              {'  '}
-              {Object.values(detail)[2]}
-              {',  '}
-              {Object.values(detail)[5]}
+              <Text>
+                Drop Off:{' '}
+                {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
+                {'  '}
+                {Object.values(detail)[1].substring(11)}
+                {'  '}
+                {Object.values(detail)[2]}
+                {',  '}
+                {Object.values(detail)[5]}
+              </Text>
             </Box>
             <AccordionIcon />
           </AccordionButton>

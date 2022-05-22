@@ -1,9 +1,9 @@
 import { Link as ReactLink } from 'react-router-dom';
 import {
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
   Box,
   Button,
   HStack,
@@ -11,8 +11,9 @@ import {
   ModalFooter,
   Table,
   Tbody,
-  Tr,
   Td,
+  Text,
+  Tr,
   VStack,
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
@@ -34,9 +35,10 @@ export default function Room({ page, data, showModal }) {
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                {dowMonthDayFromStr(date, 'short')}
-                {' (stay): '}
-                {Object.values(detail)[2]}
+                <Text>
+                  Stay: {dowMonthDayFromStr(date, 'short')}{' '}
+                  {Object.values(detail)[2]}
+                </Text>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -104,11 +106,11 @@ export default function Room({ page, data, showModal }) {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-              {' (check in): '}
-              {Object.values(detail)[2]}
-              {',  '}
-              {Object.values(detail)[3]}
+              <Text>
+                Check In:{' '}
+                {dowMonthDayFromStr(Object.values(detail)[0], 'short')}{' '}
+                {Object.values(detail)[2]}
+              </Text>
             </Box>
             <AccordionIcon />
           </AccordionButton>
@@ -169,9 +171,11 @@ export default function Room({ page, data, showModal }) {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
-              {' (check out):  '}
-              {Object.values(detail)[2]}
+              <Text>
+                Check Out:{' '}
+                {dowMonthDayFromStr(Object.values(detail)[1], 'short')}{' '}
+                {Object.values(detail)[2]}
+              </Text>
             </Box>
             <AccordionIcon />
           </AccordionButton>
