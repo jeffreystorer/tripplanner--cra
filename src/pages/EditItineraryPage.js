@@ -33,7 +33,7 @@ export default function EditItineraryPage() {
       const newData = _.cloneDeep(data);
       delete newData.key;
       updateDetail(userId, currentTripKey, newData, detail.page, detail.key);
-      navigate('/pages/itinerary');
+      navigate('/pages/trip');
     } catch (error) {
       console.log(error);
     }

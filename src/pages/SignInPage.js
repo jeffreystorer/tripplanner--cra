@@ -48,7 +48,7 @@ export default function SignInPage() {
     <>
       {loading ? (
         <Container width="30%">
-          <VStack gap={3}>
+          <VStack gap={5}>
             <Header />
             <form>
               <FormLabel htmlFor="username">Username</FormLabel>
@@ -69,6 +69,8 @@ export default function SignInPage() {
                 onChange={e => setPassword(e.target.value)}
               />
             </form>
+            <br />
+            <br />
             <Center>
               <Button colorScheme="blue" size="md" onClick={handleSubmit}>
                 Sign in

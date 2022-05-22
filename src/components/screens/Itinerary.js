@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { useRecoilValue } from 'recoil';
 import {
   Container,
   Table,
@@ -6,14 +6,17 @@ import {
   TableCaption,
   TableContainer,
 } from '@chakra-ui/react';
+import * as state from 'store';
 
-const Itinerary = forwardRef(({ items, currentTripName }, ref) => {
+export default function Itinerary({ items, currentTripName }) {
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
   const FONT_SIZE = '1.2rem';
+  const min = PERCENT.toString() + 'vw';
   return (
-    <div ref={ref}>
-      <Container minWidth="100vw" centerContent>
-        <TableContainer minWidth="100vw">
-          <Table minWidth="100vw" fontSize={FONT_SIZE}>
+    <>
+      <Container minWidth={min} centerContent>
+        <TableContainer minWidth={min}>
+          <Table minWidth={min} fontSize={FONT_SIZE}>
             <TableCaption
               fontSize={FONT_SIZE}
               fontWeight="bold"
@@ -25,8 +28,6 @@ const Itinerary = forwardRef(({ items, currentTripName }, ref) => {
           </Table>
         </TableContainer>
       </Container>
-    </div>
+    </>
   );
-});
-
-export default Itinerary;
+}

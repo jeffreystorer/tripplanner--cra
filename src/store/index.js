@@ -14,6 +14,18 @@ const localStorageEffect =
     });
   };
 
+export const screenWidthPercent = atom({
+  key: 'screenWidthPercent',
+  default: 100,
+  effects: [localStorageEffect('screenWidthPercent')],
+});
+
+export const columns = atom({
+  key: 'columns',
+  default: 65,
+  effects: [localStorageEffect('columns')],
+});
+
 export const tripData = atom({
   key: 'tripData',
   default: [],

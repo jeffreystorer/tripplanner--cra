@@ -141,7 +141,10 @@ export default function TripPage() {
               </ul>
             </>
           )}
-          <HStack gap={3}>
+          <br />
+          <br />
+          <br />
+          <HStack gap={5}>
             {currentTripIndex > -1 && (
               <>
                 <Button
@@ -162,9 +165,10 @@ export default function TripPage() {
               </Button>
             )}
           </HStack>
+          <br />
           {currentTripIndex > -1 && (
             <>
-              <HStack gap={3}>
+              <HStack gap={5}>
                 <Link as={ReactLink} to={'/pages/note'}>
                   <Button colorScheme="gray">Trip Notes</Button>
                 </Link>

@@ -24,6 +24,7 @@ import {
   EditItineraryPage,
   EditPage,
   ItineraryPage,
+  SettingsPage,
   SignInPage,
   TripPage,
 } from 'pages';
@@ -118,6 +119,7 @@ export default function App() {
               path="/pages/edittrip/:rowIndex"
               element={<EditPage page={'trip'} />}
             />
+            <Route path="/pages/settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </Router>
@@ -138,6 +140,10 @@ function Layout() {
   ];
 
   const actions2 = [
+    {
+      path: '/pages/settings',
+      name: 'Settings',
+    },
     {
       path: '/',
       name: 'Signout',

@@ -5,5 +5,6 @@ export { default as DetailsDataFetch } from 'pages/DetailsDataFetch.js';
 export { default as EditItineraryPage } from 'pages/EditItineraryPage.js';
 export { default as EditPage } from 'pages/EditPage.js';
 export { default as ItineraryPage } from 'pages/ItineraryPage.js';
+export { default as SettingsPage } from 'pages/SettingsPage.js';
 export { default as SignInPage } from 'pages/SignInPage.js';
 export { default as TripPage } from 'pages/TripPage.js';

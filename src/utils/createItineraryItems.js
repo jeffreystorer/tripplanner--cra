@@ -13,7 +13,7 @@ export default function createItineraryItems(COLS, data, onClick) {
   const travels = data.travels;
 
   let items = [];
-  if (notes) {
+  if (notes.length > 0) {
     items.push(
       <Tr key={uuidv4()}>
         <Td fontWeight="bold">Trip Notes:</Td>
