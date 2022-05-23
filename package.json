@@ -29,11 +29,15 @@
     "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
+  "resolutions": {
+    "react-expanding-textarea": "2.3.5"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+    "preinstall": "npx npm-force-resolutions"
   },
   "eslintConfig": {
     "extends": "react-app"
