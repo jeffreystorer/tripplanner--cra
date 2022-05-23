@@ -16,11 +16,12 @@ export default function EditItineraryPage() {
   const [data, setData] = useState();
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
+  const currentTripIndex = useRecoilValue(state.currentTripIndex);
 
   useEffect(() => {
-    setData(tripData[0].details[detail.page][detail.key]);
+    setData(tripData[currentTripIndex].details[detail.page][detail.key]);
     setLoading(false);
-  }, [detail.key, detail.page, tripData]);
+  }, [currentTripIndex, detail.key, detail.page, tripData]);
 
   const handleChange = e => {
     let newValue = e.target.value;

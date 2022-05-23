@@ -25,7 +25,7 @@ export default function createItineraryItems(COLS, data, onClick) {
               lineHeight: LINE_HEIGHT,
               outline: 'none',
               border: 'none',
-              backgroundColor: 'white',
+              backgroundColor: 'transparent',
             }}
             cols={COLS}
             readOnly={true}

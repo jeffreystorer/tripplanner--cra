@@ -50,18 +50,22 @@ export default function TripPage() {
 
   useEffect(() => {
     getTrips(userId).then(data => {
-      let tripsArray = [];
-      for (const [key, value] of Object.entries(data)) {
-        tripsArray.push({
-          key: key,
-          atrip_Name: value.atrip_Name,
-          bstart_Date: value.bstart_Date,
-          cend_Date: value.cend_Date,
-          details: value.details,
-        });
+      if (data === {}) {
+        setData([]);
+      } else {
+        let tripsArray = [];
+        for (const [key, value] of Object.entries(data)) {
+          tripsArray.push({
+            key: key,
+            atrip_Name: value.atrip_Name,
+            bstart_Date: value.bstart_Date,
+            cend_Date: value.cend_Date,
+            details: value.details,
+          });
+        }
+        tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
+        setData(tripsArray);
       }
-      tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
-      setData(tripsArray);
       setLoading(false);
     });
   }, [setData, userId]);
@@ -80,7 +84,6 @@ export default function TripPage() {
     });
   }
 
-  //TODO: update the recoil data?
   const handleClickDelete = () => {
     if (allTrips) {
       removeAll(userId);
@@ -109,38 +112,33 @@ export default function TripPage() {
     <>
       <Container>
         <VStack gap={1}>
-          {data.length > 0 && (
-            <>
-              <HStack gap={0}>
-                {data.length === 0 ? (
-                  <Text>Add a trip</Text>
-                ) : (
-                  <Text>Click on a trip below or add a trip</Text>
-                )}
-                <IconButton
-                  onClick={() => navigate(`/pages/addtrip`)}
-                  icon={<AddIcon />}
-                />
-              </HStack>
-              <ul className="list--text-align-left">
-                {data.length > 0 &&
-                  data.map((item, index) => (
-                    <li
-                      className={
-                        index === currentTripIndex ? 'active_li' : 'li'
-                      }
-                      onClick={() => handleClick(item, index)}
-                      key={index}
-                    >
-                      {item.atrip_Name}{' '}
-                      {dowMonthDayFromStr(item.bstart_Date, 'short')}
-                      {' to '}
-                      {dowMonthDayFromStr(item.cend_Date, 'short')}
-                    </li>
-                  ))}
-              </ul>
-            </>
-          )}
+          <HStack gap={0}>
+            {data.length === 0 ? (
+              <Text>Add a trip</Text>
+            ) : (
+              <Text>Click on a trip below or add a trip</Text>
+            )}
+            <IconButton
+              onClick={() => navigate(`/pages/addtrip`)}
+              icon={<AddIcon />}
+            />
+          </HStack>
+          <ul className="list--text-align-left">
+            {data.length > 0 &&
+              data.map((item, index) => (
+                <li
+                  className={index === currentTripIndex ? 'active_li' : 'li'}
+                  onClick={() => handleClick(item, index)}
+                  key={index}
+                >
+                  {item.atrip_Name}{' '}
+                  {dowMonthDayFromStr(item.bstart_Date, 'short')}
+                  {' to '}
+                  {dowMonthDayFromStr(item.cend_Date, 'short')}
+                </li>
+              ))}
+          </ul>
+
           <br />
           <br />
           <br />
@@ -187,23 +185,6 @@ export default function TripPage() {
               </HStack>
             </>
           )}
-          {/*  {currentTripIndex > -1 && (
-            <VStack>
-              <Button onClick={() => navigate('/pages/addnote')}>
-                Add Note
-              </Button>
-              <Button onClick={() => navigate('/pages/addactivity')}>
-                Add Activity
-              </Button>
-              <Button onClick={() => navigate('/pages/addcar')}>Add Car</Button>
-              <Button onClick={() => navigate('/pages/addroom')}>
-                Add Room
-              </Button>
-              <Button onClick={() => navigate('/pages/addtravel')}>
-                Add Travel
-              </Button>
-            </VStack>
-          )} */}
         </VStack>
         <ConfirmDeleteTripModal
           allTrips={allTrips}
