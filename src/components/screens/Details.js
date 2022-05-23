@@ -1,8 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import { Link as ReactLink, useNavigate } from 'react-router-dom';
 import {
   Accordion,
+  Button,
   Container,
   HStack,
+  Link,
   IconButton,
   Text,
   VStack,
@@ -24,34 +26,48 @@ export default function Details({
     travel: 'Travels',
   };
   return (
-    <>
-      <br />
-      <Container
-        key={accordionKey}
-        style={{
-          minWidth: '100vw',
-        }}
-      >
-        <VStack gap={1}>
-          <h2 className="text-center">
-            <HStack gap={5}>
-              <Text>
-                {labels[page]}
-                {' for '}
-                {currentTripName}
-              </Text>
-              <IconButton
-                onClick={() => navigate(`/pages/add${page}`)}
-                icon={<AddIcon />}
-              />
-            </HStack>
-          </h2>
-          ;
-          <Accordion defaultIndex={[]} allowMultiple allowToggle>
-            {items}
-          </Accordion>
-        </VStack>
-      </Container>
-    </>
+    <Container
+      key={accordionKey}
+      style={{
+        minWidth: '100vw',
+      }}
+    >
+      <VStack gap={1}>
+        <HStack gap={5}>
+          <Link as={ReactLink} to={'/pages/addnote'}>
+            <Button colorScheme="gray">Add Trip Note</Button>
+          </Link>
+          <Link as={ReactLink} to={'/pages/addactivity'}>
+            <Button colorScheme="gray">Add Activity</Button>
+          </Link>
+          <Link as={ReactLink} to={'/pages/addcar'}>
+            <Button colorScheme="gray">Add Car</Button>
+          </Link>
+          <Link as={ReactLink} to={'/pages/addroom'}>
+            <Button colorScheme="gray">Add Room</Button>
+          </Link>
+          <Link as={ReactLink} to={'/pages/addtravel'}>
+            <Button colorScheme="gray">Add Travel</Button>
+          </Link>
+        </HStack>
+        <h2 className="text-center">
+          <HStack gap={5}>
+            <Text>
+              {labels[page]}
+              {' for '}
+              {currentTripName}
+            </Text>
+            <IconButton
+              onClick={() => navigate(`/pages/add${page}`)}
+              icon={<AddIcon />}
+            />
+          </HStack>
+        </h2>
+        ;
+        <Accordion defaultIndex={[]} allowMultiple allowToggle>
+          {items}
+        </Accordion>
+      </VStack>
+    </Container>
   );
 }

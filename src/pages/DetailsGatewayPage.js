@@ -7,7 +7,7 @@ import { Loading } from 'components/common';
 import { DetailsPage } from 'pages';
 import * as state from 'store';
 
-export default function DetailsDataFetchPage({ page }) {
+export default function DetailsGatewayPage({ page }) {
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const app = initializeApp(firebaseConfig);
