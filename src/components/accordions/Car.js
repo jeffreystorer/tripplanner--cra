@@ -22,7 +22,7 @@ import { dowMonthDayFromStr } from 'utils';
 
 export default function Car({ page, data, showModal }) {
   return data?.map((detail, index) => (
-    <>
+    <div key={uuidv4()}>
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton id={`heading${index}`}>
@@ -160,6 +160,6 @@ export default function Car({ page, data, showModal }) {
           </VStack>
         </AccordionPanel>
       </AccordionItem>
-    </>
+    </div>
   ));
 }

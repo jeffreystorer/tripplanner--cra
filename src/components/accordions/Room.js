@@ -101,7 +101,7 @@ export default function Room({ page, data, showModal }) {
   }
 
   return data?.map((detail, index) => (
-    <>
+    <div key={uuidv4()}>
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton>
@@ -231,6 +231,6 @@ export default function Room({ page, data, showModal }) {
           </VStack>
         </AccordionPanel>
       </AccordionItem>
-    </>
+    </div>
   ));
 }
