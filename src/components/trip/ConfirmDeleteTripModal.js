@@ -13,9 +13,15 @@ import {
 } from '@chakra-ui/react';
 import 'styles/App.css';
 
-export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
+export default function ConfirmTripDeleteModal({
+  allTrips,
+  isOpen,
+  onClose,
+  handleDelete,
+}) {
   const navigate = useNavigate();
-  let message = 'Are you sure you want to delete this item?';
+  let message = 'Are you sure you want to delete this saved trip?';
+  if (allTrips) message = 'Are you sure you want to delete all saved trips?';
 
   return (
     <ChakraProvider>
@@ -24,7 +30,7 @@ export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          navigate('/');
+          navigate('/pages/trip');
         }}
       >
         <ModalOverlay />
@@ -38,7 +44,7 @@ export default function ConfirmDeleteModal({ isOpen, onClose, handleDelete }) {
                 colorScheme="gray"
                 onClick={() => {
                   onClose();
-                  navigate('/');
+                  navigate('/pages/trip');
                 }}
               >
                 Cancel

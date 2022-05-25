@@ -1,4 +1,6 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
+import { getTrips } from 'services';
+
 const localStorageEffect =
   key =>
   ({ setSelf, onSet }) => {
@@ -26,9 +28,27 @@ export const columns = atom({
   effects: [localStorageEffect('columns')],
 });
 
-export const tripData = atom({
+export const tripData = selector({
   key: 'tripData',
-  default: [],
+  get: async ({ get }) => {
+    const response = await getTrips(get(userId));
+    if (response.error) {
+      throw response.error;
+    }
+    let tripsArray = [];
+    for (const [key, value] of Object.entries(response)) {
+      tripsArray.push({
+        key: key,
+        atrip_Name: value.atrip_Name,
+        bstart_Date: value.bstart_Date,
+        cend_Date: value.cend_Date,
+        details: value.details,
+      });
+    }
+    tripsArray.sort((a, b) => (a.atrip_Name > b.atrip_Name ? 1 : -1));
+    return tripsArray;
+  },
+  set: ({ set }, newValue) => set(),
 });
 
 export const currentTripData = atom({

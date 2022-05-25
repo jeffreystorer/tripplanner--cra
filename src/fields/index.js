@@ -56,12 +56,19 @@ export const labels = {
     astart: 'apick_Up_Date_and_Time',
     bend: 'bdrop_Off_Date_and_Time',
   },
+  note: {
+    anote: 'aNote',
+  },
   room: {
-    astart_Date: 'acheck_In_Date',
-    bend_Date: 'bcheck_Out_Date',
+    astart_Date: 'acheck_In_and_Time',
+    bend_Date: 'bcheck_Out_and_Time',
   },
   travel: {
-    astart: 'adeparture_Date_and_Time',
-    bend: 'barrival_Date_and_Time',
+    astart: 'adeparture_Date',
+    bend_Date: 'barrival_Date',
+  },
+  trip: {
+    bstart_Date: 'astart_Date',
+    cend_Date: 'cend_Date',
   },
 };
