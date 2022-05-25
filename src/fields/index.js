@@ -60,8 +60,8 @@ export const labels = {
     anote: 'aNote',
   },
   room: {
-    astart_Date: 'acheck_In_and_Time',
-    bend_Date: 'bcheck_Out_and_Time',
+    astart_Date: 'acheck_In_Date',
+    bend_Date: 'bcheck_Out_Date',
   },
   travel: {
     astart: 'adeparture_Date',

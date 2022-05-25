@@ -110,6 +110,8 @@ export default function Room({ page, data, showModal }) {
                 Check In:{' '}
                 {dowMonthDayFromStr(Object.values(detail)[0], 'short')}{' '}
                 {Object.values(detail)[2]}
+                {', '}
+                {Object.values(detail)[3]}
               </Text>
             </Box>
             <AccordionIcon />
