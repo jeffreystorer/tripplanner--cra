@@ -64,8 +64,8 @@ export const labels = {
     bend_Date: 'bcheck_Out_Date',
   },
   travel: {
-    astart: 'adeparture_Date',
-    bend_Date: 'barrival_Date',
+    astart: 'adeparture_Date_and_Time',
+    bend: 'barrival_Date_and_Time',
   },
   trip: {
     bstart_Date: 'astart_Date',

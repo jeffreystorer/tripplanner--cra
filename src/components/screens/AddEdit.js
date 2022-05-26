@@ -21,14 +21,19 @@ export default function AddEdit({
   handleChange,
   handleClickCancel,
 }) {
+  console.log('🚀 ~ file: AddEdit.js ~ line 24 ~ data', data);
   const currentTrip = useRecoilValue(state.currentTrip);
 
   let header;
   if (page === 'trip') {
-    header = <h2 className="text-center">{mode} Trip</h2>;
+    header = (
+      <h2 key={uuidv4()} className="text-center">
+        {mode} Trip
+      </h2>
+    );
   } else {
     header = (
-      <h2 className="text-center">
+      <h2 key={uuidv4()} className="text-center">
         {mode} {page.charAt(0).toUpperCase() + page.slice(1)} for{' '}
         {currentTrip.atrip_Name} Trip
       </h2>

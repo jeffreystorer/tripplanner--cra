@@ -29,7 +29,6 @@ export default function TripPage() {
   const userId = useRecoilValue(state.userId);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const data = useRecoilState(state.tripData);
-  console.log('🚀 ~ file: TripPage.js ~ line 31 ~ TripPage ~ data', data);
   const [allTrips, setAllTrips] = useState(false);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
   const resetCurrentTrip = useResetRecoilState(state.currentTrip);

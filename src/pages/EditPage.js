@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
 import * as _ from 'lodash';
 import { Loading } from 'components/common';
 import { AddEdit } from 'components/screens';
@@ -11,13 +15,15 @@ import 'styles/App.css';
 export default function EditPage({ page }) {
   const navigate = useNavigate();
   const { rowIndex } = useParams();
-  const detailData = useRecoilValue(state.detailData);
+  const detailData = useRecoilValue(state.detailData(page));
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
   const tripData = useRecoilValue(state.tripData);
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
+  const refreshTripData = useRecoilRefresher_UNSTABLE(state.tripData);
+  const refreshDetailData = useRecoilRefresher_UNSTABLE(state.detailData(page));
 
   useEffect(() => {
     switch (page) {
@@ -44,11 +50,13 @@ export default function EditPage({ page }) {
           updateTrip(userId, currentTripKey, data);
           const { atrip_Name } = data;
           setCurrentTrip({ key: currentTripKey, atrip_Name });
+          refreshTripData();
           break;
         default:
           const newData = _.cloneDeep(data);
           delete newData.key;
           updateDetail(userId, currentTripKey, newData, page, data.key);
+          refreshDetailData();
           break;
       }
       navigate('/pages/' + page);

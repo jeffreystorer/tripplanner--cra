@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilRefresher_UNSTABLE, useRecoilValue } from 'recoil';
 import * as _ from 'lodash';
 import { Loading } from 'components/common';
 import { AddEdit } from 'components/screens';
@@ -17,6 +17,8 @@ export default function EditItineraryPage() {
   const userId = useRecoilValue(state.userId);
   const currentTripKey = useRecoilValue(state.currentTripKey);
   const currentTripIndex = useRecoilValue(state.currentTripIndex);
+  const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
+  const refreshTripData = useRecoilRefresher_UNSTABLE(state.tripData);
 
   useEffect(() => {
     setData(tripData[currentTripIndex].details[detail.page][detail.key]);
@@ -34,7 +36,9 @@ export default function EditItineraryPage() {
       const newData = _.cloneDeep(data);
       delete newData.key;
       updateDetail(userId, currentTripKey, newData, detail.page, detail.key);
-      navigate('/pages/trip');
+      refreshItineraryData();
+      refreshTripData();
+      navigate('/pages/itinerary');
     } catch (error) {
       console.log(error);
     }

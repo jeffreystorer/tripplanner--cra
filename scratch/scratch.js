@@ -15,3 +15,5 @@ detailsArray.sort(function (a, b) {
   return 0;
 });
 console.log(detailsArray);
+
+function calculateDaysBetweenDates(begin, end) {}

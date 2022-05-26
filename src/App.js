@@ -20,7 +20,7 @@ import {
 } from '@chakra-ui/react';
 import {
   AddPage,
-  DetailsGateway,
+  DetailsPage,
   EditItineraryPage,
   EditPage,
   ItineraryPage,
@@ -80,14 +80,14 @@ export default function App() {
           <Route path="/pages" element={<Layout />}>
             <Route
               path="activity"
-              element={<DetailsGateway page={'activity'} />}
+              element={<DetailsPage page={'activity'} />}
             />
             <Route path="addactivity" element={<AddPage page={'activity'} />} />
             <Route
               path="/pages/editactivity/:rowIndex"
               element={<EditPage page={'activity'} />}
             />
-            <Route path="car" element={<DetailsGateway page={'car'} />} />
+            <Route path="car" element={<DetailsPage page={'car'} />} />
             <Route path="addcar" element={<AddPage page={'car'} />} />{' '}
             <Route
               path="/pages/editcar/:rowIndex"
@@ -95,19 +95,19 @@ export default function App() {
             />
             <Route path="itinerary" element={<ItineraryPage />} />
             <Route path="edititinerary" element={<EditItineraryPage />} />
-            <Route path="note" element={<DetailsGateway page={'note'} />} />
+            <Route path="note" element={<DetailsPage page={'note'} />} />
             <Route path="addnote" element={<AddPage page={'note'} />} />
             <Route
               path="/pages/editnote/:rowIndex"
               element={<EditPage page={'note'} />}
             />
-            <Route path="room" element={<DetailsGateway page={'room'} />} />
+            <Route path="room" element={<DetailsPage page={'room'} />} />
             <Route path="addroom" element={<AddPage page={'room'} />} />
             <Route
               path="/pages/editroom/:rowIndex"
               element={<EditPage page={'room'} />}
             />
-            <Route path="travel" element={<DetailsGateway page={'travel'} />} />
+            <Route path="travel" element={<DetailsPage page={'travel'} />} />
             <Route path="addtravel" element={<AddPage page={'travel'} />} />
             <Route
               path="/pages/edittravel/:rowIndex"
