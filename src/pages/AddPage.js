@@ -19,6 +19,7 @@ export default function AddPage({ page }) {
   const resetCurrentTripIndex = useResetRecoilState(state.currentTripIndex);
   const refreshTripData = useRecoilRefresher_UNSTABLE(state.tripData);
   const refreshDetailData = useRecoilRefresher_UNSTABLE(state.detailData(page));
+  const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
 
   const handleChange = e => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -37,6 +38,7 @@ export default function AddPage({ page }) {
         default:
           addDetail(userId, currentTripKey, data, page);
           refreshDetailData();
+          refreshItineraryData();
           break;
       }
       navigate('/pages/' + page);

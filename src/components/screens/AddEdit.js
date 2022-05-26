@@ -21,7 +21,6 @@ export default function AddEdit({
   handleChange,
   handleClickCancel,
 }) {
-  console.log('🚀 ~ file: AddEdit.js ~ line 24 ~ data', data);
   const currentTrip = useRecoilValue(state.currentTrip);
 
   let header;
@@ -97,9 +96,9 @@ export default function AddEdit({
       <Container>
         <VStack gap={1}>
           {header}
-          <FormControl>{inputs}</FormControl>
+          <FormControl key={uuidv4()}>{inputs}</FormControl>
           <br />
-          <HStack gap={5}>
+          <HStack key={uuidv4()} gap={5}>
             <Button colorScheme="blue" onClick={handleSubmit}>
               Save
             </Button>

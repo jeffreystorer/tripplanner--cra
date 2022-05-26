@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import {
+  useRecoilRefresher_UNSTABLE,
+  useRecoilValue,
+  useSetRecoilState,
+} from 'recoil';
 import { Itinerary } from 'components/screens';
 import * as state from 'store';
 import { createItineraryItems } from 'utils';
 
-const ItineraryPage = () => {
+export default function ItineraryPage() {
   const navigate = useNavigate();
   const COLS = useRecoilValue(state.columns);
   const currentTripIndex = useRecoilValue(state.currentTripIndex);
@@ -14,10 +18,15 @@ const ItineraryPage = () => {
   const setItineraryDetailToEdit = useSetRecoilState(
     state.itineraryDetailToEdit
   );
+  const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
 
   useEffect(() => {
     if (currentTripIndex === -1) navigate('/pages/trip');
   }, [currentTripIndex, navigate]);
+
+  useEffect(() => {
+    refreshItineraryData();
+  }, [refreshItineraryData]);
 
   function onClick(e) {
     e.preventDefault();
@@ -32,6 +41,4 @@ const ItineraryPage = () => {
   const items = createItineraryItems(COLS, data, onClick);
 
   return <Itinerary items={items} currentTripName={currentTrip.atrip_Name} />;
-};
-
-export default ItineraryPage;
+}

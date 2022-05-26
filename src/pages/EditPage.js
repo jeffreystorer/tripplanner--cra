@@ -24,6 +24,7 @@ export default function EditPage({ page }) {
   const setCurrentTrip = useSetRecoilState(state.currentTrip);
   const refreshTripData = useRecoilRefresher_UNSTABLE(state.tripData);
   const refreshDetailData = useRecoilRefresher_UNSTABLE(state.detailData(page));
+  const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
 
   useEffect(() => {
     switch (page) {
@@ -56,6 +57,7 @@ export default function EditPage({ page }) {
           const newData = _.cloneDeep(data);
           delete newData.key;
           updateDetail(userId, currentTripKey, newData, page, data.key);
+          refreshItineraryData();
           refreshDetailData();
           break;
       }

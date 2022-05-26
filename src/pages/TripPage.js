@@ -109,9 +109,6 @@ export default function TripPage() {
               </li>
             ))}
         </ul>
-
-        <br />
-        <br />
         <br />
         <HStack gap={5}>
           {currentTripIndex > -1 && (
@@ -136,21 +133,51 @@ export default function TripPage() {
         {currentTripIndex > -1 && (
           <>
             <HStack gap={5}>
-              <Link as={ReactLink} to={'/pages/note'}>
-                <Button colorScheme="gray">Trip Notes</Button>
-              </Link>
-              <Link as={ReactLink} to={'/pages/activity'}>
-                <Button colorScheme="gray">Activities</Button>
-              </Link>
-              <Link as={ReactLink} to={'/pages/car'}>
-                <Button colorScheme="gray">Cars</Button>
-              </Link>
-              <Link as={ReactLink} to={'/pages/room'}>
-                <Button colorScheme="gray">Rooms</Button>
-              </Link>
-              <Link as={ReactLink} to={'/pages/travel'}>
-                <Button colorScheme="gray">Travels</Button>
-              </Link>
+              <VStack gap={1}>
+                <IconButton
+                  onClick={() => navigate('/pages/addnote')}
+                  icon={<AddIcon />}
+                />
+                <Link as={ReactLink} to={'/pages/note'}>
+                  <Button colorScheme="gray">Trip Notes</Button>
+                </Link>
+              </VStack>
+              <VStack gap={1}>
+                <IconButton
+                  onClick={() => navigate('/pages/addactivity')}
+                  icon={<AddIcon />}
+                />
+                <Link as={ReactLink} to={'/pages/activity'}>
+                  <Button colorScheme="gray">Activities</Button>
+                </Link>
+              </VStack>
+              <VStack gap={1}>
+                <IconButton
+                  onClick={() => navigate('/pages/addcar')}
+                  icon={<AddIcon />}
+                />
+                <Link as={ReactLink} to={'/pages/car'}>
+                  <Button colorScheme="gray">Cars</Button>
+                </Link>
+              </VStack>
+              <VStack gap={1}>
+                <IconButton
+                  onClick={() => navigate('/pages/addroom')}
+                  icon={<AddIcon />}
+                />
+                <Link as={ReactLink} to={'/pages/room'}>
+                  <Button colorScheme="gray">Rooms</Button>
+                </Link>
+              </VStack>
+              <VStack gap={1}>
+                <IconButton
+                  onClick={() => navigate('/pages/addtravel')}
+                  icon={<AddIcon />}
+                />
+                <Link as={ReactLink} to={'/pages/travel'}>
+                  <Button colorScheme="gray">Travels</Button>
+                </Link>
+              </VStack>
             </HStack>
           </>
         )}

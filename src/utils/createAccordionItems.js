@@ -1,6 +1,6 @@
 import { Activity, Car, Note, Room, Travel } from 'components/accordions';
 
-export default function createCCAccordionItems(page, data, showModal) {
+export default function createAccordionItems(page, data, showModal) {
   switch (page) {
     case 'activity':
       return <Activity page={page} data={data} showModal={showModal} />;

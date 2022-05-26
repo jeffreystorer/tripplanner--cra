@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { useResetRecoilState, useSetRecoilState } from 'recoil';
+import {
+  useRecoilRefresher_UNSTABLE,
+  useResetRecoilState,
+  useSetRecoilState,
+} from 'recoil';
 import {
   Button,
   Center,
@@ -27,6 +31,7 @@ export default function SignInPage() {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const resetCurrentTripIndex = useResetRecoilState(state.currentTripIndex);
+  const refreshTripData = useRecoilRefresher_UNSTABLE(state.tripData);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -36,6 +41,7 @@ export default function SignInPage() {
         setUserId(user.uid);
         setLoading(false);
         resetCurrentTripIndex();
+        refreshTripData();
       })
       .catch(error => {
         const errorCode = error.code;

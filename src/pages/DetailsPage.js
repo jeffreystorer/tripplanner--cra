@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   useRecoilRefresher_UNSTABLE,
@@ -13,7 +13,7 @@ import { removeDetail } from 'services';
 import * as state from 'store';
 import { createAccordionItems } from 'utils';
 
-export default function DetailsPage({ detailArray, page }) {
+export default function DetailsPage({ page }) {
   const onShow = () => {
     setAccordionKey(accordionKey + 1);
   };
@@ -27,11 +27,17 @@ export default function DetailsPage({ detailArray, page }) {
   const data = useRecoilState(state.detailData(page));
   const userId = useRecoilValue(state.userId);
   const refreshDetailData = useRecoilRefresher_UNSTABLE(state.detailData(page));
+  const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
+
+  useEffect(() => {
+    refreshDetailData();
+  }, [refreshDetailData]);
 
   const handleDelete = () => {
     try {
       removeDetail(userId, currentTripKey, page, currentKey);
       refreshDetailData();
+      refreshItineraryData();
     } catch (error) {
       console.log(error);
     }

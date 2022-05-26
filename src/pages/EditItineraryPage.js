@@ -25,6 +25,10 @@ export default function EditItineraryPage() {
     setLoading(false);
   }, [currentTripIndex, detail.key, detail.page, tripData]);
 
+  useEffect(() => {
+    refreshTripData();
+  }, [refreshTripData]);
+
   const handleChange = e => {
     let newValue = e.target.value;
     if (!newValue) newValue = '';
