@@ -93,8 +93,8 @@ export default function AddEdit({
 
   return (
     <>
-      <Container>
-        <VStack gap={1}>
+      <Container key={uuidv4()}>
+        <VStack key={uuidv4()} gap={1}>
           {header}
           <FormControl key={uuidv4()}>{inputs}</FormControl>
           <br />
