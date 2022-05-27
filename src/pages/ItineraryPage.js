@@ -15,10 +15,9 @@ export default function ItineraryPage() {
   const currentTripIndex = useRecoilValue(state.currentTripIndex);
   const currentTrip = useRecoilValue(state.currentTrip);
   const data = useRecoilValue(state.itineraryData);
-  const setItineraryDetailToEdit = useSetRecoilState(
-    state.itineraryDetailToEdit
-  );
+  const setItineraryDetail = useSetRecoilState(state.itineraryDetail);
   const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
 
   useEffect(() => {
     if (currentTripIndex === -1) navigate('/pages/trip');
@@ -33,12 +32,19 @@ export default function ItineraryPage() {
     let detail = {
       page: e.target.name,
       key: e.target.id,
+      value: e.target.value,
     };
-    setItineraryDetailToEdit(detail);
-    navigate('/pages/edititinerary');
+    setItineraryDetail(detail);
+    navigate('/pages/itinerarydetail');
   }
 
   const items = createItineraryItems(COLS, data, onClick);
 
-  return <Itinerary items={items} currentTripName={currentTrip.atrip_Name} />;
+  return (
+    <Itinerary
+      PERCENT={PERCENT}
+      items={items}
+      currentTripName={currentTrip.atrip_Name}
+    />
+  );
 }

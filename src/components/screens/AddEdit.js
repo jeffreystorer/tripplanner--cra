@@ -93,12 +93,12 @@ export default function AddEdit({
 
   return (
     <>
-      <Container key={uuidv4()}>
-        <VStack key={uuidv4()} gap={1}>
+      <Container>
+        <VStack gap={1}>
           {header}
-          <FormControl key={uuidv4()}>{inputs}</FormControl>
+          <FormControl>{inputs}</FormControl>
           <br />
-          <HStack key={uuidv4()} gap={5}>
+          <HStack gap={5}>
             <Button colorScheme="blue" onClick={handleSubmit}>
               Save
             </Button>

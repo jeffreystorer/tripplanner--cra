@@ -201,8 +201,8 @@ export const currentTripData = atom({
   default: [],
 });
 
-export const itineraryDetailToEdit = atom({
-  key: 'itineraryDetailToEdit',
+export const itineraryDetail = atom({
+  key: 'itineraryDetail',
   default: {},
 });
 

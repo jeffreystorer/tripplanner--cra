@@ -54,6 +54,7 @@ export default function DetailsPage({ page }) {
   return (
     <>
       <ConfirmDeleteDetailModal
+        page={page}
         isOpen={isOpen}
         onClose={onClose}
         handleDelete={handleDelete}

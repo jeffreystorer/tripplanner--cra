@@ -14,6 +14,7 @@ import {
 import 'styles/App.css';
 
 export default function ConfirmDeleteDetailModal({
+  page,
   isOpen,
   onClose,
   handleDelete,
@@ -28,7 +29,7 @@ export default function ConfirmDeleteDetailModal({
         isOpen={isOpen}
         onClose={() => {
           onClose();
-          navigate('/');
+          navigate('/pages/' + page);
         }}
       >
         <ModalOverlay />
@@ -42,7 +43,7 @@ export default function ConfirmDeleteDetailModal({
                 colorScheme="gray"
                 onClick={() => {
                   onClose();
-                  navigate('/');
+                  navigate('/pages/' + page);
                 }}
               >
                 Cancel

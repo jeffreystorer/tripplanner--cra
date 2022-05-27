@@ -10,7 +10,7 @@ import 'styles/App.css';
 
 export default function EditItineraryPage() {
   const navigate = useNavigate();
-  const detail = useRecoilValue(state.itineraryDetailToEdit);
+  const detail = useRecoilValue(state.itineraryDetail);
   const tripData = useRecoilValue(state.tripData);
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
