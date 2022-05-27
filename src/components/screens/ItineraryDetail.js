@@ -13,28 +13,14 @@ import {
 import Textarea from 'react-expanding-textarea';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import { dowMonthDayFromStr } from 'utils';
 
 export default function ItineraryDetail({
-  detailData,
   PERCENT,
   currentTripName,
   COLS,
   itineraryDetail,
   showModal,
 }) {
-  console.log(
-    '🚀 ~ file: ItineraryDetail.js ~ line 25 ~ itineraryDetail',
-    itineraryDetail
-  );
-  console.log(
-    '🚀 ~ file: ItineraryDetail.js ~ line 25 ~ detailData',
-    detailData
-  );
-  const detail = detailData.filter(obj => {
-    return obj.key === itineraryDetail.key;
-  });
-  console.log('🚀 ~ file: ItineraryDetail.js ~ line 37 ~ detail', detail);
   const navigate = useNavigate();
   const LINE_HEIGHT = '1.2';
   const FONT_SIZE = '1.2rem';
@@ -56,8 +42,6 @@ export default function ItineraryDetail({
               <br />
               {itineraryDetail.page.charAt(0).toUpperCase() +
                 itineraryDetail.page.slice(1)}
-              {' for '}
-              {dowMonthDayFromStr(detail[0].astart_Date, 'short')}
             </TableCaption>
             <Tbody>
               <Tr>

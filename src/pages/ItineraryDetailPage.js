@@ -14,7 +14,6 @@ export default function ItineraryDetailsPage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const userId = useRecoilValue(state.userId);
   const itineraryDetail = useRecoilValue(state.itineraryDetail);
-  const detailData = useRecoilValue(state.detailData(itineraryDetail.page));
   const refreshDetailData = useRecoilRefresher_UNSTABLE(
     state.detailData(itineraryDetail.page)
   );
@@ -55,7 +54,6 @@ export default function ItineraryDetailsPage() {
         handleDelete={handleDelete}
       />
       <ItineraryDetail
-        detailData={detailData}
         PERCENT={PERCENT}
         currentTripName={currentTrip.atrip_Name}
         COLS={COLS}

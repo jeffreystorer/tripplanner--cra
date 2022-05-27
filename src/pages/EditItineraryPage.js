@@ -27,7 +27,8 @@ export default function EditItineraryPage() {
 
   useEffect(() => {
     refreshTripData();
-  }, [refreshTripData]);
+    refreshItineraryData();
+  }, [refreshItineraryData, refreshTripData]);
 
   const handleChange = e => {
     let newValue = e.target.value;
