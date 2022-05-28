@@ -112,6 +112,11 @@ export const detailData = selectorFamily({
     },
 });
 
+export const itineraryDateTime = atom({
+  key: 'itineraryDateTime',
+  default: '',
+});
+
 export const itineraryData = selector({
   key: 'itineraryData',
   get: async ({ get }) => {

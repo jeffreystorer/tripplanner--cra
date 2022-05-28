@@ -18,6 +18,7 @@ export default function ItineraryPage() {
   const setItineraryDetail = useSetRecoilState(state.itineraryDetail);
   const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
   const PERCENT = useRecoilValue(state.screenWidthPercent);
+  const setItineraryDateTime = useSetRecoilState(state.itineraryDateTime);
 
   useEffect(() => {
     if (currentTripIndex === -1) navigate('/pages/trip');
@@ -38,7 +39,13 @@ export default function ItineraryPage() {
     navigate('/pages/itinerarydetail');
   }
 
-  const items = createItineraryItems(COLS, data, onClick);
+  function handleDetailClick(date, page, e) {
+    e.preventDefault();
+    setItineraryDateTime(date + 'T00:00');
+    navigate('/pages/additinerary' + page);
+  }
+
+  const items = createItineraryItems(COLS, data, onClick, handleDetailClick);
 
   return (
     <Itinerary

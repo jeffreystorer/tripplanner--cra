@@ -96,6 +96,26 @@ export default function App() {
             />
             <Route path="itinerary" element={<ItineraryPage />} />
             <Route path="itinerarydetail" element={<ItineraryDetailPage />} />
+            <Route
+              path="additinerarynote"
+              element={<AddPage page={'itinerarynote'} />}
+            />
+            <Route
+              path="additineraryactivity"
+              element={<AddPage page={'itineraryactivity'} />}
+            />
+            <Route
+              path="additinerarycar"
+              element={<AddPage page={'itinerarycar'} />}
+            />
+            <Route
+              path="additineraryroom"
+              element={<AddPage page={'itineraryroom'} />}
+            />
+            <Route
+              path="additinerarytravel"
+              element={<AddPage page={'itinerarytravel'} />}
+            />
             <Route path="edititinerary" element={<EditItineraryPage />} />
             <Route path="note" element={<DetailsPage page={'note'} />} />
             <Route path="addnote" element={<AddPage page={'note'} />} />

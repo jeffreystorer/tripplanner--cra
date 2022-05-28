@@ -68,7 +68,7 @@ export const labels = {
     bend: 'barrival_Date_and_Time',
   },
   trip: {
-    bstart_Date: 'astart_Date',
+    bstart_Date: 'bstart_Date',
     cend_Date: 'cend_Date',
   },
 };

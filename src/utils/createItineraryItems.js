@@ -1,9 +1,22 @@
-import { Td, Tr } from '@chakra-ui/react';
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Text,
+  Td,
+  Tr,
+} from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
 import { dowMonthDayFromStr } from 'utils';
 
-export default function createItineraryItems(COLS, data, onClick) {
+export default function createItineraryItems(
+  COLS,
+  data,
+  onClick,
+  handleDetailClick
+) {
   const LINE_HEIGHT = '1.2';
   const dates = data.dates;
   const activities = data.activities;
@@ -70,7 +83,28 @@ export default function createItineraryItems(COLS, data, onClick) {
     items.push(
       <Tr key={uuidv4()}>
         <Td padding={padding} fontWeight="bold">
-          {dowMonthDayFromStr(item, 'long')}
+          <Menu>
+            <MenuButton as={Text}>
+              {dowMonthDayFromStr(item, 'long')}
+            </MenuButton>
+            <MenuList>
+              <MenuItem onClick={e => handleDetailClick(item, 'note', e)}>
+                Add Trip Note
+              </MenuItem>
+              <MenuItem onClick={e => handleDetailClick(item, 'activity', e)}>
+                Add Activity
+              </MenuItem>
+              <MenuItem onClick={e => handleDetailClick(item, 'car', e)}>
+                Add Car
+              </MenuItem>
+              <MenuItem onClick={e => handleDetailClick(item, 'room', e)}>
+                Add Room
+              </MenuItem>
+              <MenuItem onClick={e => handleDetailClick(item, 'travel', e)}>
+                Add Travel
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Td>
       </Tr>
     );

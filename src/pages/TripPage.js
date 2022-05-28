@@ -54,6 +54,7 @@ export default function TripPage() {
         ' to ' +
         dowMonthDayFromStr(item.cend_Date, 'long'),
     });
+    navigate('/pages/itinerary');
   }
 
   const handleClickDelete = () => {
