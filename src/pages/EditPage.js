@@ -52,11 +52,14 @@ export default function EditPage({ page }) {
           const { atrip_Name } = data;
           setCurrentTrip({ key: currentTripKey, atrip_Name });
           refreshTripData();
+          refreshDetailData();
+          refreshItineraryData();
           break;
         default:
           const newData = _.cloneDeep(data);
           delete newData.key;
           updateDetail(userId, currentTripKey, newData, page, data.key);
+          refreshTripData();
           refreshItineraryData();
           refreshDetailData();
           break;

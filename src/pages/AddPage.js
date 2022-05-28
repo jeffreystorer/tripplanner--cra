@@ -65,10 +65,13 @@ export default function AddPage({ page }) {
           addTrip(userId, data);
           resetCurrentTripIndex();
           refreshTripData();
+          refreshDetailData();
+          refreshItineraryData();
           navigate('/pages/trip');
           break;
         default:
           addDetail(userId, currentTripKey, data, addedPage);
+          refreshTripData();
           refreshDetailData();
           refreshItineraryData();
           break;
