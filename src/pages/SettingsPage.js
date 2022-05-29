@@ -22,7 +22,7 @@ export default function SettingsPage() {
   const [columns, setColumns] = useRecoilState(state.columns);
 
   function handleClick() {
-    navigate('/pages/trip');
+    navigate('/pages/itinerary');
   }
 
   return (
