@@ -59,6 +59,7 @@ export default function AddEdit({
           <Textarea
             style={{ border: '1px solid rgb(226, 232, 240)' }}
             cols="60"
+            rows="4"
             name={keyItem}
             value={data[keyItem]}
             onChange={e => handleChange(e)}
