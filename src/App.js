@@ -18,6 +18,7 @@ import {
   HStack,
   extendTheme,
 } from '@chakra-ui/react';
+import { SettingsMenuItem } from 'components/menuitems';
 import {
   AddPage,
   DetailsPage,
@@ -25,7 +26,6 @@ import {
   EditPage,
   ItineraryDetailPage,
   ItineraryPage,
-  SettingsPage,
   SignInPage,
   TripPage,
 } from 'pages';
@@ -141,7 +141,6 @@ export default function App() {
               path="/pages/edittrip/:rowIndex"
               element={<EditPage page={'trip'} />}
             />
-            <Route path="/pages/settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </Router>
@@ -158,17 +157,6 @@ function Layout() {
     {
       path: '/pages/itinerary',
       name: 'Itinerary',
-    },
-  ];
-
-  const actions2 = [
-    {
-      path: '/pages/settings',
-      name: 'Settings',
-    },
-    {
-      path: '/',
-      name: 'Signout',
     },
   ];
 
@@ -205,14 +193,6 @@ function Layout() {
 
   const navBarItems = pages.map(item => {
     return <LinkItem key={uuidv4()} item={item} />;
-  });
-
-  const menuItems2 = actions2.map(item => {
-    return (
-      <MenuItem key={uuidv4()}>
-        <LinkItem key={uuidv4()} item={item} />
-      </MenuItem>
-    );
   });
 
   return (
@@ -264,7 +244,17 @@ function Layout() {
               More
               <ChevronDownIcon key={uuidv4()} />
             </MenuButton>
-            <MenuList key={uuidv4()}>{menuItems2}</MenuList>
+            <MenuList key={uuidv4()}>
+              <MenuItem key={uuidv4()}>
+                <SettingsMenuItem />
+              </MenuItem>
+              <MenuItem key={uuidv4()}>
+                <LinkItem
+                  key={uuidv4()}
+                  item={{ path: '/', name: 'Signout' }}
+                />
+              </MenuItem>
+            </MenuList>
           </Menu>
         </HStack>
         <Outlet />
