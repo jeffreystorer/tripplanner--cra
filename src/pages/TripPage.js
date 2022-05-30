@@ -49,7 +49,7 @@ export default function TripPage() {
       key: item.key,
       atrip_Name:
         item.atrip_Name +
-        ' ' +
+        ':  ' +
         dowMonthDayFromStr(item.bstart_Date, 'long') +
         ' to ' +
         dowMonthDayFromStr(item.cend_Date, 'long'),
@@ -103,7 +103,8 @@ export default function TripPage() {
                 onClick={() => handleClick(item, index)}
                 key={index}
               >
-                {item.atrip_Name}{' '}
+                {item.atrip_Name}
+                {':  '}
                 {dowMonthDayFromStr(item.bstart_Date, 'short')}
                 {' to '}
                 {dowMonthDayFromStr(item.cend_Date, 'short')}
