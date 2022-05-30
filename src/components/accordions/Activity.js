@@ -1,4 +1,3 @@
-import { Link as ReactLink } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import {
   AccordionButton,
@@ -6,16 +5,13 @@ import {
   AccordionItem,
   AccordionPanel,
   Box,
-  Button,
   Container,
-  HStack,
-  Link,
-  ModalFooter,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
+import { EditDeleteButtons } from 'components/common';
 import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
@@ -47,16 +43,7 @@ export default function Activity({ page, data, showModal }) {
       </h2>
       <AccordionPanel pb={4}>
         <VStack gap={1}>
-          <ModalFooter>
-            <HStack gap={5}>
-              <Link as={ReactLink} to={`/pages/edit${page}/${index}`}>
-                <Button colorScheme="blue">Edit</Button>
-              </Link>
-              <Button colorScheme="gray" onClick={() => showModal(index)}>
-                Delete
-              </Button>
-            </HStack>
-          </ModalFooter>
+          <EditDeleteButtons page={page} index={index} showModal={showModal} />
         </VStack>
       </AccordionPanel>
     </AccordionItem>

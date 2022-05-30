@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link as ReactLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   useRecoilState,
   useRecoilRefresher_UNSTABLE,
@@ -12,12 +12,12 @@ import {
   Container,
   HStack,
   IconButton,
-  Link,
   VStack,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import { DetailButtons } from 'components/common';
 import { ConfirmDeleteTripModal } from 'components/trip';
 import { removeAll, removeTrip } from 'services';
 import * as state from 'store';
@@ -131,57 +131,7 @@ export default function TripPage() {
           )}
         </HStack>
         <br />
-        {currentTripIndex > -1 && (
-          <>
-            <HStack gap={5}>
-              <VStack gap={1}>
-                <IconButton
-                  onClick={() => navigate('/pages/addnote')}
-                  icon={<AddIcon />}
-                />
-                <Link as={ReactLink} to={'/pages/note'}>
-                  <Button colorScheme="gray">Trip Notes</Button>
-                </Link>
-              </VStack>
-              <VStack gap={1}>
-                <IconButton
-                  onClick={() => navigate('/pages/addactivity')}
-                  icon={<AddIcon />}
-                />
-                <Link as={ReactLink} to={'/pages/activity'}>
-                  <Button colorScheme="gray">Activities</Button>
-                </Link>
-              </VStack>
-              <VStack gap={1}>
-                <IconButton
-                  onClick={() => navigate('/pages/addcar')}
-                  icon={<AddIcon />}
-                />
-                <Link as={ReactLink} to={'/pages/car'}>
-                  <Button colorScheme="gray">Cars</Button>
-                </Link>
-              </VStack>
-              <VStack gap={1}>
-                <IconButton
-                  onClick={() => navigate('/pages/addroom')}
-                  icon={<AddIcon />}
-                />
-                <Link as={ReactLink} to={'/pages/room'}>
-                  <Button colorScheme="gray">Rooms</Button>
-                </Link>
-              </VStack>
-              <VStack gap={1}>
-                <IconButton
-                  onClick={() => navigate('/pages/addtravel')}
-                  icon={<AddIcon />}
-                />
-                <Link as={ReactLink} to={'/pages/travel'}>
-                  <Button colorScheme="gray">Travels</Button>
-                </Link>
-              </VStack>
-            </HStack>
-          </>
-        )}
+        {currentTripIndex > -1 && <DetailButtons />}
       </VStack>
       <ConfirmDeleteTripModal
         allTrips={allTrips}

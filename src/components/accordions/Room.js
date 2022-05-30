@@ -1,14 +1,9 @@
-import { Link as ReactLink } from 'react-router-dom';
 import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
-  Button,
-  HStack,
-  Link,
-  ModalFooter,
   Table,
   Tbody,
   Td,
@@ -17,6 +12,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import { EditDeleteButtons } from 'components/common';
 import { labels } from 'fields';
 import { dowMonthDayFromStr, stayDates } from 'utils';
 
@@ -80,17 +76,11 @@ export default function Room({ page, data, showModal }) {
                   })}
                 </Tbody>
               </Table>
-
-              <ModalFooter>
-                <HStack gap={5}>
-                  <Link as={ReactLink} to={`/pages/edit${page}/${index}`}>
-                    <Button colorScheme="blue">Edit</Button>
-                  </Link>
-                  <Button colorScheme="gray" onClick={() => showModal(index)}>
-                    Delete
-                  </Button>
-                </HStack>
-              </ModalFooter>
+              <EditDeleteButtons
+                page={page}
+                index={index}
+                showModal={showModal}
+              />
             </VStack>
           </AccordionPanel>
         </AccordionItem>
@@ -154,17 +144,11 @@ export default function Room({ page, data, showModal }) {
                 })}
               </Tbody>
             </Table>
-
-            <ModalFooter>
-              <HStack gap={5}>
-                <Link as={ReactLink} to={`/pages/edit${page}/${index}`}>
-                  <Button colorScheme="blue">Edit</Button>
-                </Link>
-                <Button colorScheme="gray" onClick={() => showModal(index)}>
-                  Delete
-                </Button>
-              </HStack>
-            </ModalFooter>
+            <EditDeleteButtons
+              page={page}
+              index={index}
+              showModal={showModal}
+            />
           </VStack>
         </AccordionPanel>
       </AccordionItem>
@@ -219,17 +203,11 @@ export default function Room({ page, data, showModal }) {
                 })}
               </Tbody>
             </Table>
-
-            <ModalFooter>
-              <HStack gap={5}>
-                <Link as={ReactLink} to={`/pages/edit${page}/${index}`}>
-                  <Button colorScheme="blue">Edit</Button>
-                </Link>
-                <Button colorScheme="gray" onClick={() => showModal(index)}>
-                  Delete
-                </Button>
-              </HStack>
-            </ModalFooter>
+            <EditDeleteButtons
+              page={page}
+              index={index}
+              showModal={showModal}
+            />
           </VStack>
         </AccordionPanel>
       </AccordionItem>

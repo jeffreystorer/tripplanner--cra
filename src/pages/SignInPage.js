@@ -53,8 +53,9 @@ export default function SignInPage() {
   return (
     <>
       {loading ? (
-        <Container width="100vw">
+        <Container width="350px">
           <VStack gap={5}>
+            <br />
             <Header />
             <form>
               <FormLabel htmlFor="username">Username</FormLabel>

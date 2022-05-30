@@ -1,15 +1,14 @@
-import { Link as ReactLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   Accordion,
-  Button,
   Container,
   HStack,
-  Link,
   IconButton,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import { AddIcon } from '@chakra-ui/icons';
+import { DetailButtons } from 'components/common';
 
 export default function Details({
   accordionKey,
@@ -37,53 +36,7 @@ export default function Details({
         <Text>
           <strong>{currentTripName}</strong>
         </Text>
-        <HStack gap={5}>
-          <VStack gap={1}>
-            <IconButton
-              onClick={() => navigate('/pages/addnote')}
-              icon={<AddIcon />}
-            />
-            <Link as={ReactLink} to={'/pages/note'}>
-              <Button colorScheme="gray">Trip Notes</Button>
-            </Link>
-          </VStack>
-          <VStack gap={1}>
-            <IconButton
-              onClick={() => navigate('/pages/addactivity')}
-              icon={<AddIcon />}
-            />
-            <Link as={ReactLink} to={'/pages/activity'}>
-              <Button colorScheme="gray">Activities</Button>
-            </Link>
-          </VStack>
-          <VStack gap={1}>
-            <IconButton
-              onClick={() => navigate('/pages/addcar')}
-              icon={<AddIcon />}
-            />
-            <Link as={ReactLink} to={'/pages/car'}>
-              <Button colorScheme="gray">Cars</Button>
-            </Link>
-          </VStack>
-          <VStack gap={1}>
-            <IconButton
-              onClick={() => navigate('/pages/addroom')}
-              icon={<AddIcon />}
-            />
-            <Link as={ReactLink} to={'/pages/room'}>
-              <Button colorScheme="gray">Rooms</Button>
-            </Link>
-          </VStack>
-          <VStack gap={1}>
-            <IconButton
-              onClick={() => navigate('/pages/addtravel')}
-              icon={<AddIcon />}
-            />
-            <Link as={ReactLink} to={'/pages/travel'}>
-              <Button colorScheme="gray">Travels</Button>
-            </Link>
-          </VStack>
-        </HStack>
+        <DetailButtons />
         <h2 className="text-center">
           <HStack gap={5}>
             <Text>{labels[page]}</Text>
