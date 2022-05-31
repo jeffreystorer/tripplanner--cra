@@ -28,12 +28,13 @@ export default function ItineraryPage() {
     refreshItineraryData();
   }, [refreshItineraryData]);
 
-  function onClick(e) {
+  function onClick(item, e) {
     e.preventDefault();
     let detail = {
       page: e.target.name,
       key: e.target.id,
       value: e.target.value,
+      date: Object.values(item)[0].substring(0, 10),
     };
     setItineraryDetail(detail);
     navigate('/pages/itinerarydetail');

@@ -13,6 +13,7 @@ import {
 import Textarea from 'react-expanding-textarea';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+import { dowMonthDayFromStr } from 'utils';
 
 export default function ItineraryDetail({
   PERCENT,
@@ -42,6 +43,8 @@ export default function ItineraryDetail({
               <br />
               {itineraryDetail.page.charAt(0).toUpperCase() +
                 itineraryDetail.page.slice(1)}
+              {' for '}
+              {dowMonthDayFromStr(itineraryDetail.date, 'short')}
             </TableCaption>
             <Tbody>
               <Tr>

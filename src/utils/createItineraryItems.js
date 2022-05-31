@@ -33,7 +33,7 @@ export default function createItineraryItems(
           <Textarea
             id={`${item.key}`}
             name={`${item.type}`}
-            onClick={onClick}
+            onClick={e => onClick(item,e)}
             style={{
               lineHeight: LINE_HEIGHT,
               outline: 'none',
