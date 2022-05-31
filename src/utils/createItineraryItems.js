@@ -70,13 +70,16 @@ export default function createItineraryItems(
   function pushDateGroup(item) {
     pushDate(item);
     pushTravelsOvernight(item);
+    pushRoomsStay(item);
     pushRoomsCheckOut(item);
+    pushPreActivities(item);
     pushCarsDropOff(item);
     pushTravels(item);
     pushCarsPickUp(item);
     pushActivities(item);
     pushRoomsCheckIn(item);
     pushRoomsStay(item);
+    pushPostActivities(item);
   }
 
   function pushDate(item) {
@@ -110,9 +113,30 @@ export default function createItineraryItems(
     );
   }
 
+  function pushPreActivities(item) {
+    const todaysActivities = activities.filter(obj => {
+      return obj.astart_Date === item && obj.bdetails.charAt(0) === '<';
+    });
+    todaysActivities.forEach(pushPreActivity);
+  }
+
+  function pushPreActivity(item) {
+    items.push(
+      <TextareaRow
+        key={uuidv4()}
+        item={item}
+        value={item.bdetails.substring(1)}
+      />
+    );
+  }
+
   function pushActivities(item) {
     const todaysActivities = activities.filter(obj => {
-      return obj.astart_Date === item;
+      return (
+        obj.astart_Date === item &&
+        obj.bdetails.charAt(0) !== '<' &&
+        obj.bdetails.charAt(0) !== '>'
+      );
     });
     todaysActivities.forEach(pushActivity);
   }
@@ -120,6 +144,23 @@ export default function createItineraryItems(
   function pushActivity(item) {
     items.push(
       <TextareaRow key={uuidv4()} item={item} value={item.bdetails} />
+    );
+  }
+
+  function pushPostActivities(item) {
+    const todaysActivities = activities.filter(obj => {
+      return obj.astart_Date === item && obj.bdetails.charAt(0) === '>';
+    });
+    todaysActivities.forEach(pushPostActivity);
+  }
+
+  function pushPostActivity(item) {
+    items.push(
+      <TextareaRow
+        key={uuidv4()}
+        item={item}
+        value={item.bdetails.substring(1)}
+      />
     );
   }
 
