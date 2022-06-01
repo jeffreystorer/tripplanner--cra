@@ -60,7 +60,7 @@ export default function Car({ page, data, showModal }) {
             </Tbody>
           </Table>
         }
-      ></Item>
+      />
       <Item
         key={uuidv4()}
         page={page}
@@ -114,7 +114,7 @@ export default function Car({ page, data, showModal }) {
             </Tbody>
           </Table>
         }
-      ></Item>
+      />
     </div>
   ));
 }

@@ -21,6 +21,6 @@ export default function Note({ page, data, showModal }) {
         />
       }
       panel={null}
-    ></Item>
+    />
   ));
 }

@@ -63,6 +63,6 @@ export default function Travel({ page, data, showModal }) {
           </Tbody>
         </Table>
       }
-    ></Item>
+    />
   ));
 }

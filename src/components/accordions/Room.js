@@ -63,7 +63,7 @@ export default function Room({ page, data, showModal }) {
               </Tbody>
             </Table>
           }
-        ></Item>
+        />
       ));
     } else {
       return null;
@@ -122,7 +122,7 @@ export default function Room({ page, data, showModal }) {
             </Tbody>
           </Table>
         }
-      ></Item>
+      />
       {stayItems(detail, index)}
       <Item
         key={uuidv4()}
@@ -172,7 +172,7 @@ export default function Room({ page, data, showModal }) {
             </Tbody>
           </Table>
         }
-      ></Item>
+      />
     </div>
   ));
 }

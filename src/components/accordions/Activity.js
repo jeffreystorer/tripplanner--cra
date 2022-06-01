@@ -28,6 +28,6 @@ export default function Activity({ page, data, showModal }) {
         </HStack>
       }
       panel={null}
-    ></Item>
+    />
   ));
 }
