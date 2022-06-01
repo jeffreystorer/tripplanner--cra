@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import { HStack, Text } from '@chakra-ui/react';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
-import { Item } from 'components/accordions';
+import { Item } from 'components/accordions/sections';
 import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 

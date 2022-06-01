@@ -1,6 +1,6 @@
 import { AccordionItem } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
-import { Button, Panel } from 'components/accordions';
+import { Button, Panel } from 'components/accordions/sections';
 
 export default function Item({ page, index, showModal, button, panel }) {
   return (

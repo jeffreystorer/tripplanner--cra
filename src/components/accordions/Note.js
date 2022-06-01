@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import Textarea from 'react-expanding-textarea';
 import { v4 as uuidv4 } from 'uuid';
-import { Item } from 'components/accordions';
+import { Item } from 'components/accordions/sections';
 import * as state from 'store';
 
 export default function Note({ page, data, showModal }) {

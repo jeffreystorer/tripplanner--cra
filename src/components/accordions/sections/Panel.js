@@ -1,5 +1,6 @@
 import { AccordionPanel, VStack } from '@chakra-ui/react';
 import { EditDeleteButtons } from 'components/common';
+
 export default function Panel(props) {
   return (
     <AccordionPanel pb={4}>
