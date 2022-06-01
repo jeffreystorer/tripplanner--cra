@@ -1,9 +1,11 @@
+import { useRecoilValue } from 'recoil';
 import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
+  Container,
   Table,
   Tbody,
   Td,
@@ -14,26 +16,32 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { EditDeleteButtons } from 'components/common';
 import { labels } from 'fields';
+import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Car({ page, data, showModal }) {
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
+  const min = PERCENT.toString() + 'vw';
   return data?.map((detail, index) => (
     <div key={uuidv4()}>
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton id={`heading${index}`}>
-            <Box flex="1" textAlign="left">
-              <Text>
-                Pick Up: {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-                {'  '}
-                {Object.values(detail)[0].substring(11)}
-                {'  '}
-                {Object.values(detail)[2]}
-                {',  '}
-                {Object.values(detail)[3]}
-              </Text>
-            </Box>
             <AccordionIcon />
+            <Container minWidth={min}>
+              <Box flex="1" textAlign="left">
+                <Text>
+                  Pick Up:{' '}
+                  {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+                  {'  '}
+                  {Object.values(detail)[0].substring(11)}
+                  {'  '}
+                  {Object.values(detail)[2]}
+                  {',  '}
+                  {Object.values(detail)[3]}
+                </Text>
+              </Box>
+            </Container>
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
@@ -84,19 +92,21 @@ export default function Car({ page, data, showModal }) {
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton id={`heading${index}`}>
-            <Box flex="1" textAlign="left">
-              <Text>
-                Drop Off:{' '}
-                {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
-                {'  '}
-                {Object.values(detail)[1].substring(11)}
-                {'  '}
-                {Object.values(detail)[2]}
-                {',  '}
-                {Object.values(detail)[5]}
-              </Text>
-            </Box>
             <AccordionIcon />
+            <Container minWidth={min}>
+              <Box flex="1" textAlign="left">
+                <Text>
+                  Drop Off:{' '}
+                  {dowMonthDayFromStr(Object.values(detail)[1], 'short')}
+                  {'  '}
+                  {Object.values(detail)[1].substring(11)}
+                  {'  '}
+                  {Object.values(detail)[2]}
+                  {',  '}
+                  {Object.values(detail)[5]}
+                </Text>
+              </Box>
+            </Container>
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>

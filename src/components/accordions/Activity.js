@@ -6,6 +6,7 @@ import {
   AccordionPanel,
   Box,
   Container,
+  HStack,
   Text,
   VStack,
 } from '@chakra-ui/react';
@@ -18,25 +19,25 @@ import { dowMonthDayFromStr } from 'utils';
 export default function Activity({ page, data, showModal }) {
   const PERCENT = useRecoilValue(state.screenWidthPercent);
   const columns = useRecoilValue(state.columns);
-  const COLS = columns * 1.2;
+  const COLS = columns * 1.0;
   const min = PERCENT.toString() + 'vw';
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>
         <AccordionButton id={`heading${index}`}>
+          <AccordionIcon />
           <Container minWidth={min}>
             <Box minWidth={min} flex="1" textAlign="left">
-              <AccordionIcon />
-              <Text fontWeight="bold">
-                Activities for{' '}
-                {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-                {':  '}
-              </Text>
-              <Textarea
-                cols={COLS}
-                readOnly={true}
-                value={Object.values(detail)[1]}
-              />
+              <HStack gap={1} textAlign="top">
+                <Text width="150px">
+                  {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+                </Text>
+                <Textarea
+                  cols={COLS}
+                  readOnly={true}
+                  value={Object.values(detail)[1]}
+                />
+              </HStack>
             </Box>
           </Container>
         </AccordionButton>

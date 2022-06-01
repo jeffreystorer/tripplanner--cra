@@ -1,9 +1,11 @@
+import { useRecoilValue } from 'recoil';
 import {
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
+  Container,
   Table,
   Tbody,
   Td,
@@ -14,9 +16,13 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { EditDeleteButtons } from 'components/common';
 import { labels } from 'fields';
+import * as state from 'store';
 import { dowMonthDayFromStr, stayDates } from 'utils';
 
 export default function Room({ page, data, showModal }) {
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
+  const min = PERCENT.toString() + 'vw';
+
   function stayItems(detail, index) {
     let stays = 0;
     if (
@@ -30,13 +36,15 @@ export default function Room({ page, data, showModal }) {
         <AccordionItem key={uuidv4()}>
           <h2>
             <AccordionButton>
-              <Box flex="1" textAlign="left">
-                <Text>
-                  Stay: {dowMonthDayFromStr(date, 'short')}{' '}
-                  {Object.values(detail)[2]}
-                </Text>
-              </Box>
               <AccordionIcon />
+              <Container minWidth={min}>
+                <Box flex="1" textAlign="left">
+                  <Text>
+                    Stay: {dowMonthDayFromStr(date, 'short')}{' '}
+                    {Object.values(detail)[2]}
+                  </Text>
+                </Box>
+              </Container>
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
@@ -95,16 +103,18 @@ export default function Room({ page, data, showModal }) {
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <Text>
-                Check In:{' '}
-                {dowMonthDayFromStr(Object.values(detail)[0], 'short')}{' '}
-                {Object.values(detail)[2]}
-                {', '}
-                {Object.values(detail)[3]}
-              </Text>
-            </Box>
             <AccordionIcon />
+            <Container minWidth={min}>
+              <Box flex="1" textAlign="left">
+                <Text>
+                  Check In:{' '}
+                  {dowMonthDayFromStr(Object.values(detail)[0], 'short')}{' '}
+                  {Object.values(detail)[2]}
+                  {', '}
+                  {Object.values(detail)[3]}
+                </Text>
+              </Box>
+            </Container>
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
@@ -156,14 +166,16 @@ export default function Room({ page, data, showModal }) {
       <AccordionItem key={uuidv4()}>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
-              <Text>
-                Check Out:{' '}
-                {dowMonthDayFromStr(Object.values(detail)[1], 'short')}{' '}
-                {Object.values(detail)[2]}
-              </Text>
-            </Box>
             <AccordionIcon />
+            <Container minWidth={min}>
+              <Box flex="1" textAlign="left">
+                <Text>
+                  Check Out:{' '}
+                  {dowMonthDayFromStr(Object.values(detail)[1], 'short')}{' '}
+                  {Object.values(detail)[2]}
+                </Text>
+              </Box>
+            </Container>
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>

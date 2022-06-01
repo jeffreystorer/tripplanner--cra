@@ -1,9 +1,11 @@
+import { useRecoilValue } from 'recoil';
 import {
   AccordionItem,
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
   Box,
+  Container,
   Table,
   Tbody,
   Tr,
@@ -13,27 +15,33 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { EditDeleteButtons } from 'components/common';
 import { labels } from 'fields';
+import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
 
 export default function Travel({ page, data, showModal }) {
+  const PERCENT = useRecoilValue(state.screenWidthPercent);
+  const min = PERCENT.toString() + 'vw';
+
   return data?.map((detail, index) => (
     <AccordionItem key={uuidv4()}>
       <h2>
         <AccordionButton id={`heading${index}`}>
-          <Box flex="1" textAlign="left">
-            {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
-            {'  '}
-            {Object.values(detail)[0].substring(11)}
-            {'  '}
-            {' -> '}
-            {dowMonthDayFromStr(Object.values(detail)[0], 'short') !==
-              dowMonthDayFromStr(Object.values(detail)[1], 'short') &&
-              dowMonthDayFromStr(Object.values(detail)[1], 'short') + '  '}
-            {Object.values(detail)[1].substring(11)}
-            {'  '}
-            {Object.values(detail)[2]}
-          </Box>
           <AccordionIcon />
+          <Container minWidth={min}>
+            <Box flex="1" textAlign="left">
+              {dowMonthDayFromStr(Object.values(detail)[0], 'short')}
+              {'  '}
+              {Object.values(detail)[0].substring(11)}
+              {'  '}
+              {' -> '}
+              {dowMonthDayFromStr(Object.values(detail)[0], 'short') !==
+                dowMonthDayFromStr(Object.values(detail)[1], 'short') &&
+                dowMonthDayFromStr(Object.values(detail)[1], 'short') + '  '}
+              {Object.values(detail)[1].substring(11)}
+              {'  '}
+              {Object.values(detail)[2]}
+            </Box>
+          </Container>
         </AccordionButton>
       </h2>
       <AccordionPanel pb={4}>
