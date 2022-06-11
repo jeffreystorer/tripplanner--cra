@@ -28,6 +28,17 @@ export default function ItineraryPage() {
     refreshItineraryData();
   }, [refreshItineraryData]);
 
+  useEffect(() => {
+    try {
+      const node = document.getElementById(itineraryDetail.key);
+      node.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    } catch (error) {}
+  });
+
   function onClick(item, e) {
     e.preventDefault();
     let detail = {
