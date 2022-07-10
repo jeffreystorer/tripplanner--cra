@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   useRecoilRefresher_UNSTABLE,
+  useRecoilState,
   useRecoilValue,
   useSetRecoilState,
 } from 'recoil';
@@ -15,7 +16,9 @@ export default function ItineraryPage() {
   const currentTripIndex = useRecoilValue(state.currentTripIndex);
   const currentTrip = useRecoilValue(state.currentTrip);
   const data = useRecoilValue(state.itineraryData);
-  const setItineraryDetail = useSetRecoilState(state.itineraryDetail);
+  const [itineraryDetail, setItineraryDetail] = useRecoilState(
+    state.itineraryDetail
+  );
   const refreshItineraryData = useRecoilRefresher_UNSTABLE(state.itineraryData);
   const PERCENT = useRecoilValue(state.screenWidthPercent);
   const setItineraryDateTime = useSetRecoilState(state.itineraryDateTime);
@@ -32,9 +35,9 @@ export default function ItineraryPage() {
     try {
       const node = document.getElementById(itineraryDetail.key);
       node.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'center',
+        behavior: 'auto',
+        block: 'start',
+        inline: 'nearest',
       });
     } catch (error) {}
   });
@@ -53,11 +56,28 @@ export default function ItineraryPage() {
 
   function handleDetailClick(date, page, e) {
     e.preventDefault();
+    let detail = {
+      key: date,
+    };
+    setItineraryDetail(detail);
     setItineraryDateTime(date + 'T00:00');
     navigate('/pages/additinerary' + page);
   }
 
-  const items = createItineraryItems(COLS, data, onClick, handleDetailClick);
+  function handleDateClick(e) {
+    console.log(
+      '🚀 ~ file: ItineraryPage.js ~ line 64 ~ handleDateClick ~ e',
+      e
+    );
+  }
+
+  const items = createItineraryItems(
+    COLS,
+    data,
+    onClick,
+    handleDetailClick,
+    handleDateClick
+  );
 
   return (
     <Itinerary

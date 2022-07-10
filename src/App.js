@@ -95,7 +95,10 @@ export default function App() {
               element={<EditPage page={'car'} />}
             />
             <Route path="itinerary" element={<ItineraryPage />} />
-            <Route path="itinerarydetail" element={<ItineraryDetailPage />} />
+            <Route
+              path="itinerarydetail"
+              element={<ItineraryDetailPage />}
+            />
             <Route
               path="additinerarynote"
               element={<AddPage page={'itinerarynote'} />}

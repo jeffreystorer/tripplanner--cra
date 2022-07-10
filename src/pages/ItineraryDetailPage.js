@@ -7,7 +7,7 @@ import { ItineraryDetail } from 'components/screens';
 import { removeDetail } from 'services';
 import * as state from 'store';
 
-export default function ItineraryDetailsPage() {
+export default function ItineraryDetailPage() {
   const navigate = useNavigate();
   const currentTrip = useRecoilValue(state.currentTrip);
   const currentTripKey = useRecoilValue(state.currentTripKey);

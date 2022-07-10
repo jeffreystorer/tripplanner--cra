@@ -35,6 +35,7 @@ export default function EditItineraryPage() {
     if (!newValue) newValue = '';
     setData({ ...data, [e.target.name]: newValue });
   };
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {

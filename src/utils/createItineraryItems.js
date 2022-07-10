@@ -31,9 +31,10 @@ export default function createItineraryItems(
       <Tr>
         <Td border="none" padding={padding}>
           <Textarea
+            key={`${item.key}`}
             id={`${item.key}`}
             name={`${item.type}`}
-            onClick={e => onClick(item,e)}
+            onClick={e => onClick(item, e)}
             style={{
               lineHeight: LINE_HEIGHT,
               outline: 'none',
@@ -84,7 +85,7 @@ export default function createItineraryItems(
 
   function pushDate(item) {
     items.push(
-      <Tr key={uuidv4()}>
+      <Tr key={uuidv4()} id={item}>
         <Td padding={padding} fontWeight="bold">
           <Menu>
             <MenuButton as={Text}>

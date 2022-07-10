@@ -28,6 +28,10 @@ export default function ItineraryDetail({
   const min = PERCENT.toString() + 'vw';
   const padding = '.5rem 0 1rem .5rem';
 
+  function handleClickCancel() {
+    navigate('/pages/itinerary');
+  }
+
   return (
     <Container key={uuidv4()} minWidth={min} centerContent>
       <VStack gap={1}>
@@ -78,10 +82,7 @@ export default function ItineraryDetail({
           <Button colorScheme="gray" onClick={() => showModal()}>
             Delete
           </Button>
-          <Button
-            colorScheme="gray"
-            onClick={() => navigate('/pages/itinerary')}
-          >
+          <Button colorScheme="gray" onClick={handleClickCancel}>
             Cancel
           </Button>
         </HStack>
