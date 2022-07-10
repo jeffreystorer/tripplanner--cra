@@ -1,6 +1,9 @@
 import { useRecoilValue } from 'recoil';
 import {
+  Box,
   Container,
+  Flex,
+  HStack,
   Table,
   Tbody,
   TableCaption,
@@ -8,6 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import * as state from 'store';
+import { dowMonthDayFromStr } from 'utils';
 
 export default function Itinerary({ PERCENT, items, currentTripName }) {
   const itineraryData = useRecoilValue(state.itineraryData);
@@ -15,15 +19,14 @@ export default function Itinerary({ PERCENT, items, currentTripName }) {
   const min = PERCENT.toString() + 'vw';
   const innerHeight = window.innerHeight;
   const availableHeight = innerHeight - 67;
-  const height = availableHeight.toString() + 'px';
-  const daysCount = 32;
+  const daysCount = itineraryData.dates.length;
   const lineHeight = Math.floor(availableHeight / daysCount).toString() + 'px';
   const fontSize =
     Math.floor(((availableHeight / daysCount) * 2) / 3).toString() + 'px';
   return (
-    <Container minWidth={min} centerContent>
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1, height: height }}>
+    <Container centerContent minWidth="100vw">
+      <Flex>
+        <Box>
           <TableContainer minWidth={min}>
             <Table minWidth={min} fontSize={FONT_SIZE}>
               <TableCaption
@@ -36,11 +39,12 @@ export default function Itinerary({ PERCENT, items, currentTripName }) {
               <Tbody>{items}</Tbody>
             </Table>
           </TableContainer>
-        </div>
-        <div style={{ width: 'fit-content' }}>
+        </Box>
+        <Box ml="87%" position="fixed">
           <ul
             style={{
               lineHeight: lineHeight,
+              /* fontFamily: 'Courier', */
               fontSize: fontSize,
               marginLeft: '1.0rem',
               paddingLeft: '0',
@@ -64,14 +68,14 @@ export default function Itinerary({ PERCENT, items, currentTripName }) {
                       });
                     }}
                   >
-                    {item.slice(5, 10)}
+                    {dowMonthDayFromStr(item, 'short')}
                   </a>
                 </li>
               );
             })}
           </ul>
-        </div>
-      </div>
+        </Box>
+      </Flex>
     </Container>
   );
 }
