@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { useRecoilState } from 'recoil';
 import {
   Button,
+  Checkbox,
   Drawer,
   DrawerBody,
   DrawerCloseButton,
@@ -30,6 +31,9 @@ export default function SettingsPage() {
     state.screenWidthPercent
   );
   const [columns, setColumns] = useRecoilState(state.columns);
+  const [showScrollList, setShowScrollList] = useRecoilState(
+    state.showScrollList
+  );
 
   return (
     <>
@@ -54,6 +58,14 @@ export default function SettingsPage() {
           <DrawerBody>
             <FormControl>
               <VStack gap={5}>
+                <div>
+                  <Checkbox
+                    defaultChecked={showScrollList}
+                    onChange={() => setShowScrollList(!showScrollList)}
+                  >
+                    Show Scroll List
+                  </Checkbox>
+                </div>
                 <div>
                   <FormLabel htmlFor="columns">Textarea Columns</FormLabel>
                   <NumberInput

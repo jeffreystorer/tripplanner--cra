@@ -231,3 +231,8 @@ export const currentTripIndex = atom({
   key: 'currentTripIndex',
   default: -1,
 });
+
+export const showScrollList = atom({
+  key: 'showScrollList',
+  default: true,
+});
