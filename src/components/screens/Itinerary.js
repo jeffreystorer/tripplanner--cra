@@ -1,13 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import {
-  Box,
-  Container,
-  Flex,
-  Table,
-  Tbody,
-  TableCaption,
-  TableContainer,
-} from '@chakra-ui/react';
+import { Table, Tbody, TableCaption } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
 import * as state from 'store';
 import { dowMonthDayFromStr } from 'utils';
@@ -26,60 +18,78 @@ export default function Itinerary({ PERCENT, items, currentTripName }) {
   let lineHeightValue = fontSizeValue * 1.5;
   const lineHeight = lineHeightValue.toString() + 'px';
   return (
-    <Container centerContent minWidth="100vw">
-      <Flex>
-        <Box>
-          <TableContainer minWidth={min}>
-            <Table minWidth={min} fontSize={FONT_SIZE}>
-              <TableCaption
-                fontSize={FONT_SIZE}
-                fontWeight="bold"
-                placement="top"
-              >
-                {currentTripName}
-              </TableCaption>
-              <Tbody>{items}</Tbody>
-            </Table>
-          </TableContainer>
-        </Box>
-        {showScrollList && (
-          <Box ml="87%" position="fixed">
-            <ul
-              style={{
-                lineHeight: lineHeight,
-                /* fontFamily: 'Courier', */
-                fontSize: fontSize,
-                marginLeft: '1.0rem',
-                paddingLeft: '0',
-                listStyle: 'none',
-                width: 'fit-content',
-              }}
+    <div
+      style={{
+        display: 'flex',
+        overflowY: 'hidden',
+        marginLeft: '1rem',
+      }}
+    >
+      <div
+        style={{
+          flex: '1 1 0%',
+          height: '91vh',
+          width: '75vh',
+        }}
+      >
+        <div
+          style={{
+            display: 'block',
+            height: '100%',
+            outline: 'none',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+          }}
+        >
+          <Table minWidth={min} fontSize={FONT_SIZE}>
+            <TableCaption
+              fontSize={FONT_SIZE}
+              fontWeight="bold"
+              placement="top"
             >
-              {itineraryData.dates.map(item => {
-                return (
-                  <li key={uuidv4()}>
-                    {/*eslint-disable-next-line*/}
-                    <a
-                      href="#"
-                      onClick={e => {
-                        e.preventDefault();
-                        const node = document.getElementById(item);
-                        node.scrollIntoView({
-                          behavior: 'auto',
-                          block: 'start',
-                          inline: 'nearest',
-                        });
-                      }}
-                    >
-                      {dowMonthDayFromStr(item, 'short')}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </Box>
-        )}
-      </Flex>
-    </Container>
+              {currentTripName}
+            </TableCaption>
+            <Tbody>{items}</Tbody>
+          </Table>
+        </div>
+      </div>
+      {showScrollList && (
+        <ul
+          style={{
+            display: 'block',
+            lineHeight: lineHeight,
+            /* fontFamily: 'Courier', */
+            fontSize: fontSize,
+            marginLeft: '1.0rem',
+            marginRight: '1.0rem',
+            paddingLeft: '0',
+            listStyle: 'none',
+            width: 'fit-content',
+          }}
+        >
+          {itineraryData.dates.map(item => {
+            return (
+              <li key={uuidv4()}>
+                {/*eslint-disable-next-line*/}
+                <a
+                  href="#"
+                  onClick={e => {
+                    e.preventDefault();
+                    const node = document.getElementById(item);
+                    node.scrollIntoView({
+                      behavior: 'auto',
+                      block: 'start',
+                      inline: 'nearest',
+                    });
+                  }}
+                >
+                  {dowMonthDayFromStr(item, 'short')}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
   );
 }
