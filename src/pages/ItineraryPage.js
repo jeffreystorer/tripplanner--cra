@@ -64,20 +64,7 @@ export default function ItineraryPage() {
     navigate('/pages/additinerary' + page);
   }
 
-  function handleDateClick(e) {
-    console.log(
-      '🚀 ~ file: ItineraryPage.js ~ line 64 ~ handleDateClick ~ e',
-      e
-    );
-  }
-
-  const items = createItineraryItems(
-    COLS,
-    data,
-    onClick,
-    handleDetailClick,
-    handleDateClick
-  );
+  const items = createItineraryItems(COLS, data, onClick, handleDetailClick);
 
   return (
     <Itinerary

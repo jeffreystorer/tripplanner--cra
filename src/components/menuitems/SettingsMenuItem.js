@@ -61,7 +61,17 @@ export default function SettingsPage() {
                 <div>
                   <Checkbox
                     defaultChecked={showScrollList}
-                    onChange={() => setShowScrollList(!showScrollList)}
+                    onChange={() => {
+                      setShowScrollList(!showScrollList);
+                      let cols = parseFloat(columns);
+                      if (showScrollList) {
+                        cols = cols + 12.0;
+                        setColumns(cols);
+                      } else {
+                        cols = cols - 12.0;
+                        setColumns(cols);
+                      }
+                    }}
                   >
                     Show Scroll List
                   </Checkbox>
@@ -69,6 +79,9 @@ export default function SettingsPage() {
                 <div>
                   <FormLabel htmlFor="columns">Textarea Columns</FormLabel>
                   <NumberInput
+                    precision={0}
+                    min={50}
+                    max={125}
                     step={1}
                     value={columns}
                     onChange={value => setColumns(value)}
