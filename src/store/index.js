@@ -29,6 +29,12 @@ export const columns = atom({
   effects: [localStorageEffect('columns')],
 });
 
+export const extraColumns = atom({
+  key: 'extraColumns',
+  default: 12,
+  effects: [localStorageEffect('extraColumns')],
+});
+
 export const tripData = selector({
   key: 'tripData',
   get: async ({ get }) => {

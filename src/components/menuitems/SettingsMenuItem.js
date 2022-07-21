@@ -31,6 +31,7 @@ export default function SettingsPage() {
     state.screenWidthPercent
   );
   const [columns, setColumns] = useRecoilState(state.columns);
+  const [extraColumns, setExtraColumns] = useRecoilState(state.extraColumns);
   const [showScrollList, setShowScrollList] = useRecoilState(
     state.showScrollList
   );
@@ -65,10 +66,10 @@ export default function SettingsPage() {
                       setShowScrollList(!showScrollList);
                       let cols = parseFloat(columns);
                       if (showScrollList) {
-                        cols = cols + 12.0;
+                        cols = cols + parseFloat(extraColumns);
                         setColumns(cols);
                       } else {
-                        cols = cols - 12.0;
+                        cols = cols - parseFloat(extraColumns);
                         setColumns(cols);
                       }
                     }}
@@ -81,7 +82,7 @@ export default function SettingsPage() {
                   <NumberInput
                     precision={0}
                     min={50}
-                    max={125}
+                    max={200}
                     step={1}
                     value={columns}
                     onChange={value => setColumns(value)}
@@ -101,6 +102,25 @@ export default function SettingsPage() {
                     step={1}
                     value={screenWidthPercent}
                     onChange={value => setScreenWidthPercent(value)}
+                  >
+                    <NumberInputField />
+                    <NumberInputStepper>
+                      <NumberIncrementStepper />
+                      <NumberDecrementStepper />
+                    </NumberInputStepper>
+                  </NumberInput>
+                </div>
+                <div>
+                  <FormLabel htmlFor="extraColumns">
+                    Extra Columns On Print View
+                  </FormLabel>
+                  <NumberInput
+                    precision={0}
+                    min={0}
+                    max={20}
+                    step={1}
+                    value={extraColumns}
+                    onChange={value => setExtraColumns(value)}
                   >
                     <NumberInputField />
                     <NumberInputStepper>
